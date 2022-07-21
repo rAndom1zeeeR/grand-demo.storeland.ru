@@ -1189,6 +1189,34 @@ footer .contacts__block {margin-top: 1.5rem;}
 
 
 /**************************************/
+/*** Карта на главной ***/
+/**************************************/
+#map {height: 584px;}
+#map iframe {height: 584px;}
+
+
+/**************************************/
+/*** Особенности ***/
+/**************************************/
+.advantages__icon {font-size: 2.5rem;color: var(--color-primary);position: relative;margin: -2.5rem 0 1rem -1.5rem;}
+.advantages__icon i {z-index: 1;position: relative;}
+.advantages__icon:before {content: '';width: 2.5rem;height: 2.5rem;top: -.75rem;left: -.75rem;background-color: #EDF7FB;border-radius: 100%;position: absolute;}
+.advantages__title {font-size: 1.125rem;font-weight: bold;margin-bottom: .5rem;}
+.advantages__text {font-size: 1rem;line-height: 1.5rem;}
+.advantages__items {width: calc(100% - 24rem);}
+.advantages__item {width: 50%;padding: 4rem 2rem 1rem 2rem;position: relative;}
+#advantages .block__title {width: 24rem;text-align: left;padding: 0 5rem 0 3rem;}
+#advantages .block__title .title {font-size: 2rem;font-family: 'Cormorant', serif;}
+#advantages .block__title:before {content: '';display: block;width: 2rem;height: 2px;background-color: var(--color-primary);position: absolute;top: 1.125rem;left: 0;}
+#advantages .block__title .subtitle {font-size: 1rem;line-height: 1.25rem;margin-top: 1.25rem;}
+
+
+
+
+
+
+
+/**************************************/
 /*** Адаптивность ***/
 /**************************************/
 @media all and (min-width: 320px) {
