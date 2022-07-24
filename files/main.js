@@ -2727,15 +2727,15 @@ function pdtNews() {
 	var dots = id.find('.owl-dots');
 	// Функция слайдера для Новостей
 	carousel.owlCarousel({
-		items: 4,
+		items: 2,
 		margin: 32,
 		loop: false,
 		rewind: true,
 		lazyLoad: true,
 		nav: true,
-		navContainer: '',
+		navContainer: buttons,
 		navText: [ , ],
-		dots: false,
+		dots: true,
 		dotsContainer: dots,
 		autoHeight: true,
 		autoHeightClass: 'owl-height',
@@ -2753,22 +2753,25 @@ function pdtNews() {
 			480:{items:2},
 			640:{items:2},
 			768:{items:3},
-			1024:{items:4},
-			1200:{items:4}
-		}
+			1024:{items:2},
+			1200:{items:2}
+		},
+		onInitialized: counter,
+		onChanged: counter
 	});
 
-	// Табы в товарах на главной
-	$('#news .tabs__nav').on('click', function (event) {
-		event.preventDefault();
-		var id = $(this).attr('data-tab');
-		$('#news .tabs__content').prepend('<div class="preloader"><div class="loading"></div></div>');
-		preload();
-		$('#news .tabs__nav').removeClass('active')
-		$('#news .tabs__content').removeClass('active');
-		$(this).addClass('active');
-    $('#'+ id).addClass('active');
-	});
+	function counter(event) {
+		var items = event.item.count - 1;
+		var item = event.item.index + 1;
+		// Удаляем счетчик слайдов
+		$('#news .owl-pages span').remove();
+		// Добавляем счетчик слайдов
+		$('#news .owl-pages').append('<span class="owl-page__curent">0'+ item +'</span><span class="owl-page__separator">/</span><span class="owl-page__total">0'+ items +'</span>')
+		// Навигация при клике на кнопку
+		$('.slider__nav .owl-dot').on('click', function () {
+			owlS.trigger('to.owl.carousel', [$(this).index(), 300]);
+		});
+	}
 }
 
 // Функция слайдер для "Вы смотрели"

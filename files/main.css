@@ -6,7 +6,7 @@
 	--color-white: #ffffff;
 	--color-gray: #737373;
 	--color-darkgray: #8F9FAB;
-	--color-lightgray: #C4C4C4;
+	--color-lightgray: #C1CCD4;
 	--color-red: #E83B35;
 	--color-primary: #46B1EF;
 	--color-secondary: #FF8C65;
@@ -51,8 +51,8 @@ section {margin: 3rem 0;position: relative;}
 /*** Скролы сайта ***/
 /**************************************/
 ::-webkit-scrollbar {width: 1rem;height: 0;}
-::-webkit-scrollbar-thumb {border-radius: 0;background-color: var(--color-gray);}
-::-webkit-scrollbar-track {border-radius: 0;background-color: var(--color-lightgray);}
+::-webkit-scrollbar-thumb {border-radius: .5rem;background-color: var(--color-primary);}
+::-webkit-scrollbar-track {border-radius: .5rem;background-color: #DEE9F0;}
 
 
 /**************************************/
@@ -245,20 +245,21 @@ h6 {font-size: 0.875rem;}
 /**************************************/
 /*** Навигация Карусели ***/
 /**************************************/
-.owl-prev, .owl-next {color: var(--color-black);background-color: transparent;border: 2px solid var(--color-black);width: 2.5rem;height: 2.5rem;line-height: 2.25rem;font-size: 1.25rem;padding: 0;text-align: center;font-family: 'icomoon';font-weight: normal;z-index: 2;transition: all 0.3s ease;cursor: pointer;}
+.owl-prev, .owl-next {color: var(--color-lightgray);background-color: transparent;border: 1px solid var(--color-lightgray);border-radius: 100%;width: 2.5rem;height: 2.5rem;line-height: 2.25rem;font-size: 1.125rem;padding: 0;text-align: center;font-family: 'icomoon';font-weight: normal;z-index: 2;transition: all 0.3s ease;cursor: pointer;}
 .owl-prev:hover, .owl-next:hover {color: var(--color-white);background-color: var(--color-primary);border-color: var(--color-primary);}
 .owl-prev {float: left;left: 0;}
 .owl-next {float: right;right: 0;}
-.owl-prev:before {content: '\e908';}
-.owl-next:before {content: '\e909';}
+.owl-prev:before {content: '\e909';}
+.owl-next:before {content: '\e90a';}
 .owl-nav.disable, .owl-nav [class^="owl-"].disable:hover {color: var(--color-gray);cursor: default;}
 .owl-nav.disabled {display: none;}
+.owl-next {margin-left: .5rem;}
 
 /*** Навигация точками ***/
 .owl-dots {text-align: center;}
 .owl-dots.disabled {display: none;}
-.owl-dots .owl-dot {border: 1px solid var(--color-primary);border-radius: 100%;width: .75rem;height: .75rem;margin: .25rem;padding: 0;display: inline-block;vertical-align: middle;position: relative;}
-.owl-dots .owl-dot.active, .owl-dots .owl-dot:hover {background-color: var(--color-primary);border-color: var(--color-primary);width: 1.25rem;height: 1.25rem;}
+.owl-dots .owl-dot {background-color: var(--color-lightgray);border-radius: 100%;width: .75rem;height: .75rem;margin: .25rem;padding: 0;display: inline-block;vertical-align: middle;position: relative;}
+.owl-dots .owl-dot.active, .owl-dots .owl-dot:hover {background-color: var(--color-primary);width: 1.25rem;height: 1.25rem;}
 
 /*** Изображения в слайдере ***/
 .owl-carousel {overflow: hidden;}
@@ -1020,8 +1021,8 @@ h6 {font-size: 0.875rem;}
 #mobmenu.opened {transform: translateX(0);}
 .mobmenu__content [data-content] {max-height: calc(100vh - 176px);overflow-y: auto;padding: 1rem;}
 .mobmenu__nav-item {padding: 0 1rem;}
-[data-content] {display: none;position: relative;}
-[data-content].opened {display: block;}
+/* [data-content] {display: none;position: relative;}
+[data-content].opened, [data-content].active {display: block;} */
 
 
 /**************************************/
@@ -1116,22 +1117,30 @@ h6 {font-size: 0.875rem;}
 /**************************************/
 /*** Новости ***/
 /**************************************/
-#news .tabs__navs {width: calc(100% - 5rem);margin: 0 auto;justify-content: center;white-space: nowrap;flex-wrap: nowrap;overflow-x: auto;}
-#news .tabs__nav {margin: 0 1rem 1rem 1rem;line-height: 1.25;font-size: 1.5rem;font-weight: bold;text-transform: uppercase;}
-#news .owl-prev, #news .owl-next {position: absolute;top: -4.125rem;}
-#news .news__date {margin-top: 0;}
-.news__image {margin-bottom: 1rem;height: 260px;}
-.news__desc {margin-top: 1rem;max-height: 4rem;line-height: 1.5;display: block;overflow: hidden;}
-.news__buttons {margin-top: 1rem;}
-@media all and (max-width: 1199px) {
-	.news__image {height: 216px;}
-}
-@media all and (max-width: 767px) {
-	.news__image {height: 288px;}
-}
-@media (min-width: 480px) and (max-width: 639px) {
-	.news__image {height: 208px;}
-}
+#news {background-color: #EDF7FB;padding: 1rem 0 3rem;}
+#news .block__title {text-align: left;}
+#news .block__title .title {font-size: 2rem;font-family: 'Cormorant', serif;}
+#news .block__title .subtitle {font-size: 1rem;margin-top: .5rem;}
+#news_list_articles {width: 50%;padding-right: 1rem;}
+#news_list_shop {width: 50%;padding-left: 1rem;}
+#news .news__date {width: 7.5rem;height: 7.5rem;background-color: var(--color-white);border-radius: .625rem;margin: 0;font-size: 1rem;font-weight: bold;display: flex;align-items: center;justify-content: center;flex-direction: column;}
+.news__date .day {font-size: 5rem;font-family: 'Cormorant', serif;display: block;margin: -1.5rem 0 1rem;}
+.news__date .month {text-transform: lowercase;}
+.news__content {width: calc(100% - 7.5rem);padding: 0 1rem;}
+.news__desc {margin-top: .5rem;line-height: 1.25rem;height: 2.5rem;overflow: hidden;}
+.news__item + .news__item {margin-top: 1rem;}
+.news__overflow {max-height: 392px;overflow-y: auto;}
+.news__overflow::-webkit-scrollbar {width: .5rem;}
+.news__image {width: 16.25rem;height: 16.25rem;}
+.news__image img {border-radius: .625rem .625rem 0 0;}
+#news_list_shop .news__title {background-color: var(--color-white);padding: 1rem;height: 6rem;max-height: 100%;text-align: center;display: flex;align-items: center;justify-content: center;}
+#news .owl-dots {width: calc(100% - 88px - 64px);padding: 0 1.25rem;}
+#news .owl-dot {height: 2px;margin: 0;border: 0;border-radius: 0;flex-grow: 1;}
+#news .owl-dot.active {height: 2px;}
+#news .owl-pages {width: 4rem;justify-content: flex-end;}
+#news .owl-navigate {margin-top: 1rem;}
+#news .owl-page__curent {font-size: 1.25rem;font-weight: bold;color: var(--color-primary);}
+#news .owl-page__separator {margin: 0 .25rem;}
 
 
 /**************************************/
