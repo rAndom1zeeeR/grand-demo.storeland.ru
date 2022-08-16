@@ -38,6 +38,7 @@ body {color: var(--color-black);background-color: var(--color-background);line-h
 /*** Основные блоки ***/
 /**************************************/
 section {margin: 3rem 0;position: relative;}
+section[data-background-color="white"] {background-color: var(--color-white);padding: 3rem 0;margin: 0;}
 .main__left {width: 25%;padding-right: 1rem;}
 .main__right.has-sidebar {width: 75%;padding-left: 1rem;}
 .main__right {width: 100%;}
@@ -215,6 +216,8 @@ h6 {font-size: 0.875rem;}
 .form__fields:last-child {margin-bottom: 0;}
 .form__fields label {margin-bottom: 0.5rem;display: block;cursor: pointer;}
 .form__fields label em {display: none;}
+.form__fields-icons input {padding-left: 3.75rem;}
+.form__fields-icons i {position: absolute;top: .75rem;left: 1rem;color: var(--color-lightgray);font-size: 1.5rem;}
 .form__field {position: relative;}
 .form__pp {font-size: .75rem;margin-top: 1rem;}
 .form__pp [data-fancybox] {text-decoration: underline;display: inline;}
@@ -252,7 +255,7 @@ h6 {font-size: 0.875rem;}
 /**************************************/
 /*** Навигация Карусели ***/
 /**************************************/
-.owl-prev, .owl-next {color: var(--color-lightgray);background-color: transparent;border: 1px solid var(--color-lightgray);border-radius: 100%;width: 2.5rem;height: 2.5rem;line-height: 2.25rem;font-size: 1.125rem;padding: 0;text-align: center;font-family: 'icomoon';font-weight: normal;z-index: 2;transition: all 0.3s ease;cursor: pointer;}
+.owl-prev, .owl-next {color: var(--color-lightgray);background-color: transparent;border: 1px solid var(--color-lightgray);border-radius: 100%;width: 2.5rem;height: 2.5rem;line-height: 2.25rem;font-size: 1rem;padding: 0;text-align: center;font-family: 'icomoon';font-weight: normal;z-index: 2;transition: all 0.3s ease;cursor: pointer;}
 .owl-prev:hover, .owl-next:hover {color: var(--color-white);background-color: var(--color-primary);border-color: var(--color-primary);}
 .owl-prev {float: left;left: 0;}
 .owl-next {float: right;right: 0;}
@@ -452,7 +455,9 @@ h6 {font-size: 0.875rem;}
 /**************************************/
 .block__title {margin-bottom: 1.5rem;position: relative;}
 .block__title .title {line-height: 1.25;font-size: 2rem;font-weight: bold;text-transform: uppercase;font-family: 'Cormorant', serif;}
-.block__title .subtitle {font-size: 1rem;margin-top: .5rem;}
+.block__title .subtitle {font-size: 1rem;line-height: 1.5rem;margin-top: .5rem;}
+.block__title-separator {padding: 0 0 0 3rem;}
+.block__title-separator:before {content: '';display: block;width: 2rem;height: 2px;background-color: var(--color-primary);position: absolute;top: 1.125rem;left: 0;}
 @media all and (max-width: 479px) {
 	.block__title .title {font-size: 1.25rem;}
 }
@@ -476,9 +481,9 @@ h6 {font-size: 0.875rem;}
 /*** Рейтинг Товаров ***/
 /**************************************/
 .ratings {display: inline-block;position: relative;vertical-align: middle;line-height: 0;overflow: hidden;}
-.ratings:before {color: var(--color-lightgray);font-size: 1.25rem;line-height: 1;font-family: 'icomoon';content: '\e920\e920\e920\e920\e920';letter-spacing: 0;}
+.ratings:before {color: var(--color-lightgray);font-size: 1.25rem;line-height: 1;font-family: 'icomoon';content: '\e920\e920\e920\e920\e920';letter-spacing: .25rem;}
 .ratings .rating {position: absolute;left: 0;top: 0;overflow: hidden;}
-.ratings .rating:before {color: #FEA37E;font-size: 1.25rem;line-height: 1;white-space:nowrap;font-family: 'icomoon';content: '\e920\e920\e920\e920\e920';letter-spacing: 0;}
+.ratings .rating:before {color: #FEA37E;font-size: 1.25rem;line-height: 1;white-space:nowrap;font-family: 'icomoon';content: '\e920\e920\e920\e920\e920';letter-spacing: .25rem;}
 .stars {overflow: hidden;}
 .star {color: var(--color-lightgray);font-size: 1.5rem;width: 1.5rem;height: 1.5rem;line-height: 1.5rem;white-space: nowrap;float:left;cursor: pointer;zoom:1;display:block;}
 .star:after {content: '\e920';font-family: 'icomoon';}
@@ -630,9 +635,8 @@ h6 {font-size: 0.875rem;}
 /*** Каталог на главной ***/
 /**************************************/
 [class*="pdt__cat-"] + [class*="pdt__cat-"] {margin-top: 2rem;}
-#pdt__cat .block__title {padding: 0 0 0 3rem;margin-bottom: 1rem;}
-#pdt__cat .block__title:before {content: '';display: block;width: 2rem;height: 2px;background-color: var(--color-primary);position: absolute;top: 1.125rem;left: 0;}
-#pdt__cat .block__title .subtitle {font-size: 1rem;line-height: 1.25rem;margin-top: 1.25rem;}
+#pdt__cat .block__title {margin-bottom: 1rem;}
+#pdt__cat .block__title .subtitle {margin-top: 1.25rem;}
 #pdt__cat .block__counts {color: var(--color-darkgray)}
 #pdt__cat .block__subtitle {font-size: 1rem;margin-top: .5rem;max-height: 14rem;overflow: hidden;}
 #pdt__cat .products__left {width: 25%;padding-right: 1rem;}
@@ -1049,7 +1053,7 @@ h6 {font-size: 0.875rem;}
 .delivery__descriptionBlock .delivery__price {font-weight: bold;}
 .delivery__description {margin-top: .75rem;font-size: 13px;}
 .payment__description {margin-top: .75rem;font-size: 13px;}
-.fastOrderForm .block__title .title {font-size: 1.125rem;text-align: left;text-transform: capitalize;}
+.fastOrderForm .block__title .title {font-size: 1.125rem;text-transform: capitalize;}
 .fastOrderForm .comment .form__field {margin: 0;width: 100%;}
 .coupon__button {position: absolute;right: 1rem;line-height: 2.5rem;}
 .coupon__reset {position: absolute;right: 7rem;line-height: 2.5rem;opacity: 0;transition: all 0.3s ease;}
@@ -1201,10 +1205,6 @@ h6 {font-size: 0.875rem;}
 /**************************************/
 /*** Новости ***/
 /**************************************/
-#news {background-color: var(--color-background);padding: 1rem 0 3rem;}
-#news .block__title {text-align: left;}
-#news .block__title .title {font-size: 2rem;font-family: 'Cormorant', serif;}
-#news .block__title .subtitle {font-size: 1rem;margin-top: .5rem;}
 #news_list_articles {width: 50%;padding-right: 1rem;}
 #news_list_shop {width: 50%;padding-left: 1rem;}
 #news .news__date {width: 7.5rem;height: 7.5rem;background-color: var(--color-white);border-radius: .625rem;margin: 0;font-size: 1rem;font-weight: bold;display: flex;align-items: center;justify-content: center;flex-direction: column;}
@@ -1275,10 +1275,11 @@ footer .contacts__block {margin-top: 1.5rem;}
 .copyright {color: var(--color-darkgray);flex-grow: 1;}
 .copyright a {padding: 0;}
 /*** Подвалю. Подписка ***/
-.subscribe__title {margin-bottom: 1rem;}
 .subscribe .form__input {border: 0;background-color: var(--color-white);border-radius: 10px;height: 3rem;}
 .subscribe .form__button {width: 100%;height: 3rem;}
 .subscribe .form__pp {color: var(--color-darkgray);text-align: center;}
+
+
 
 
 /**************************************/
@@ -1289,20 +1290,42 @@ footer .contacts__block {margin-top: 1.5rem;}
 
 
 /**************************************/
+/*** Карта на главной ***/
+/**************************************/
+.body__logo a {width: 12rem;height: 12rem;background-color: var(--color-black);border-radius: 100%;}
+.body__content {width: calc(100% - 12rem);padding-left: 3rem;}
+
+
+/**************************************/
 /*** Особенности ***/
 /**************************************/
+#services {padding-top: 1rem;}
+.services__item {position: relative;width: 25%;margin-top: 2rem;}
+.services__image {margin: 0 auto 1rem;width: 13rem;height: 13rem;background-position: center;border-radius: 100%;border: .625rem solid var(--color-white);position: relative;}
+.services__name {font-size: 1rem;text-align: center;padding: 0 1rem;}
+.services__index {top: 0;left: 0rem;color: rgba(70, 177, 239, 0.4);font-size: 15rem;font-weight: bold;font-family: 'Cormorant', serif;line-height: 0;position: absolute;}
+
+
+/**************************************/
+/*** Особенности ***/
+/**************************************/
+#advantages .block__title {width: 24rem;padding: 0 5rem 0 3rem;}
+.advantages__items {width: calc(100% - 24rem);}
+.advantages__item {width: 50%;padding: 4rem 2rem 1rem 2rem;position: relative;}
 .advantages__icon {font-size: 2.5rem;color: var(--color-primary);position: relative;margin: -2.5rem 0 1rem -1.5rem;}
 .advantages__icon i {z-index: 1;position: relative;}
 .advantages__icon:before {content: '';width: 2.5rem;height: 2.5rem;top: -.75rem;left: -.75rem;background-color: var(--color-background);border-radius: 100%;position: absolute;}
 .advantages__title {font-size: 1.125rem;font-weight: bold;margin-bottom: .5rem;}
 .advantages__text {font-size: 1rem;line-height: 1.5rem;}
-.advantages__items {width: calc(100% - 24rem);}
-.advantages__item {width: 50%;padding: 4rem 2rem 1rem 2rem;position: relative;}
-#advantages .block__title {width: 24rem;text-align: left;padding: 0 5rem 0 3rem;}
-#advantages .block__title .title {font-size: 2rem;font-family: 'Cormorant', serif;}
-#advantages .block__title:before {content: '';display: block;width: 2rem;height: 2px;background-color: var(--color-primary);position: absolute;top: 1.125rem;left: 0;}
-#advantages .block__title .subtitle {font-size: 1rem;line-height: 1.25rem;margin-top: 1.25rem;}
 
+
+/**************************************/
+/*** Фотогаллерея ***/
+/**************************************/
+#gallery {padding-top: 0;}
+.gallery__items {flex-wrap: nowrap;}
+.gallery__item {margin: .5rem;}
+.gallery__image {width: 17.5rem;height: 17.5rem;border-radius: .625rem;background-position: center;background-size: cover;}
 
 
 /**************************************/
