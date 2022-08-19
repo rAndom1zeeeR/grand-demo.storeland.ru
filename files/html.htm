@@ -1156,6 +1156,39 @@
 		</section>
 		{% ENDIF index_page_goods_empty %}
 
+		<!-- Материалы СМИ -->
+		<section id="news_list_mass_media" data-background-color="white">
+			<div class="container">
+				<div class="media__inner flex-start">
+					<div class="media__slider">
+						<div class="owl-carousel">
+							{% FOR news_list_mass_media %}
+							<div class="news__item">
+								<a class="news__image flex-center" href="{news_list_mass_media.URL}" title="Перейти к странице &laquo;{news_list_mass_media.TITLE}&raquo;">
+									<img src="{% IF news_list_mass_media.IMG %}{news_list_mass_media.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" alt="{news_list_mass_media.TITLE}" />
+								</a>
+							</div>
+							{% ENDFOR %}
+						</div>
+					</div>
+					<div class="media__block">
+						<div class="block__title block__title-separator">
+							<h2 class="title"><span>Отметьте свой Лучший день рождения в гранд отеле</span></h2>
+							<div class="subtitle">Специальные условия именинникам</div>
+						</div>
+						<div class="media__content flex-center">
+							<div class="media__icon">
+								<i class="icon-person"></i>
+							</div>
+							<div class="media__text">Доверьте ваш праздник профессиональной команде отеля Гранд и получите в подарок незабываемые впечатления от времени, проведенного в кругу своих близких в незабываемой атмосфере роскошного курорта!</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Навигация -->
+			<div class="news__dots"></div>
+		</section>
+
 		<!-- Распродажа -->
 		{% IFNOT index_page_sale_goods_empty %}
     <section id="pdt__sales" class="loading">
@@ -1501,6 +1534,31 @@
 		</section>
 
 		<!-- Отзывы -->
+		<section id="opinions">
+			<div class="container">
+				<div class="block__title">
+					<h2 class="title"><span>Отзывы</span></h2>
+					<div class="subtitle">Наш отель ежегодно посещают около 5 000 человек и многие снова возвращаются к нам!</div>
+				</div>
+				<div class="row">
+					<div class="">
+						
+					</div>
+				</div>
+
+				<!-- Навигация -->
+				<div class="owl-navigate flex">
+					<div class="owl-nav"></div>
+					<div class="owl-dots flex"></div>
+					<div class="owl-pages flex">
+						<span class="owl-page__curent">01</span>
+						<span class="owl-page__separator">/</span>
+						<span class="owl-page__total">08</span>
+					</div>
+				</div>
+
+			</div>
+		</section>
 
 		<!-- Услуги -->
 		<section id="services" data-background-color="white">
@@ -1548,103 +1606,117 @@
 				<!-- Первая линия -->
 				<div class="gallery__items flex-center">
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
-					</div>
-					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
-					</div>
-					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
-					</div>
-					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
-					</div>
-					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
-					</div>
-					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_1.png?design=THEMENAME">
+						</a>
 					</div>
 				</div>
 				<!-- Вторая линия -->
 				<div class="gallery__items flex-center">
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME">
+						</a>
 					</div>
 					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
-					</div>
-					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
-					</div>
-					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
-					</div>
-					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
-					</div>
-					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
-					</div>
-					<div class="gallery__item">
-						<div class="gallery__image lozad" data-background-image="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME"></div>
+						<a class="gallery__image" href="#">
+							<img src="{ASSETS_IMAGES_PATH}gallery_2.png?design=THEMENAME">
+						</a>
 					</div>
 				</div>
 			</div>
@@ -3004,6 +3076,7 @@
 			pdtVisible('#pdt__best');
 			pdtSales('#pdt__sales');
 			pdtNews();
+			pdtNewsMedia();
 			slideShow();
 			monthNames();
 			indexCatalog();

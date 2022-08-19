@@ -2686,7 +2686,7 @@ function pdtSales(id) {
 		$(id).find('.owl-pages').append('<span class="owl-page__curent">0'+ item +'</span><span class="owl-page__separator">/</span><span class="owl-page__total">0'+ items +'</span>')
 		// Навигация при клике на кнопку
 		$(id).find('.slider__nav .owl-dot').on('click', function () {
-			owlS.trigger('to.owl.carousel', [$(this).index(), 300]);
+			carousel.trigger('to.owl.carousel', [$(this).index(), 300]);
 		});
 	}
 }
@@ -2736,12 +2736,60 @@ function pdtNews() {
 		var items = event.item.count - 1;
 		var item = event.item.index + 1;
 		// Удаляем счетчик слайдов
-		$('#news .owl-pages span').remove();
+		id.find('.owl-pages span').remove();
 		// Добавляем счетчик слайдов
-		$('#news .owl-pages').append('<span class="owl-page__curent">0'+ item +'</span><span class="owl-page__separator">/</span><span class="owl-page__total">0'+ items +'</span>')
+		id.find('.owl-pages').append('<span class="owl-page__curent">0'+ item +'</span><span class="owl-page__separator">/</span><span class="owl-page__total">0'+ items +'</span>')
 		// Навигация при клике на кнопку
-		$('.slider__nav .owl-dot').on('click', function () {
-			owlS.trigger('to.owl.carousel', [$(this).index(), 300]);
+		id.find('.slider__nav .owl-dot').on('click', function () {
+			carousel.trigger('to.owl.carousel', [$(this).index(), 300]);
+		});
+	}
+}
+
+// Новости
+function pdtNewsMedia() {
+	var id = $('#news_list_mass_media');
+	var carousel = $(id).find('.owl-carousel');
+	var buttons = $(id).find('.owl-nav');
+	var dots = $(id).find('.news__dots');
+	// Функция слайдера для Новостей
+	carousel.owlCarousel({
+		items: 1,
+		margin: 16,
+		loop: true,
+		rewind: true,
+		lazyLoad: true,
+		nav: true,
+		navContainer: '',
+		navText: [ , ],
+		dots: true,
+		dotsContainer: dots,
+		dotsData: false,
+		autoHeight: true,
+		autoHeightClass: 'owl-height',
+		autoplay: false,
+		autoplayHoverPause: true,
+		smartSpeed: 500,
+		mouseDrag: true,
+		touchDrag: true,
+		pullDrag: true,
+		responsiveClass: true,
+		responsiveRefreshRate: 100,
+		onInitialized: dotsImage
+	});
+
+	// Изображения
+	function dotsImage(event){
+		id.find('.owl-item:not(.cloned)').each(function(){
+			var image = $(this).find('img').attr('src')
+			console.log('image', image)
+			var index = $(this).index() - 1;
+			console.log('index', index)
+			dots.find('.owl-dot:nth-child('+ index +')').append('<img src="'+ image +'" />');
+		})
+		// Навигация при клике на кнопку
+		dots.find('.owl-dot').on('click', function () {
+			carousel.trigger('to.owl.carousel', [$(this).index(), 300]);
 		});
 	}
 }
