@@ -1095,15 +1095,17 @@ h6 {font-size: 0.875rem;}
 /**************************************/
 /*** Шапка ***/
 /**************************************/
-#header {position: absolute;top: 0;left: 0;width: 100%;}
-.header__block {margin: 0 .5rem;padding: .75rem 1.5rem;background-color: var(--shadow-white);border-radius: 1.5rem;flex-grow: 1;}
+#header {background-color: var(--color-black);}
+.index #header {position: absolute;top: 0;left: 0;width: 100%;background-color: transparent;}
+.header__block {margin: 0 .5rem;padding: .75rem 1.5rem;background-color: var(--shadow-white);border-radius: 1.5rem;flex-grow: 1;transition: all 0.3s ease-in-out;}
+.header__block:hover {background-color: var(--color-primary);cursor: pointer;}
 .header__block i {font-size: 1.5rem;vertical-align: middle;}
 .header__block i + span {font-weight: bold;vertical-align: middle;margin-left: .5rem;}
-.header__icon {color: var(--color-white);display: flex;align-items: center;justify-content: center;}
-
+.header__block .header__icon {color: var(--color-white);display: flex;align-items: center;justify-content: center;}
 .header__block-book {padding: 0;}
 .header__block-book .header__icon {border-radius: 1.5rem;line-height: 3rem;}
-.header__logo {border-radius: 0 0 10rem 10rem;padding: 1rem 3rem;}
+.header__logo {border-radius: 0 0 10rem 10rem;padding: 1rem 3rem;background-color: transparent !important;}
+.index .header__logo {background-color: var(--shadow-white);}
 
 /*** Мобильное меню ***/
 #mobmenu {transform: translateX(-100%);max-width: 20rem;height: 100vh;background-color: var(--color-white);border: 1px solid var(--color-lightgray);position: fixed;left: 0;top: 0;transition: all 0.5s ease-in-out;z-index: 10;}
@@ -1220,12 +1222,6 @@ h6 {font-size: 0.875rem;}
 .news__image img {border-radius: .625rem .625rem 0 0;object-fit: cover;}
 #news_list_shop .news__title {background-color: var(--color-white);border-radius: 0 0 .625rem .625rem;padding: 1rem;height: 6rem;max-height: 100%;text-align: center;display: flex;align-items: center;justify-content: center;}
 #news .owl-dots {width: calc(100% - 88px - 64px);padding: 0 1.25rem;}
-/* #news .owl-dot {height: 2px;margin: 0;border: 0;border-radius: 0;flex-grow: 1;}
-#news .owl-dot.active {height: 2px;}
-#news .owl-pages {width: 4rem;justify-content: flex-end;}
-#news .owl-navigate {margin-top: 1rem;}
-#news .owl-page__curent {font-size: 1.25rem;font-weight: bold;color: var(--color-primary);}
-#news .owl-page__separator {margin: 0 .25rem;} */
 
 
 /**************************************/

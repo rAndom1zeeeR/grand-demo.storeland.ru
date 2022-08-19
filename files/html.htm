@@ -182,6 +182,7 @@
 
 		</header>
 
+		{% IF index_page %}
 		<!-- Слайдшоу -->
 		<div id="slideshow" class="loading">
 			<!-- Слайд 1 -->
@@ -277,7 +278,6 @@
 		</section>
 		{% ENDIF %}
 
-		{% IF index_page %}
 		<!-- Хиты продаж -->
 		{% IFNOT index_page_favorites_goods_empty %}
 		<section id="pdt__best" class="pdt__visible loading">
@@ -1157,6 +1157,7 @@
 		{% ENDIF index_page_goods_empty %}
 
 		<!-- Материалы СМИ -->
+		{% IF news_list_mass_media_empty %}
 		<section id="news_list_mass_media" data-background-color="white">
 			<div class="container">
 				<div class="media__inner flex-start">
@@ -1188,6 +1189,7 @@
 			<!-- Навигация -->
 			<div class="news__dots"></div>
 		</section>
+		{% ENDIF news_list_mass_media_empty %}
 
 		<!-- Распродажа -->
 		{% IFNOT index_page_sale_goods_empty %}
@@ -1723,7 +1725,7 @@
 		</section>
 
 		<!-- Новости -->
-		{% IF news_list_all_empty=0 || news_list_shop_empty=0 || news_list_articles_empty=0 || news_list_mass_media_empty=0 %}
+		{% IF news_list_all_empty=0 || news_list_shop_empty=0 || news_list_articles_empty=0 %}
 		<section id="news" class="loading">
 			<div class="container">
 				<div class="block__title">
