@@ -1798,9 +1798,9 @@
 		<!-- Основная часть -->
 		<section id="main">
 			<div class="container">
-				<div class="main__inner flex-start">
+				<div class="main__inner flex-start {% IF IS_FULL_CATALOG %}full_catalog{% ENDIF %}">
 					<!-- Левая часть -->
-					{% IF MOD_LNAME = catalog || MOD_LNAME = search || MOD_LNAME = discount %}
+					{% IFNOT IS_FULL_CATALOG && MOD_LNAME = catalog || MOD_LNAME = search || MOD_LNAME = discount %}
 					<div class="main__left sidebar">
 						<!-- Каталог -->
 						<div class="sidebar__block sidebar__block-catalog">
@@ -1935,7 +1935,7 @@
 					{% ENDIF %}
 
 					<!-- Правая часть -->
-					<div class="main__right {% IF MOD_LNAME = catalog || MOD_LNAME = search || MOD_LNAME = discount %}has-sidebar{% ENDIF %}">
+					<div class="main__right {% IFNOT IS_FULL_CATALOG && MOD_LNAME = catalog || MOD_LNAME = search || MOD_LNAME = discount %}has-sidebar{% ENDIF %}">
 						<!-- Основное блоки заголовков -->
 						<div id="page__title">
 							<!-- Хлебные крошки -->
@@ -1944,7 +1944,6 @@
 								<ul class="flex unstyled" itemscope itemtype="https://schema.org/BreadcrumbList">
 									<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="home">
 										<a itemprop="item" href="{INDEX_PAGE_URL}" title="Перейти на главную">
-											<i class="icon-home"></i>
 											<span itemprop="name">Главная</span>
 											<meta itemprop="position" content="1" />
 										</a>
@@ -2144,7 +2143,7 @@
 							{% ENDIF %}
 
 							<!-- Заголовки страниц -->
-							<div class="block__title block__title-separator">
+							<div class="block__title">
 								{% IF MOD_LNAME=user && ACT=login %}
 								<h1 class="title"><span>Войти или зарегистрироваться</span></h1>
 								{% ELSEIF MOD_LNAME=user && ACT=change %}

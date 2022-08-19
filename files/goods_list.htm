@@ -7,13 +7,26 @@
 			<div class="categories__list flex {% IF index_page %}index{% ENDIF %}">
 				{% FOR nested_categories_list %}
 				<div class="categories__item" data-id="{nested_categories_list.ID}" {% IF nested_categories_list.LEVEL> 0 %}style="display: none;"{% ENDIF %}>
-					<div class="categories__inner">
-						<a class="categories__name flex-center" href="{nested_categories_list.URL}" title="Перейти к категории &laquo;{nested_categories_list.NAME}&raquo;">
-							<span>{nested_categories_list.NAME}</span>
-						</a>
+					<div class="categories__inner flex">
 						<a class="categories__image flex-center" href="{nested_categories_list.URL}" title="Перейти к категории &laquo;{nested_categories_list.NAME}&raquo;">
 							<img src="{% IF nested_categories_list.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{nested_categories_list.IMAGE_MEDIUM}{% ENDIF %}">
 						</a>
+						<div class="categories__content">
+							<a class="categories__name" href="{nested_categories_list.URL}" title="Перейти к категории &laquo;{nested_categories_list.NAME}&raquo;">
+								<span>{nested_categories_list.NAME}</span>
+							</a>
+							{% IF nested_categories_list.GOODS_COUNT > 0 %}
+							<div class="categories__count">{nested_categories_list.GOODS_COUNT} предложен{nested_categories_list.GOODS_COUNT | gen_word_end("е","ия","ий")}</div>
+							{% ENDIF GOODS_COUNT %}
+							{% IF nested_categories_list.DESC %}
+							<div class="categories__desc">{nested_categories_list.DESC}</div>
+							{% ENDIF DESC %}
+							<div class="categories__buttons">
+								<a class="button-link button-more" href="{nested_categories_list.URL}" title="Перейти к категории &laquo;{nested_categories_list.NAME}&raquo;">
+									<span>Посмотреть номера...</span>
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
 				{% ENDFOR %}
@@ -36,7 +49,6 @@
 
 	<!-- Если нет товаров, либо у пользователя не сработало javascript ограничение на фильтре по товарам и так получилось что их не нашлось, отобразим блок изменяющий отображение данных выдачи товаров -->
 	{% IFNOT IS_FULL_CATALOG && goods_empty=0 || goods_filters_empty=0 %}
-
 	<!-- Верхний блок, изменяющий отображение данных выдачи товаров -->
 	<div class="toolbar {% FOR filter_attr_list %}{% FOR values %}{% IF filter_attr_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %} {% FOR filter_prop_list %}{% FOR values %}{% IF filter_prop_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %}">
 		<form action="" class="form__toolbar flex">
@@ -719,7 +731,7 @@
 	{% ENDIF %}
 	<!-- //END Страницы -->
 	
-	{% ENDIF %}
+	{% ENDIF IS_FULL_CATALOG %}
 	<!-- //END Если нет товаров -->
 </div>
 
