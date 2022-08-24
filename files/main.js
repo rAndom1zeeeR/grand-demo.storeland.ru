@@ -2873,15 +2873,15 @@ function catalog() {
 		event.preventDefault();
 		$(this).toggleClass('opened');
 		$('#filters').toggleClass('opened');
-		$('#overlay').toggleClass('opened transparent');
+		$('.products').toggleClass('opened');
 	});
 	
 	// Фильтры поиск скрываем если меньше 4
-	$('.filter__list').each(function(){
-		var item = $(this).find('.filter__item').length;
-		var search = $(this).find('.filter__search');
-		item < 4 ? search.hide() : search.show()
-	});
+	// $('.filter__list').each(function(){
+	// 	var item = $(this).find('.filter__item').length;
+	// 	var search = $(this).find('.filter__search');
+	// 	item < 4 ? search.hide() : search.show()
+	// });
 
 	// Фильтры поиск
 	$('.filter__search').on('input', function() {
@@ -3199,7 +3199,7 @@ function imageHover(){
 		var t = $(this);
 		var imagesLen = t.find('.product__img-id').length
 		// если больше 2 изображений товара
-		if (imagesLen > 2){
+		if (imagesLen > 1){
 			// Создаем элементы при наведении на которые будут меняться изображения
 			t.find('.product__img-id').each(function(){
 				var image = $(this).attr('data-image')
@@ -3289,8 +3289,8 @@ function pdtCat() {
 		owlS.owlCarousel({
 			items: 1,
 			margin: 32,
-			loop: true,
-			rewind: true,
+			loop: false,
+			rewind: false,
 			lazyLoad: false,
 			nav: false,
 			navText: [ , ],
@@ -3316,13 +3316,25 @@ function pdtCat() {
 			onInitialized: nav,
 			onChanged: nav
 		});
+
 		// Навигация при клике на кнопку
-		function nav() {
+		function nav(event) {
 			dots.find('a').on('click', function (event) {
 				event.preventDefault();
 				owlS.trigger('to.owl.carousel', [$(this).index(), 300]);
 			});
-		}
+
+			// Скрываем навигацию
+			if (event.item.count > event.page.size) {
+				$('[class*="pdt__cat-'+ id +'"]').removeClass('hidden-nav')
+				dots.parent().parent().find('.products__nav').show()
+			}else{
+				$('[class*="pdt__cat-'+ id +'"]').addClass('hidden-nav')
+				dots.parent().parent().find('.products__nav').hide()
+			}
+
+		}		
+
 		dots.parent().find('.products__nav-prev').on('click', function (event) {
 			owlS.trigger('prev.owl.carousel');
 		});
