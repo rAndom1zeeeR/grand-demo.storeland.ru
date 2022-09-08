@@ -1181,9 +1181,9 @@ function pageGoods() {
 			nav: true,
 			navContainer: buttons,
 			navText: [ , ],
-			dots: false,
+			dots: true,
 			dotsContainer: dots,
-			autoHeight: false,
+			autoHeight: true,
 			autoHeightClass: 'owl-height',
 			autoplay: false,
 			autoplayHoverPause: true,
@@ -1201,8 +1201,23 @@ function pageGoods() {
 				768:{items:3},
 				1024:{items:4},
 				1200:{items:4}
-			}
+			},
+			onInitialized: navigation,
+			onChanged: navigation
 		});
+
+		function navigation(event) {
+			var items = event.item.count;
+			var item = event.item.index + 1;
+			// Удаляем счетчик слайдов
+			$(id).find('.owl-pages span').remove();
+			// Добавляем счетчик слайдов
+			$(id).find('.owl-pages').append('<span class="owl-page__curent">0'+ item +'</span><span class="owl-page__separator">/</span><span class="owl-page__total">0'+ items +'</span>')
+			// Навигация при клике на кнопку
+			$(id).find('.owl-dot').on('click', function () {
+				carousel.trigger('to.owl.carousel', [$(this).index(), 300]);
+			});
+		}
 	}
 	relatedViews();
 
@@ -1221,7 +1236,7 @@ function pageGoods() {
 			nav: true,
 			navContainer: buttons,
 			navText: [ , ],
-			dots: false,
+			dots: true,
 			dotsContainer: dots,
 			autoHeight: false,
 			autoHeightClass: 'owl-height',
@@ -1241,31 +1256,122 @@ function pageGoods() {
 				768:{items:3},
 				1024:{items:4},
 				1200:{items:4}
-			}
+			},
+			onInitialized: navigation,
+			onChanged: navigation
 		});
+
+		function navigation(event) {
+			var items = event.item.count;
+			var item = event.item.index + 1;
+			// Удаляем счетчик слайдов
+			$(id).find('.owl-pages span').remove();
+			// Добавляем счетчик слайдов
+			$(id).find('.owl-pages').append('<span class="owl-page__curent">0'+ item +'</span><span class="owl-page__separator">/</span><span class="owl-page__total">0'+ items +'</span>')
+			// Навигация при клике на кнопку
+			$(id).find('.owl-dot').on('click', function () {
+				carousel.trigger('to.owl.carousel', [$(this).index(), 300]);
+			});
+		}
 	}
 	// Сопутствующие товары Запуск Слайдера
 	relatedGoods();
 
+	// Функция показать больше для Характеристик
+	function featuresMore(){
+		var content = $('.productView__features');
+		var item = $('.features__item');
+		var itemVisible = $('.features__item:visible').length;
+		var buttons = $('.features__buttons');
+
+		// Если мало характеристик, скрываем кнопки
+		if(item.length <= itemVisible){ buttons.hide(); }
+
+		// Действия при нажатии
+		buttons.find('.button-more').on('click',function(event){
+			event.preventDefault();
+			var textActive = $(this).attr('data-text');
+			var textDefault = $(this).find('span').text();
+
+			// Обновляем текст кнопки
+			$(this).attr('data-text', textDefault).find('span').text(textActive);
+
+			// Если кнопка активна
+			if($(this).hasClass('active')){
+				$(this).removeClass('active');
+				item.removeClass('show');
+				$('html, body').animate({scrollTop : content.offset().top - 60}, 600);
+			}else{
+				$(this).addClass('active');
+				item.addClass('show');
+			}
+		});
+	}
+
+	// Функция для Описания в карточке товара
+	function descriptionMore(){
+		var content = $('.productView__description');
+		var item = content.find('.htmlDataBlock');
+		var buttons = $('.description__buttons');
+		var descHeight = item.height();
+
+		// Если большое описание
+		if (descHeight > 100) {
+			item.addClass('mask');
+			buttons.show();
+		}else{
+			item.removeClass('mask');
+			buttons.hide();
+		}
+
+		// Действия при нажатии
+		buttons.find('.button-more').on('click',function(event){
+			event.preventDefault();
+			var textActive = $(this).attr('data-text');
+			var textDefault = $(this).find('span').text();
+
+			// Обновляем текст кнопки
+			$(this).attr('data-text', textDefault).find('span').text(textActive);
+
+			// Если кнопка активна
+			if($(this).hasClass('active')){
+				$(this).removeClass('active');
+				item.addClass('mask');
+				$('html, body').animate({scrollTop : content.offset().top - 60}, 600);
+			}else{
+				$(this).addClass('active');
+				item.removeClass('mask');
+			}			
+		});
+	}
+
 	// Функция показать больше для Отзывов
 	function opinionMore(){
-		var opinionContent = $('.opinion__content');
-		var opinionCount = $('.opinion__item').length;
-		var opinionVisible = $('.opinion__item:visible').length;
-		var opinionButtons = $('.opinion__buttons');
-		console.log('opinionCount', opinionCount)
-		console.log('opinionVisible', opinionVisible)
-		console.log('opinionVisible2', $('.opinion__item:visible').length)
-		if(opinionCount <= opinionVisible){ opinionButtons.hide(); }
-		opinionButtons.find('.showAll').on('click',function(event){
+		var content = $('.productView__opinion');
+		var item = content.find('.opinion__item');
+		var itemVisible = content.find('.opinion__item:visible').length;
+		var buttons = content.find('.opinion__buttons');
+
+		// Если мало Отзывов, скрываем кнопки
+		if(item.length <= itemVisible){ buttons.hide(); }
+
+		// Если кнопка активна
+		buttons.find('.button-more').on('click',function(event){
 			event.preventDefault();
+			var textActive = $(this).attr('data-text');
+			var textDefault = $(this).find('span').text();
+			
+			// Обновляем текст кнопки
+			$(this).attr('data-text', textDefault).find('span').text(textActive);
+			
+			// Если кнопка активна
 			if($(this).hasClass('active')){
-				$(this).removeClass('active').find('span').text("Показать все");
-				opinionContent.find('.opinion__item').removeClass('show');
-				$('html, body').animate({scrollTop : jQuery('.productView__opinion').offset().top - 60}, 600);
+				$(this).removeClass('active');
+				item.removeClass('show');
+				$('html, body').animate({scrollTop : content.offset().top - 60}, 600);
 			}else{
-				$(this).addClass('active').find('span').text("Скрыть все");
-				opinionContent.find('.opinion__item').addClass('show');
+				$(this).addClass('active');
+				item.addClass('show');
 			}
 		});
 	}
@@ -1273,6 +1379,8 @@ function pageGoods() {
 	// Задержка перед включением функции
 	setTimeout(function () {
 		opinionMore();
+		featuresMore();
+		descriptionMore();
 	}, 100);
 
 	// Переключение для Положительный и Отрицательный отзыв
@@ -1359,6 +1467,13 @@ function pageGoods() {
 			$('.zone__list').slideDown(600);
 		}
 	});
+
+	// Первая буква имени в аватаре
+	$('.opinion__item').each(function(){
+		var avatar = $(this).find('.opinion__avatar span');
+		var name = $(this).find('.opinion__name span').text()[0];
+		avatar.text(name)
+	})
 
 }
 
@@ -1731,7 +1846,7 @@ function initTabs() {
 
 // Переключение табов
 function tabSwitch(nb) {
-	var tabs = $('.productView__tabs');
+	var tabs = $('.productViewBlock');
 	var tab = tabs.find('[data-tab="'+ nb +'"]');
 	var content = tabs.find('[data-tab-content="'+ nb +'"]');
 	tabs.find('[data-tab]').removeClass('active');
@@ -3398,6 +3513,7 @@ $(document).ready(function(){
 	quickViewMod();
 	toTop();
 	cartSaleSum();
+	pdtNews();
   mainnav('header .mainnav', '1', 991);
 	setTimeout(function () {
 		pdtCat();
