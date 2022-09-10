@@ -2897,9 +2897,7 @@ function pdtNewsMedia() {
 	function dotsImage(event){
 		id.find('.owl-item:not(.cloned)').each(function(){
 			var image = $(this).find('img').attr('src')
-			console.log('image', image)
 			var index = $(this).index() - 1;
-			console.log('index', index)
 			dots.find('.owl-dot:nth-child('+ index +')').append('<img src="'+ image +'" />');
 		})
 		// Навигация при клике на кнопку

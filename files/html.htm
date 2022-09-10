@@ -1172,7 +1172,7 @@
 		{% IFNOT news_list_mass_media_empty %}
 		<section id="news_list_mass_media" data-background-color="white">
 			<div class="container">
-				<div class="owl-carousel">
+				<div class="owl-carousel media">
 					{% FOR news_list_mass_media %}
 					<div class="media__inner flex-start">
 						<div class="media__slider">
@@ -1197,9 +1197,9 @@
 					</div>
 					{% ENDFOR %}
 				</div>
+				<!-- Навигация -->
+				<div class="news__dots"></div>
 			</div>
-			<!-- Навигация -->
-			<div class="news__dots"></div>
 		</section>
 		{% ENDIF news_list_mass_media_empty %}
 
