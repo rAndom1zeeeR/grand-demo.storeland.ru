@@ -273,7 +273,7 @@
 										<i class="icon-chevron_left"></i>
 									</a>
 									<!-- Навигация. Товары -->
-									<div class="products__nav-dots"></div>
+									<div class="products__nav-dots flex"></div>
 									<!-- Навигация. Вперед -->
 									<a class="products__nav-next" href="javascript:;">
 										<i class="icon-chevron_right"></i>
@@ -1172,30 +1172,30 @@
 		{% IFNOT news_list_mass_media_empty %}
 		<section id="news_list_mass_media" data-background-color="white">
 			<div class="container">
-				<div class="media__inner flex-start">
-					<div class="media__slider">
-						<div class="owl-carousel">
-							{% FOR news_list_mass_media %}
+				<div class="owl-carousel">
+					{% FOR news_list_mass_media %}
+					<div class="media__inner flex-start">
+						<div class="media__slider">
 							<div class="news__item">
 								<a class="news__image flex-center" href="{news_list_mass_media.URL}" title="Перейти к странице &laquo;{news_list_mass_media.TITLE}&raquo;">
 									<img src="{% IF news_list_mass_media.IMG %}{news_list_mass_media.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" alt="{news_list_mass_media.TITLE}" />
 								</a>
 							</div>
-							{% ENDFOR %}
 						</div>
-					</div>
-					<div class="media__block">
-						<div class="block__title block__title-separator">
-							<h2 class="title"><span>Отметьте свой Лучший день рождения в гранд отеле</span></h2>
-							<div class="subtitle">Специальные условия именинникам</div>
-						</div>
-						<div class="media__content flex-center">
-							<div class="media__icon">
-								<i class="icon-person"></i>
+						<div class="media__block">
+							<div class="block__title block__title-separator">
+								<h2 class="title"><span>{news_list_mass_media.TITLE}</span></h2>
+								<div class="subtitle">{news_list_mass_media.TIME | date('m.d.Y')}</div>
 							</div>
-							<div class="media__text">Доверьте ваш праздник профессиональной команде отеля Гранд и получите в подарок незабываемые впечатления от времени, проведенного в кругу своих близких в незабываемой атмосфере роскошного курорта!</div>
+							<div class="media__content flex-center">
+								<div class="media__icon">
+									<i class="icon-gift"></i>
+								</div>
+								<div class="media__text">{news_list_mass_media.TEXT_SHORT}</div>
+							</div>
 						</div>
 					</div>
+					{% ENDFOR %}
 				</div>
 			</div>
 			<!-- Навигация -->

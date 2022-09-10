@@ -228,8 +228,8 @@ function compare() {
 		responsive: {
 			0:{items:2},
 			320:{items:2},
-			481:{items:2},
-			641:{items:3},
+			480:{items:2},
+			640:{items:3},
 			768:{items:3},
 			1024:{items:4},
 			1200:{items:4}
@@ -3403,7 +3403,7 @@ function pdtCat() {
 		var dots = owlS.prev('.products__nav').find('.products__nav-dots');
 		owlS.owlCarousel({
 			items: 1,
-			margin: 32,
+			margin: 16,
 			loop: false,
 			rewind: false,
 			lazyLoad: false,
@@ -3422,12 +3422,21 @@ function pdtCat() {
 			autoplayHoverPause: true,
 			autoHeight: false,
 			autoHeightClass: 'owl-height',
-			responsiveClass: true,
-			responsiveRefreshRate: 100,
 			mouseDrag: true,
 			touchDrag: false,
 			pullDrag: true,
 			stagePadding: 60,
+			responsiveClass: true,
+			responsiveRefreshRate: 100,
+			responsive: {
+				0:{items:1},
+				320:{items:1, stagePadding: 0},
+				480:{items:1, stagePadding: 0},
+				640:{items:1, stagePadding: 24},
+				768:{items:1, stagePadding: 32},
+				1024:{items:1},
+				1200:{items:1}
+			},
 			onInitialized: nav,
 			onChanged: nav
 		});
