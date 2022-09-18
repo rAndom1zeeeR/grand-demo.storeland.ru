@@ -197,7 +197,7 @@
 						{% ENDIF %}
 
 						<!-- Краткое описание -->
-						<div class="product__desc product__margin" itemprop="description">
+						<div class="product__desc product__margin {% IF goods.goods_attr_list_empty %}no-attr{% ENDIF %}" itemprop="description">
 							{% IF goods.DESCRIPTION_SHORT %}
 								{goods.DESCRIPTION_SHORT}
 							{% ELSEIF goods.DESCRIPTION_LARGE %}
@@ -357,7 +357,7 @@
 		</div>
 		{% ELSE %}
 		<!-- Вывод товаров ТАБЛИЦЕЙ -->
-		<div class="row">
+		<div class="row row-small">
 			<div class="products__grid products__ajax flex-stretch">
 				{% FOR goods %}
 				<div class="product__item {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE && goods.MAX_REST_VALUE=0 %}product__empty{% ENDIF %} {% IF goods.COUNT_MODIFICATION > 1 %}has-mod{% ENDIF %} {% IF goods.NB_GOODS_IN_CART %}inCart{% ENDIF %}" data-id="{goods.ID}" itemscope itemtype="https://schema.org/Product">
@@ -471,7 +471,7 @@
 							{% ENDIF %}
 				
 							<!-- Краткое описание -->
-							<div class="product__desc product__margin" itemprop="description">
+							<div class="product__desc product__margin {% IF goods.goods_attr_list_empty %}no-attr{% ENDIF %}" itemprop="description">
 								{% IF goods.DESCRIPTION_SHORT %}
 									{goods.DESCRIPTION_SHORT}
 								{% ELSEIF goods.DESCRIPTION_LARGE %}

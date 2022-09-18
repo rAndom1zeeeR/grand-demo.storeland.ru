@@ -3,7 +3,7 @@
 <div class="notice {% IF FORM_NOTICE_IS_GOOD %}success{% ELSE %}warning{% ENDIF %}">{FORM_NOTICE | nl2br}</div>{% ENDIF %}
 <!-- Информация об акции -->
 <div class="promotion__container">	
-	<div class="promotion__content promotion__margin flex">
+	<div class="promotion__content flex">
 		<span>Скидки </span>
 		<strong>- {PROMOTIONAL_CAMPAIGN_DISCOUNT_PERCENTAGE}%</strong> 
 		<span>на все товары акции </span>
@@ -12,13 +12,16 @@
 
 	{% IF PROMOTIONAL_CAMPAIGN_EXPIRED_TIME > CURRENT_TIME %}
 	<div class="promotion__date">
-		<span>Общий срок проведения Акции: </span>
+		<span>Общий срок проведения Акции:</span>
 		<strong>{PROMOTIONAL_CAMPAIGN_BEGINNING_TIME | date('d.m.Y')}</strong>
 		<span> - </span>
 		<strong>{PROMOTIONAL_CAMPAIGN_EXPIRED_TIME | date('d.m.Y')}</strong>
 	</div>
 	{% ELSE %}
-	<div class="promotion__date-expired">Акция закончилась</div>
+	<div class="promotion__date-expired flex">
+		<i class="icon-time"></i>
+		<span>Акция закончилась</span>
+	</div>
 	{% ENDIF %}
 	
 	{% IF PROMOTIONAL_CAMPAIGN_DESCRIPTION_SHORT %}

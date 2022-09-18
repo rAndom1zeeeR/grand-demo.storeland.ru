@@ -208,7 +208,7 @@
 					{% IF GOODS_OPINION_RATING_VALUE_ROUND > 0 %}
 					<div class="productView__ratings flex">
 						<div class="productView__ratings-round">
-							<div class="productView__ratings-label">{% IF GOODS_OPINION_RATING_VALUE_ROUND > 8 %}Отлично{% ELSEIF GOODS_OPINION_RATING_VALUE_ROUND > 5 %}Хорошо{% ELSE %}Плохо{% ENDIF %}</div>
+							<div class="productView__ratings-label">{% IF GOODS_OPINION_RATING_VALUE_ROUND > 8 %}Отлично{% ELSEIF GOODS_OPINION_RATING_VALUE_ROUND > 4 %}Хорошо{% ELSE %}Плохо{% ENDIF %}</div>
 							<div class="productView__ratings-count">{GOODS_OPINION_RATING_CNT_ALL} отзыв{GOODS_OPINION_RATING_CNT_ALL | gen_word_end("","а","ов")}</div>
 						</div>
 						<div class="opinion__ratings flex-center">
@@ -301,7 +301,7 @@
 								
 								{% IF opinion_list.DELETE_URL %}
 								<div class="opinion__delete">
-									<a class="button-rotate button-link" href="{opinion_list.DELETE_URL}?return_to={CURRENT_URL | urlencode}%3Fgenerally_is_good%3D{GOODS_OPINION_GENERALLY_IS_GOOD | urlencode}%26page={OPINION_PAGES_LIST_CURRENT}" onclick="alert('Вы действительно хотите удалить отзыв?')">
+									<a class="button-more button-link" href="{opinion_list.DELETE_URL}?return_to={CURRENT_URL | urlencode}%3Fgenerally_is_good%3D{GOODS_OPINION_GENERALLY_IS_GOOD | urlencode}%26page={OPINION_PAGES_LIST_CURRENT}" onclick="alert('Вы действительно хотите удалить отзыв?')">
 										<i class="icon-close"></i>
 										<span>Удалить</span>
 									</a>
@@ -380,7 +380,7 @@
 						<div class="opinion__block">
 							<label for="goods_opinion_comment" class="required"><span>Ваш отзыв:</span><em>*</em></label>
 							<textarea id="goods_opinion_comment" class="textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_COMMENT}]" cols="100" rows="5" placeholder="Ваш отзыв" required>{FORM_GOODS_OPINION_COMMENT}</textarea>
-							<i class="icon-person"></i>
+							<i class="icon-chat"></i>
 						</div>
 
 						<div class="opinion__block flex" style="display: none;">

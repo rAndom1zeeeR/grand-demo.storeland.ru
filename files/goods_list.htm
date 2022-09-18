@@ -50,7 +50,7 @@
 	<!-- Если нет товаров, либо у пользователя не сработало javascript ограничение на фильтре по товарам и так получилось что их не нашлось, отобразим блок изменяющий отображение данных выдачи товаров -->
 	{% IFNOT IS_FULL_CATALOG && goods_empty=0 || goods_filters_empty=0 %}
 	<!-- Верхний блок, изменяющий отображение данных выдачи товаров -->
-	<div class="toolbar flex {% FOR filter_attr_list %}{% FOR values %}{% IF filter_attr_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %} {% FOR filter_prop_list %}{% FOR values %}{% IF filter_prop_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %}">
+	<div class="toolbar flex {% IF SHOW_GOODS_FILTERS || SHOW_GOODS_PRICE_FILTERS %}has-filters {% ENDIF %}{% FOR filter_attr_list %}{% FOR values %}{% IF filter_attr_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %} {% FOR filter_prop_list %}{% FOR values %}{% IF filter_prop_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %}">
 		<div class="filters__icon flex">
 			<i class="icon-filter"></i>
 			<span>Подбор номера</span>
@@ -117,6 +117,13 @@
 		{% IF SHOW_GOODS_PRICE_FILTERS || SHOW_GOODS_FILTERS %}
 		<!-- Если в тарифном плане подключен модуль фильтров по товарам -->
 		<div id="filters">
+			<div class="filters__icon flex-center">
+				<i class="icon-filter"></i>
+				<span>Подбор номера</span>
+				<div class="filters__icon-close">
+					<i class="icon-close"></i>
+				</div>
+			</div>
 			<div class="filters__content {% FOR filter_attr_list %}{% FOR values %}{% IF filter_attr_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %} {% FOR filter_prop_list %}{% FOR values %}{% IF filter_prop_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %}">
 				<form action="" method="get" class="form__filters">
 					<!-- Если есть возможность фильтрации товаров по ценам -->
@@ -332,7 +339,7 @@
 							{% ENDIF %}
 	
 							<!-- Краткое описание -->
-							<div class="product__desc product__margin" itemprop="description">
+							<div class="product__desc product__margin {% IF goods.goods_attr_list_empty %}no-attr{% ENDIF %}" itemprop="description">
 								{% IF goods.DESCRIPTION_SHORT %}
 									{goods.DESCRIPTION_SHORT}
 								{% ELSEIF goods.DESCRIPTION_LARGE %}
@@ -492,7 +499,7 @@
 			</div>
 			{% ELSE %}
 			<!-- Вывод товаров ТАБЛИЦЕЙ -->
-			<div class="row">
+			<div class="row row-small">
 				<div class="products__grid products__ajax flex-stretch">
 					{% FOR goods %}
 					<div class="product__item {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE && goods.MAX_REST_VALUE=0 %}product__empty{% ENDIF %} {% IF goods.COUNT_MODIFICATION > 1 %}has-mod{% ENDIF %} {% IF goods.NB_GOODS_IN_CART %}inCart{% ENDIF %}" data-id="{goods.ID}" itemscope itemtype="https://schema.org/Product">
@@ -606,7 +613,7 @@
 								{% ENDIF %}
 					
 								<!-- Краткое описание -->
-								<div class="product__desc product__margin" itemprop="description">
+								<div class="product__desc product__margin {% IF goods.goods_attr_list_empty %}no-attr{% ENDIF %}" itemprop="description">
 									{% IF goods.DESCRIPTION_SHORT %}
 										{goods.DESCRIPTION_SHORT}
 									{% ELSEIF goods.DESCRIPTION_LARGE %}
@@ -777,7 +784,7 @@
 	<!-- Страницы -->
 	{% IF show_pages %}
 	<div class="toolbar-bottom">
-		<div class="pages__ajax">
+		<div class="pages__ajax button-link button-more">
 			<span>Показано</span>
 			<strong class="pages__onPage">{GOODS_PAGES_RESULTS_ON_PAGE}</strong>
 			<span>товар{GOODS_PAGES_RESULTS_ON_PAGE | gen_word_end("","а","ов")}</span>

@@ -221,7 +221,7 @@ function compare() {
 		autoplayHoverPause: false,
 		smartSpeed: 500,
 		mouseDrag: false,
-		touchDrag: false,
+		touchDrag: true,
 		pullDrag: false,
 		responsiveClass: true,
 		responsiveRefreshRate: 100,
@@ -2757,7 +2757,68 @@ function pdtSlider(id){
 }
 
 // Распродажа
-function pdtSales(id) {
+function pdtServices() {
+	var id = '#services'
+	var carousel = $(id).find('.owl-carousel');
+	var buttons = $(id).find('.owl-navigate .owl-nav');
+	var dots = $(id).find('.owl-navigate .owl-dots');
+	// Функция слайдера для Новостей
+	carousel.owlCarousel({
+		items: 4,
+		margin: 16,
+		loop: false,
+		rewind: true,
+		lazyLoad: false,
+		nav: true,
+		navText: [ , ],
+		navContainer: buttons,
+		dots: true,
+		dotsContainer: dots,
+		dotsData: false,
+		dotsSpeed: 400,
+		dotsEach: true,
+		smartSpeed: 500,
+		URLhashListener: true,
+		autoplay: false,
+		autoplayHoverPause: true,
+		autoplayTimeout: '3000',
+		autoHeight: false,
+		autoHeightClass: 'owl-height',
+		responsiveClass: true,
+		responsiveRefreshRate: 100,
+		mouseDrag: true,
+		touchDrag: true,
+		pullDrag: true,
+		responsive: {
+			0:{items:1},
+			320:{items:1},
+			480:{items:1},
+			640:{items:2},
+			768:{items:2},
+			1024:{items:3},
+			1200:{items:4}
+		},
+		onInitialized: navigation,
+		onChanged: navigation
+	});
+
+	function navigation(event) {
+		var items = event.item.count;
+		var item = event.item.index + 1;
+		// Удаляем счетчик слайдов
+		$(id).find('.owl-pages span').remove();
+		// Добавляем счетчик слайдов
+		$(id).find('.owl-pages').append('<span class="owl-page__curent">0'+ item +'</span><span class="owl-page__separator">/</span><span class="owl-page__total">0'+ items +'</span>')
+		// Навигация при клике на кнопку
+		$(id).find('.owl-dot').on('click', function () {
+			carousel.trigger('to.owl.carousel', [$(this).index(), 300]);
+		});
+	}
+}
+
+// Распродажа
+function pdtSales() {
+	var id = '#pdt__sales';
 	var carousel = $(id).find('.owl-carousel');
 	var buttons = $(id).find('.owl-navigate .owl-nav');
 	var dots = $(id).find('.owl-navigate .owl-dots');
@@ -2779,14 +2840,14 @@ function pdtSales(id) {
 		smartSpeed: 500,
 		URLhashListener: true,
 		autoplay: false,
-		autoplayTimeout: '3000',
 		autoplayHoverPause: true,
+		autoplayTimeout: '3000',
 		autoHeight: false,
 		autoHeightClass: 'owl-height',
 		responsiveClass: true,
 		responsiveRefreshRate: 100,
 		mouseDrag: true,
-		touchDrag: false,
+		touchDrag: true,
 		pullDrag: true,
 		onInitialized: navigation,
 		onChanged: navigation
@@ -2800,7 +2861,7 @@ function pdtSales(id) {
 		// Добавляем счетчик слайдов
 		$(id).find('.owl-pages').append('<span class="owl-page__curent">0'+ item +'</span><span class="owl-page__separator">/</span><span class="owl-page__total">0'+ items +'</span>')
 		// Навигация при клике на кнопку
-		$(id).find('.slider__nav .owl-dot').on('click', function () {
+		$(id).find('.owl-dot').on('click', function () {
 			carousel.trigger('to.owl.carousel', [$(this).index(), 300]);
 		});
 	}
@@ -2808,14 +2869,14 @@ function pdtSales(id) {
 
 // Новости
 function pdtNews() {
-	var id = $('#news');
-	var carousel = id.find('.owl-carousel');
-	var buttons = id.find('.owl-nav');
-	var dots = id.find('.owl-dots');
+	var id = '#news';
+	var carousel = $(id).find('.owl-carousel');
+	var buttons = $(id).find('.owl-nav');
+	var dots = $(id).find('.owl-dots');
 	// Функция слайдера для Новостей
 	carousel.owlCarousel({
 		items: 2,
-		margin: 32,
+		margin: 16,
 		loop: false,
 		rewind: true,
 		lazyLoad: true,
@@ -2823,6 +2884,7 @@ function pdtNews() {
 		navContainer: buttons,
 		navText: [ , ],
 		dots: true,
+		dotsData: false,
 		dotsContainer: dots,
 		autoHeight: true,
 		autoHeightClass: 'owl-height',
@@ -2840,7 +2902,7 @@ function pdtNews() {
 			480:{items:2},
 			640:{items:2},
 			768:{items:3},
-			1024:{items:2},
+			1024:{items:3},
 			1200:{items:2}
 		},
 		onInitialized: navigation,
@@ -2851,17 +2913,17 @@ function pdtNews() {
 		var items = event.item.count - 1;
 		var item = event.item.index + 1;
 		// Удаляем счетчик слайдов
-		id.find('.owl-pages span').remove();
+		$(id).find('.owl-pages span').remove();
 		// Добавляем счетчик слайдов
-		id.find('.owl-pages').append('<span class="owl-page__curent">0'+ item +'</span><span class="owl-page__separator">/</span><span class="owl-page__total">0'+ items +'</span>')
+		$(id).find('.owl-pages').append('<span class="owl-page__curent">0'+ item +'</span><span class="owl-page__separator">/</span><span class="owl-page__total">0'+ items +'</span>')
 		// Навигация при клике на кнопку
-		id.find('.slider__nav .owl-dot').on('click', function () {
+		$(id).find('.owl-dot').on('click', function () {
 			carousel.trigger('to.owl.carousel', [$(this).index(), 300]);
 		});
 	}
 }
 
-// Новости
+// Новости СМИ
 function pdtNewsMedia() {
 	var id = $('#news_list_mass_media');
 	var carousel = $(id).find('.owl-carousel');
@@ -2984,9 +3046,17 @@ function catalog() {
 	// Фильтры открыть
 	$('.filters__icon').on('click', function (event) {
 		event.preventDefault();
-		$(this).toggleClass('opened');
-		$('#filters').toggleClass('opened');
-		$('.products').toggleClass('opened');
+		if($('#filters').hasClass('opened')){
+			$(this).removeClass('opened');
+			$('#filters').removeClass('opened');
+			$('.products').removeClass('opened');
+			$('.filters__icon').removeClass('opened');
+		}else{
+			$(this).addClass('opened');
+			$('#filters').addClass('opened');
+			$('.products').addClass('opened');
+			$('.filters__icon').addClass('opened');
+		}
 	});
 	
 	// Фильтры поиск скрываем если меньше 4
@@ -3065,15 +3135,15 @@ function priceFilter() {
 	});
 
 	// Активный фильтр цены
-	if (priceInputMin.val() > priceFilterMinAvailable || priceInputMax.val() < priceFilterMaxAvailable) {
-		$('.filters-price').addClass('has-filters');
-		$('.toolbar').addClass('has-filters');
-		$('#filters').addClass('has-filters');
-	}else{
-		$('.filters-price').removeClass('has-filters');
-		$('.toolbar').removeClass('has-filters');
-		$('#filters').removeClass('has-filters');
-	}
+	// if (priceInputMin.val() > priceFilterMinAvailable || priceInputMax.val() < priceFilterMaxAvailable) {
+	// 	$('.filters-price').addClass('has-filters');
+	// 	$('.toolbar').addClass('has-filters');
+	// 	$('#filters').addClass('has-filters');
+	// }else{
+	// 	$('.filters-price').removeClass('has-filters');
+	// 	$('.toolbar').removeClass('has-filters');
+	// 	$('#filters').removeClass('has-filters');
+	// }
 
 }
 
@@ -3421,7 +3491,7 @@ function pdtCat() {
 			autoHeight: false,
 			autoHeightClass: 'owl-height',
 			mouseDrag: true,
-			touchDrag: false,
+			touchDrag: true,
 			pullDrag: true,
 			stagePadding: 60,
 			responsiveClass: true,
