@@ -116,12 +116,12 @@
           {% FOR goods_mod_info %}
           <div class="compare__td {% IF goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT>goods_mod_info.PRICE_NOW %}has-price-old{% ELSEIF goods_mod_info.PRICE_OLD>goods_mod_info.PRICE_NOW %}has-price-old{% ENDIF %}" data-index="{goods_mod_info.index}">
             <div class="compare__price product__price {CURRENCY_CHAR_CODE}" data-id="{goods_mod_info.GOODS_MOD_ID}">
-              <span class="price__now {CURRENCY_CHAR_CODE}" itemprop="price" content="{goods_mod_info.PRICE_NOW}">{goods_mod_info.PRICE_NOW | money_format}</span>
 	            {% IF goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT > goods_mod_info.PRICE_NOW %}
               <span class="price__old {CURRENCY_CHAR_CODE}" content="{goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT}">{goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
               {% ELSEIF goods_mod_info.PRICE_OLD > goods_mod_info.PRICE_NOW %}
               <span class="price__old {CURRENCY_CHAR_CODE}" content="{goods_mod_info.PRICE_OLD}">{goods_mod_info.PRICE_OLD | money_format}</span>
               {% ENDIF %}
+              <span class="price__now {CURRENCY_CHAR_CODE}" itemprop="price" content="{goods_mod_info.PRICE_NOW}">{goods_mod_info.PRICE_NOW | money_format}</span>
             </div>
           </div>
           {% ENDFOR %}
@@ -260,11 +260,11 @@
         <i class="icon-visibility_off"></i>
         <span>Скрыть выбранные</span>
       </a>  
-      <a class="button-primary compare__showAll" href="#" title="Отобразить скрытые">
+      <a class="button-secondary compare__showAll" href="#" title="Отобразить скрытые">
         <i class="icon-visibility"></i>
         <span>Отобразить скрытые</span>
       </a>
-      <a class="button-secondary" href="{COMPARE_RESET_URL}" title="Очистить список сравнения">
+      <a class="button-empty" href="{COMPARE_RESET_URL}" title="Очистить список сравнения">
         <i class="icon-close"></i>
         <span>Очистить список</span>
       </a>

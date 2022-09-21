@@ -12,7 +12,7 @@
 					{% FOR cart_items %}
 					<div class="cart__item flex" data-id="{cart_items.GOODS_MOD_ID}">
 						<a class="cart__image flex-center" href="{cart_items.GOODS_URL}">
-							<img src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=florist{% ELSE %}{cart_items.GOODS_IMAGE_ICON}{% ENDIF %}">
+							<img src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=florist{% ELSE %}{cart_items.GOODS_IMAGE_MEDIUM}{% ENDIF %}">
 						</a>
 						<div class="cart__content flex">
 							<!-- Информация -->
@@ -63,8 +63,7 @@
 					{% ENDFOR %}
 				</div>
 				<div class="cart__buttons">
-					<a class="button-rotate button-link" href="{CART_TRUNCATE_URL}" title="Очистить корзину" onclick="return confirm('Вы действительно хотите удалить все товары из корзины?')">
-						<i class="icon-reload"></i>
+					<a class="button-more button-link" href="{CART_TRUNCATE_URL}" title="Очистить корзину" onclick="return confirm('Вы действительно хотите удалить все товары из корзины?')">
 						<span>Очистить корзину</span>
 					</a>
 				</div>

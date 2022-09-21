@@ -203,9 +203,9 @@
 			{% IFNOT SETTINGS_OPINION_DISABLE %}
 			<div class="productView__opinion" data-tab-content="4">
 				
+				{% IF GOODS_OPINION_RATING_VALUE_ROUND > 0 %}
 				<div class="block__title block__title-separator">
 					<h2 class="title"><span>Оценка гостей</span></h2>
-					{% IF GOODS_OPINION_RATING_VALUE_ROUND > 0 %}
 					<div class="productView__ratings flex">
 						<div class="productView__ratings-round">
 							<div class="productView__ratings-label">{% IF GOODS_OPINION_RATING_VALUE_ROUND > 8 %}Отлично{% ELSEIF GOODS_OPINION_RATING_VALUE_ROUND > 4 %}Хорошо{% ELSE %}Плохо{% ENDIF %}</div>
@@ -216,8 +216,8 @@
 							<span>{GOODS_OPINION_RATING_VALUE_ROUND | divide("2")}</span>
 						</div>
 					</div>
-					{% ENDIF %}
 				</div>
+				{% ENDIF %}
 
 				{% IFNOT opinion_list_empty %}
 				<!-- Контент отзывов -->
@@ -356,7 +356,7 @@
 							</div>
 						</div>
 
-						<div class="opinion__block">
+						<div class="opinion__block form__fields-icons">
 							<label for="goods_opinion_name" class="required"><span>Ваше имя:</span><em>*</em></label>
 							<input id="goods_opinion_name" class="form__input" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_NAME}]" value="{% IF CLIENT_IS_LOGIN %}{CLIENT_NAME}{% ELSE %}{FORM_GOODS_OPINION_NAME}{% ENDIF %}" maxlength="50" placeholder="Представьтесь, пожалуйста" required />
 							<i class="icon-person"></i>
@@ -377,7 +377,7 @@
 							<textarea id="goods_opinion_limitations" class="textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_LIMITATIONS}]" cols="100" rows="3" placeholder="Недостатки">{FORM_GOODS_OPINION_LIMITATIONS}</textarea>
 						</div>
 
-						<div class="opinion__block">
+						<div class="opinion__block form__fields-icons">
 							<label for="goods_opinion_comment" class="required"><span>Ваш отзыв:</span><em>*</em></label>
 							<textarea id="goods_opinion_comment" class="textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_COMMENT}]" cols="100" rows="5" placeholder="Ваш отзыв" required>{FORM_GOODS_OPINION_COMMENT}</textarea>
 							<i class="icon-chat"></i>

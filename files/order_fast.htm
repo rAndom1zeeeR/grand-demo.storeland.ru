@@ -13,13 +13,11 @@
 
 					<!-- Способ доставки-->
 					<div class="delivery" order="1">
-						<div class="block__title">
-							<h4 class="title"><span>Cпособ доставки</span></h4>
-						</div>
+						<h4 class="fastOrder__title"><span>Cпособ доставки</span></h4>
 						<div class="form__list">
 							<!-- Старый скрытый вариант способа доставки -->
 							<div class="delivery__selects">
-								<div class="delivery__select selectBox form__field">
+								<div class="delivery__select selectBox form__fields">
 									<select class="form__input">
 										{% FOR order_delivery %}
 											<option id="deliveryId{order_delivery.ID}" delId="{order_delivery.ID}" name="form[delivery][id]" value="{order_delivery.ID}">{order_delivery.NAME}</option>
@@ -28,7 +26,7 @@
 								</div>
 								{% FOR order_delivery %}
 									{% IFNOT order_delivery.zone_list_empty %}
-									<div class="delivery__zoneSelect selectBox form__field" del="{order_delivery.ID}">
+									<div class="delivery__zoneSelect selectBox form__fields" del="{order_delivery.ID}">
 										<select class="form__input">
 											{% FOR zone_list %}
 												<option deliveryid="{order_delivery.ID}" id="deliveryZoneId{order_delivery.zone_list.ID}" name="form[delivery][zone_id]" value="{order_delivery.zone_list.ID}">{order_delivery.zone_list.NAME}</option>
@@ -100,15 +98,13 @@
 
 					<!-- Способ оплаты -->
 					<div class="payment" order="2">
-						<div class="block__title">
-							<h4 class="title"><span>Cпособ оплаты</span></h4>
-						</div>
+						<h4 class="fastOrder__title"><span>Cпособ оплаты</span></h4>
 						<div class="form__list">
 							<!-- Селекты (выборный список) способ оплаты -->
 							{% FOR order_delivery %}
 								{% IFNOT order_delivery.available_payment_list_empty  %}
 									<div class="order__payment" rel="{order_delivery.ID}">
-										<div class="order__paymentSelect selectBox">
+										<div class="order__paymentSelect selectBox form__fields">
 											<select class="paymentSelect form__input">
 												{% FOR available_payment_list %}
 													<option type="radio" id="quickPaymentId{order_delivery.ID}_{order_delivery.available_payment_list.ID}" name="form[payment][id]" value="{order_delivery.available_payment_list.ID}" class="required" {% IFNOT ORDER_FORM_PAYMENT_ID %}{% IF order_delivery.available_payment_list.first %}checked="checked"{% ENDIF %}{% ELSEIF order_delivery.available_payment_list.ID = ORDER_FORM_PAYMENT_ID %}checked="checked"{% ENDIF %}>
@@ -146,9 +142,7 @@
 					<!-- Адрес доставки-->
 					{% IF SETTINGS_ORDER_FIELDS_COUNTRY < 3 || SETTINGS_ORDER_FIELDS_REGION < 3 || SETTINGS_ORDER_FIELDS_CITY < 3 || SETTINGS_ORDER_FIELDS_ADDRESS < 3 || SETTINGS_ORDER_FIELDS_ZIP_CODE < 3 || SETTINGS_ORDER_FIELDS_CONVENIENT_TIME < 3 %}
 					<div order="3" class="address {% IF SETTINGS_ORDER_FIELDS_COUNTRY = 1 || SETTINGS_ORDER_FIELDS_REGION = 1 || SETTINGS_ORDER_FIELDS_CITY = 1 || SETTINGS_ORDER_FIELDS_ADDRESS = 1 || SETTINGS_ORDER_FIELDS_ZIP_CODE = 1 || SETTINGS_ORDER_FIELDS_CONVENIENT_TIME = 1 %}required{% ENDIF %}">
-						<div class="block__title">
-							<h4 class="title"><span>Адрес доставки</span></h4>
-						</div>
+						<h4 class="fastOrder__title"><span>Адрес доставки</span></h4>
 						<div class="row">
 							<div class="form__list">
 								<!-- Если поле страны доставки запрашивается -->
@@ -236,9 +230,7 @@
 					
 					<!-- Данные покупателя -->
 					<div class="account" order="4">
-						<div class="block__title">
-							<h4 class="title"><span>Контактные данные</span></h4>
-						</div>
+						<h4 class="fastOrder__title"><span>Контактные данные</span></h4>
 						<div class="row">
 							<div class="form__list">
 								<div class="form__fields form__fields-trio flex">
@@ -280,9 +272,7 @@
 					<!-- Если поле комментарии запрашивается -->
 					{% IF SETTINGS_ORDER_FIELDS_COMMENT < 3 %}
 					<div class="comment" order="5">
-						<div class="block__title">
-							<h4 class="title"><span>Комментарий к заказу</span></h4>
-						</div>
+						<h4 class="fastOrder__title"><span>Комментарий к заказу</span></h4>
 						<div class="form__fields">
 							<div class="form__field fields__comment {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}required{% ENDIF %}">
 								<label for="quickDeliveryComment" {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}class="required"{% ENDIF %}><span>Комментарий</span><em>*</em></label>
@@ -295,9 +285,7 @@
 					<!-- Если скидки по купонам активированы в панели управления магазином -->
 					{% IF ORDER_DISCOUNT_COUPON_IS_ENABLED %}
 					<div class="coupons" order="6">
-						<div class="block__title">
-							<h4 class="title"><span>Купон</span></h4>
-						</div>
+						<h4 class="fastOrder__title"><span>Купон</span></h4>
 						<div class="form__fields coupon__order">
 							<input type="hidden" name="oldPromoDiscount" value="0">
 							<input type="hidden" name="orderSumDefaul" value="{CART_SUM_NOW}">

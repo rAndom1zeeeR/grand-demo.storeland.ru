@@ -3,7 +3,7 @@
 {% ELSE %}
 <!-- Список акций -->
 <div class="products__container">
-	<div class="row">
+	<div class="row row-small">
 	  <div class="products__grid promotion__grid flex-stretch">
 	  {% FOR promotion_campaign %}
 	  <div class="promotion__item product__item {% IFNOT promotion_campaign.IS_WORK %}promotion__empty{% ENDIF %}" data-id="{promotion_campaign.ID}">
