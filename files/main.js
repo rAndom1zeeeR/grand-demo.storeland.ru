@@ -3191,15 +3191,11 @@ function openMenu() {
   $('[data-open]').on('click', function(event){
     event.preventDefault();
     var value = $(this).data('open');
-		$('[data-open]').removeClass('opened active')
-		$('[data-content]').removeClass('opened')
     if ($('[data-content="'+ value +'"]').hasClass('opened')){
-      $(this).removeClass('opened active').parent().removeClass('opened');
-      $('#overlay').removeClass('opened');
-      $('[data-content="'+ value +'"]').removeClass('opened').slideUp('slow');
+			$('[data-open]').removeClass('opened active')
+			$('[data-content]').removeClass('opened')
     }else{
       $(this).addClass('opened active').parent().addClass('opened');
-      $('#overlay').addClass('opened');
       $('[data-content="'+ value +'"]').addClass('opened').slideDown('slow');
     }
   });
@@ -3654,3 +3650,37 @@ $(window).resize(function(){
   }
   mainnav('header .mainnav', '1', 991);
 });
+
+
+// Функция табов
+function tabs() {
+	var tab = $('.tabs__nav[data-tab]');
+	// Активный класс при клике
+	tab.on('click', function(event){
+		event.preventDefault();
+		var id = $(this).attr('data-tab')
+		var content = $('[data-tab-content="'+ id +'"]')
+		$('[data-tab="'+ id +'"]').addClass('active');
+		$('html, body').animate({scrollTop: content.offset().top - 60}, 600);
+	});
+	
+	// Функция определния позиции
+	function scrollTab(){		
+		var scrollTop = $(window).scrollTop();
+		// Проверяем видимый контент табов
+		$('[data-tab-content]:visible').each(function(){
+			var id = $(this).attr('data-tab-content')
+			if($(this).offset().top - $('.tabs__navs').height() * 2 <= scrollTop){
+				$('.tabs__nav').removeClass('active')
+				$('.tabs__nav[data-tab="'+ id +'"]').addClass('active');
+			}
+		});
+	}
+	scrollTab()
+
+	// Активный класс при скроле
+	$(window).on('scroll', function () {
+		scrollTab()
+	});
+}
+tabs()

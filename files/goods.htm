@@ -2,27 +2,33 @@
 <div class="productViewBlock" itemscope itemtype="https://schema.org/Product" data-id="{GOODS_ID}">
 	<!-- Навигация -->
 	<div class="tabs__navs flex">
-		<a href="javascript:tabSwitch(0);" class="tabs__nav" data-tab="0"><span>Фото</span></a>
+		<a href="javascript:;" class="tabs__nav" data-tab="0"><span>Фото</span></a>
 		{% IF GOODS_DESCRIPTION_LARGE || GOODS_SEO_DESCRIPTION_SHORT || GOODS_SEO_DESCRIPTION_LARGE %}
-		<a href="javascript:tabSwitch(1);" class="tabs__nav" data-tab="1"><span>Описание</span></a>
+		<a href="javascript:;" class="tabs__nav" data-tab="1"><span>Описание</span></a>
 		{% ENDIF %}
 		{% IFNOT goods_features_empty %}
-		<a href="javascript:tabSwitch(2);" class="tabs__nav" data-tab="2"><span>Характеристики</span></a>
+		<a href="javascript:;" class="tabs__nav" data-tab="2"><span>Оснащение номера</span></a>
 		{% ENDIF %}
 		{% IFNOT goods_delivery_empty %}
-		<a href="javascript:tabSwitch(3);" class="tabs__nav" data-tab="3" style="display: none;"><span>Доставка</span></a>
+		<a href="javascript:;" class="tabs__nav" data-tab="3" style="display: none;"><span>Доставка</span></a>
 		{% ENDIF %}
 		{% IF SETTINGS_OPINION_DISABLE=0 %}
-		<a href="javascript:tabSwitch(4);" class="tabs__nav" data-tab="4"><span>Отзывы ({GOODS_OPINION_RATING_CNT_ALL})</span></a>
+		<a href="javascript:;" class="tabs__nav" data-tab="4"><span>Отзывы ({GOODS_OPINION_RATING_CNT_ALL})</span></a>
 		{% ENDIF %}
-		<a href="javascript:;" class="tabs__nav tabs__share flex" data-tab="5">
-			<i class="icon-share"></i>
-			<span>Поделиться</span>
+		<a href="javascript:;" class="tabs__nav tabs__share">
+			<div class="tabs__share-icon flex" data-open="share" data-curtain data-shape="round" data-limit="0" data-more-button-type="short" data-services="vkontakte,odnoklassniki,telegram,viber,whatsapp">
+				<i class="icon-share"></i>
+				<span>Поделиться</span>
+			</div>
+			<div class="tabs__share-content dropdown__content" data-content="share">
+				<script src="https://yastatic.net/share2/share.js"></script>
+				<div class="ya-share2" data-curtain data-shape="round" data-services="vkontakte,odnoklassniki,telegram,viber,whatsapp"></div>
+			</div>
 		</a>
 	</div>
 	<div class="productView {% IF GOODS_MOD_REST_VALUE=0 %}productView__empty{% ENDIF %} {% IF GOODS_MOD_MAX_DISCOUNT_ID %}has-campaign{% ENDIF %}">
 		<!-- Изображение товара  {% IF GOODS_IMAGE_ID = goods_images.ID %}style="display: none;"{% ENDIF %} -->
-		<div class="row row-small">
+		<div class="row row-small" data-tab-content="0">
 			<div class="productView__images flex-start" data-id="{GOODS_IMAGE_ID}">
 				<!-- Предзагрузчик -->
 				<div class="preloader"><div class="preloading"></div></div>
@@ -79,7 +85,7 @@
 
 			<!-- Характеристики -->
 			{% IFNOT goods_features_empty %}
-			<div class="productView__features" data-tab-content="1">
+			<div class="productView__features" data-tab-content="2">
 				<div class="block__title block__title-separator">
 					<h2 class="title"><span>Оснащение номера</span></h2>
 				</div>
@@ -100,7 +106,7 @@
 
 			<!-- Описание -->
 			{% IF GOODS_DESCRIPTION_LARGE || GOODS_SEO_DESCRIPTION_SHORT || GOODS_SEO_DESCRIPTION_LARGE %}
-			<div class="productView__description" data-tab-content="2">
+			<div class="productView__description" data-tab-content="1">
 				<div class="block__title block__title-separator">
 					<h2 class="title"><span>О номере</span></h2>
 				</div>
