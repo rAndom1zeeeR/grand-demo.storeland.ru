@@ -221,6 +221,7 @@ h6 {font-size: 0.875rem;}
 .form__fields label em {display: none;}
 .form__fields-icons input {padding-left: 3.75rem;background-color: var(--color-white);border: 0;}
 .form__fields-icons textarea {padding-left: 3.75rem;background-color: var(--color-white);border: 0;}
+.form__fields-icons select {padding-left: 3.75rem;background-color: var(--color-white);border: 0;}
 .form__fields-icons i {position: absolute;bottom: .75rem;left: 1rem;color: var(--color-lightgray);font-size: 1.5rem;}
 .form__fields-icons textarea + i {top: .75rem;bottom: auto;}
 .form__fields-icons input:focus + i {color: var(--color-primary);}
@@ -238,7 +239,7 @@ h6 {font-size: 0.875rem;}
 /**************************************/
 .selectBox {position: relative;}
 .selectBox:after {content: '\e908';font-size: 1rem;bottom: 1rem;right: .75rem;position: absolute;font-family: 'icomoon';pointer-events: none;}
-.selectBox select {padding: 0 1.75rem 0 1rem;}
+.selectBox select {padding-right: 1.75rem;}
 .selectBox select::-ms-expand {display: none;}
 .selectBox label {margin-bottom: .5rem;display: block;cursor: pointer;}
 .selectBox:hover:after {color: var(--color-primary);}
@@ -321,10 +322,10 @@ h6 {font-size: 0.875rem;}
 /**************************************/
 /*** Модальные окна ***/
 /**************************************/
-.fancybox-content {max-width: 50rem;padding: 2rem;}
+.fancybox-content {max-width: 50rem;padding: 2rem;background-color: var(--color-background);border-radius: .625rem;}
 .fancybox-content.modal {max-width: 24rem;}
-.fancybox-content .form__buttons {text-align: center;}
-.modal__content input, .modal__content textarea {background-color: var(--color-background);}
+/* .fancybox-content .form__buttons {text-align: center;} */
+/* .modal__content input, .modal__content textarea {background-color: var(--color-background);} */
 @media all and (max-width: 479px) {
 	.fancybox-content {padding: 1rem;}
 }
@@ -461,11 +462,11 @@ h6 {font-size: 0.875rem;}
 .feedback .form__list {display: flex;flex-wrap: wrap;}
 .feedback .form__fields {width: calc(50% - 1rem);margin: 0 .5rem 1rem;}
 .feedback .form__message {width: 100%;}
-.feedback .form__buttons .button-secondary {width: 50%;line-height: 3rem;padding: 0 3rem 0 0;font-size: 1rem;}
-.feedback .form__buttons .button-secondary i {width: 3rem;height: 3rem;background-color: #FFA384;border-radius: 0 .5rem .5rem 0;position: absolute;top: 0;right: 0;display: flex;align-items: center;justify-content: center;}
-.feedback .form__buttons .button-secondary:hover {background-color: #FFA384;}
+.feedback .button-secondary {width: 50%;line-height: 3rem;padding: 0 3rem 0 0;font-size: 1rem;}
+.feedback .button-secondary i {width: 3rem;height: 3rem;background-color: #FFA384;border-radius: 0 .5rem .5rem 0;position: absolute;top: 0;right: 0;display: flex;align-items: center;justify-content: center;}
+.feedback .button-secondary:hover {background-color: #FFA384;}
 .feedback .form__pp {width: 50%;margin: 0;padding-left: 1rem;color: var(--color-darkgray);}
-.feedback .form__pp a {color: var(--color-darkgray);}.opinion__block .button-secondary {width: 50%;line-height: 3rem;padding: 0 3rem 0 0;font-size: 1rem;}
+.feedback .form__pp a {color: var(--color-darkgray);}
 @media all and (max-width: 1199px) {
 	.feedback .block__title {width: 100%;padding-right: 0;}
 	.feedback .feedbackForm {width: 100%;padding-left: 0;}
@@ -1203,12 +1204,11 @@ h6 {font-size: 0.875rem;}
 /**************************************/
 .productViewMod {padding: 2rem;}
 .productViewMod .productView__campaign {display: none;}
-.productViewMod .productView__price {margin-right: 0;}
+.productViewMod .tabs__content {display: none;}
 .productViewMod .productView__images {display: none;}
-.productViewMod .productView__shop {width: 100%;padding: 0;}
-.productViewMod .productView__addtoCart .add-cart {margin-right: 0;}
-.productViewMod .add-cart i {display: none;}
-.productViewMod .button-link {padding: 0 0 0 2rem;}
+.productViewMod [data-tab-content] {display: none;}
+.productViewMod .productView__tabs {margin: 0;}
+.productViewMod .productView__inner {width: 100%;padding: 0;}
 @media all and (max-width: 479px) {
 	.productViewMod {padding: 1rem;}
 }
@@ -1497,9 +1497,9 @@ h6 {font-size: 0.875rem;}
 #slideshow .form__fields {width: 26%;background-color: var(--color-white);padding: .625rem 0;margin: 0;}
 #slideshow .form__fields:nth-child(1) {border-radius: .625rem 0 0 .625rem;}
 #slideshow .form__field {border-right: 1px solid var(--color-lightgray);margin: 0;padding: 0 3rem 0 1rem;text-align: left;flex-grow: 1;}
-#slideshow .form__field i {font-size: 1.5rem;color: var(--color-lightgray);position: absolute;top: .5rem;right: .75rem;}
-#slideshow .form__label {color: var(--color-darkgray);font-size: .75rem;margin-bottom: .5rem;}
-#slideshow .form__input {padding: 0;border: 0;height: 1.25rem;}
+#slideshow .form__field i {top: .5rem;right: .75rem;left: auto;bottom: auto;}
+#slideshow .form__label {font-size: .75rem;}
+#slideshow .form__input {padding: 0;height: 1.25rem;}
 #slideshow .form__buttons {margin: 0;flex-grow: 1;width: 22%;}
 #slideshow .form__button {width: 100%;line-height: 3.75rem;border-radius: 0 .75rem .75rem 0;padding: 0;}
 @media all and (max-width: 1199px) {
@@ -1606,7 +1606,6 @@ footer .contacts__block {margin-top: 1.5rem;}
 .copyright a {padding: 0;}
 /*** Подвалю. Подписка ***/
 .subscribe .form__callback {position: relative;}
-.subscribe .form__input {border: 0;background-color: var(--color-white);border-radius: .625rem;height: 3rem;}
 .subscribe .form__button {width: 100%;height: 3rem;}
 .subscribe .form__pp {color: var(--color-darkgray);text-align: center;}
 @media all and (max-width: 1199px) {
@@ -1723,6 +1722,31 @@ footer .contacts__block {margin-top: 1.5rem;}
 .news__dots .owl-dot {width: 11rem;height: 11rem;margin: 0 .5rem;}
 .news__dots .owl-dot.active {opacity: .6;}
 .news__dots .owl-dot img {object-fit: cover;width: 100%;height: 100%;border-radius: .625rem;}
+
+
+/**************************************/
+/*** Бронирование ***/
+/**************************************/
+#fancybox__book {max-width: 54rem;width: 100%;}
+#fancybox__book.success {max-width: 34rem;}
+#fancybox__book .form__field {width: calc(50% - 1rem);margin: 1rem .5rem 0 .5rem;flex-grow: 1;}
+#fancybox__book .button-primary {width: calc(50% - 1rem);margin: 1rem .5rem 0 .5rem;line-height: 3rem;padding: 0 3rem 0 0;font-size: 1rem;}
+#fancybox__book .button-primary i {width: 3rem;height: 3rem;background-color: #79CEFF;border-radius: 0 .5rem .5rem 0;position: absolute;top: 0;right: 0;display: flex;align-items: center;justify-content: center;}
+#fancybox__book .button-primary:hover {background-color: #79CEFF;}
+#fancybox__book .form__pp {width: calc(50% - 1rem);margin: 1rem .5rem 0 .5rem;color: var(--color-darkgray);}
+#fancybox__book .form__pp a {color: var(--color-darkgray);}
+#fancybox__book .modal__title {margin-bottom: 1rem;}
+#fancybox__book .modal__title-icon {width: 6rem;height: 6rem;margin-right: 1rem;display: none;align-items: center;justify-content: center;}
+.book #fancybox__book .modal__title-icon {display: flex;}
+.book #fancybox__book.success .modal__title-icon {display: none;}
+#fancybox__book .modal__title-icon img {border-radius: .625rem;}
+#fancybox__book .block__title {margin: 0;}
+
+
+.ts-wrapper .ts-control {border: 0;padding: 0 !important;}
+.ts-wrapper .ts-control > input {width: auto;height: auto;}
+.ts-wrapper.multi .ts-control > div {padding: 0;}
+
 
 
 

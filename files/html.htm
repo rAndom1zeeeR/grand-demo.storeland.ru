@@ -177,7 +177,7 @@
 
 								<!-- Забронировать -->
 								<div class="header__block header__block-book">
-									<a class="header__icon button-secondary" data-fancybox data-src="#fancybox__feedback" href="javascript:;"><span>Забронировать</span></a>
+									<a class="header__icon button-secondary" data-fancybox data-src="#fancybox__book" href="javascript:;"><span>Забронировать</span></a>
 								</div>
 							</div>
 
@@ -201,23 +201,38 @@
 						<div class="slider__form">
 							<form method="post" action="{CALLBACK_URL}" class="form__callback flex" enctype="multipart/form-data">
 								<div class="form__fields">
-									<div class="form__field">
+									<div class="form__field form__fields-icons">
 										<label class="form__label"><span>Телефон для связи</span></label>
 										<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
 										<i class="icon-phone"></i>
 									</div>
 								</div>
 								<div class="form__fields">
-									<div class="form__field">
+									<div class="form__field form__fields-icons">
 										<label class="form__label" for="deliveryConvenientDate"><span>Даты заезда и выезда</span></label>
 										<input class="form__input form__date" type="text" name="form[date]" value="" maxlength="10" minlength="10" autocomplete="off" placeholder="17.11.2022 - 10.12.2022" required />
 										<i class="icon-calendar"></i>
 									</div>
 								</div>
 								<div class="form__fields">
-									<div class="form__field">
+									<div class="form__field form__fields-icons">
 										<label class="form__label"><span>Количество гостей</span></label>
 										<input class="form__input form__guests" type="text" name="form[guests]" value="" placeholder="4 гостей" autocomplete="off" required />
+										<!-- <select class="form__guests" name="state[]" multiple placeholder="Select a state..." autocomplete="off">
+											<option value="">Select a state...</option>
+											<option value="AL">Alabama</option>
+											<option value="AK">Alaska</option>
+											<option value="AZ">Arizona</option>
+											<option value="AR">Arkansas</option>
+											<option value="CA" selected>California</option>
+											<option value="CO">Colorado</option>
+											<option value="CT">Connecticut</option>
+											<option value="DE">Delaware</option>
+											<option value="DC">District of Columbia</option>
+											<option value="FL">Florida</option>
+											<option value="GA">Georgia</option>
+											<option value="HI">Hawaii</option>
+										</select> -->
 										<i class="icon-person"></i>
 									</div>
 								</div>
@@ -447,7 +462,7 @@
 											<i class="icon-notification"></i>
 										</a>
 										{% ELSE %}
-										<a class="{% IF index_page_favorites_goods.COUNT_MODIFICATION > 1 %}add-mod{% ELSE %}add-cart{% ENDIF %} button-primary"
+										<a class="add-cart button-primary"
 											title="Добавить в корзину &laquo;{index_page_favorites_goods.NAME}&raquo;"
 											data-tooltip="В корзину"
 											rel="nofollow"
@@ -740,7 +755,7 @@
 										<i class="icon-notification"></i>
 									</a>
 									{% ELSE %}
-									<a class="{% IF index_page_new_goods.COUNT_MODIFICATION > 1 %}add-mod{% ELSE %}add-cart{% ENDIF %} button-primary"
+									<a class="add-cart button-primary"
 										title="Добавить в корзину &laquo;{index_page_new_goods.NAME}&raquo;"
 										data-tooltip="В корзину"
 										rel="nofollow"
@@ -1032,7 +1047,7 @@
 										<i class="icon-notification"></i>
 									</a>
 									{% ELSE %}
-									<a class="{% IF index_page_goods.COUNT_MODIFICATION > 1 %}add-mod{% ELSE %}add-cart{% ENDIF %} button-primary"
+									<a class="add-cart button-primary"
 										title="Добавить в корзину &laquo;{index_page_goods.NAME}&raquo;"
 										data-tooltip="В корзину"
 										rel="nofollow"
@@ -1378,7 +1393,7 @@
 											<i class="icon-notification"></i>
 										</a>
 										{% ELSE %}
-										<a class="{% IF index_page_sale_goods.COUNT_MODIFICATION > 1 %}add-mod{% ELSE %}add-cart{% ENDIF %} button-primary"
+										<a class="add-cart button-primary"
 											title="Добавить в корзину &laquo;{index_page_sale_goods.NAME}&raquo;"
 											data-tooltip="В корзину"
 											rel="nofollow"
@@ -2179,7 +2194,7 @@
 											<i class="icon-notification"></i>
 										</a>
 										{% ELSE %}
-										<a class="{% IF recently_viewed_goods.COUNT_MODIFICATION > 1 %}add-mod{% ELSE %}add-cart{% ENDIF %} button-primary"
+										<a class="add-cart button-primary"
 											title="Добавить в корзину &laquo;{recently_viewed_goods.NAME}&raquo;"
 											data-tooltip="В корзину"
 											rel="nofollow"
@@ -2743,6 +2758,79 @@
 			</div>
 
 			<!-- Обратный звонок в модальном окне -->
+			<div id="fancybox__book" class="modal" style="display:none">
+				<div class="modal__title flex-start">
+					<div class="modal__title-icon">
+						<img src="" />
+					</div>
+					<div class="block__title block__title-separator">
+						<h2 class="title">Бронирование</h2>
+						<div class="subtitle"></div>
+					</div>
+				</div>
+				<div class="modal__content">
+					<form method="post" action="{CALLBACK_URL}" class="form__callback" enctype="multipart/form-data">
+						<input type="hidden" name="hash" value="{HASH}" />
+						<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
+						<input type="hidden" name="form[goods_mod_id]" value="" id="fancy-book-goods-mod"/>
+						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
+						{ANTISPAM_CODE}
+						<div class="form__fields flex">
+							<div class="form__field form__fields-icons selectBox">
+								<label class="form__label">Категория номера</label>
+								<select class="form__select form__room" name="form[Номер]" value="" required>
+									<option>Одноместный</option>
+									<option>Двухместный</option>
+									<option>Трехместный</option>
+									<option>Четырехместный</option>
+									<option>Апартамент</option>
+								</select>
+								<i class="icon-room"></i>
+							</div>
+							<div class="form__field form__fields-icons">
+								<label class="form__label">Даты заезда и выезда</label>
+								<input class="form__input form__date" type="text" name="form[Дата]" value="" maxlength="10" minlength="10" autocomplete="off" placeholder="17.11.2022 - 10.12.2022" required />
+								<i class="icon-calendar"></i>
+							</div>
+						</div>
+
+						<div class="form__fields flex">
+							<div class="form__field form__fields-icons">
+								<label class="form__label"><span>Количество гостей</span></label>
+								<input class="form__input form__guests" type="text" name="form[Гостей]" value="" placeholder="4 гостей" autocomplete="off" required />
+								<i class="icon-person"></i>
+							</div>
+						</div>
+
+						<div class="form__fields flex">
+							<div class="form__field form__fields-icons">
+								<label class="form__label">Представьтесь, пожалуйста</label>
+								<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
+								<i class="icon-person"></i>
+							</div>
+							<div class="form__field form__fields-icons">
+								<label class="form__label">Ваш телефон</label>
+								<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
+								<i class="icon-phone"></i>
+							</div>
+						</div>
+
+						<div class="form__buttons flex">
+							<button class="button-primary form__button" type="submit" title="Отправить">
+								<span>Отправить</span>
+								<i class="icon-chevron_right"></i>
+							</button>
+							<div class="form__pp">
+								<span>Нажимая на кнопку &laquo;Отправить&raquo;, Вы соглашаетесь с</span>
+								<span data-fancybox data-src="#fancybox__pp" href="javascript:;">правилами обработки данных</span>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+
+			<!-- Обратный звонок в модальном окне -->
 			<div id="fancybox__callback" class="modal" style="display:none">
 				<div class="modal__title block__title">
 					<h2 class="title">Обратный звонок</h2>
@@ -2940,7 +3028,6 @@
 	</script>
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}debounce.js?design=THEMENAME"></script>
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}jquery-star-rating.js?design=THEMENAME"></script>
-	<script defer type="text/javascript" src="{ASSETS_JS_PATH}air-datepicker.js?design=THEMENAME"></script>
 	{% ENDIF %}
 
 	{% IF MOD_LNAME = cart || MOD_LNAME = order %}
@@ -2955,7 +3042,6 @@
 		});
 	});
 	</script>
-	<script defer type="text/javascript" src="{ASSETS_JS_PATH}air-datepicker.js?design=THEMENAME"></script>
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}debounce.js?design=THEMENAME"></script>
 	{% ENDIF %}
 
@@ -2974,21 +3060,12 @@
 			monthNames();
 			indexCatalog();
 			counterDate();
-			// Выбор даты доставки. Документация к плагину //t1m0n.name/air-datepicker/docs/index-ru.html
-			$("#slideshow .form__date").datepicker({
-				// Если true, то при активации даты, календарь закроется.
-				autoClose: true,
-				// Можно выбрать только даты, идущие за сегодняшним днем, включая сегодня
-				minDate: new Date(),
-				// Выбор даты от и до
-				range: true,
-				toggleSelected: false,
-				multipleDatesSeparator: ' - '
-			});
 		});
 	</script>
-	<script defer type="text/javascript" src="{ASSETS_JS_PATH}air-datepicker.js?design=THEMENAME"></script>
 	{% ENDIF %}
+
+	<!-- Скрипт выбора даты -->
+	<script defer type="text/javascript" src="{ASSETS_JS_PATH}air-datepicker.js?design=THEMENAME"></script>
 
 	<!-- Слайдер. Карусель -->
 	<link rel="preload" type="text/css" href="{ASSETS_STYLES_PATH}owl.carousel.min.css?design=THEMENAME" as="style" onload="this.onload=null;this.rel='stylesheet'">

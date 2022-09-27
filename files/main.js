@@ -819,156 +819,180 @@ function addTo() {
 // Добавление товара в корзину
 ///////////////////////////////////////
 function addCart() {
-	$('.product__form').off('submit').on('submit', function() {
-		// Быстрый заказ
-		if ($(this).attr('rel') === 'quick') {
-			quickOrder(this);
+	if($('.product__formOFF').length){
+		$('.product__formOFF').off('submit').on('submit', function() {
+			// Быстрый заказ
+			if ($(this).attr('rel') === 'quick') {
+				quickOrder(this);
+				$('.cart').addClass("has-items");
+				return false;
+			}
+			// Добавляем активные классы и обновлем счетчик товаров
 			$('.cart').addClass("has-items");
-			return false;
-		}
-		// Добавляем активные классы и обновлем счетчик товаров
-		$('.cart').addClass("has-items");
-		$('.count-cart').animate({opacity: 0,display: "none"},500);
-		$('.count-cart').animate({display: "inline",opacity: 1},500);
-		// Находим форму, которую отправляем на сервер, для добавления товара в корзину
-		var formBlock = $($(this).get(0));
-		// Проверка на существование формы отправки запроса на добавление товара в корзину
-		if (1 > formBlock.length || formBlock.get(0).tagName != 'FORM') {
-			alert('Не удалось найти форму добавления товара в корзину');
-			return false;
-		}
-		// Получаем данные формы, которые будем отправлять на сервер
-		var formData = formBlock.serializeArray();
-		var t = $(this);
-		var id = t.find('input[name="form[goods_id]"]').val()
-		// Сообщаем серверу, что мы пришли через ajax запрос
-		formData.push({name: 'ajax_q', value: 1});
-		// Так же сообщим ему, что нужно сразу отобразить форму быстрого заказа
-		//formData.push({name: 'fast_order', value: 1});
-		// Аяксом добавляем товар в корзину и вызываем форму быстрого заказа товара
-		$.ajax({
-			type: "POST",
-			cache: false,
-			url: formBlock.attr('action'),
-			data: formData,
-			success: function(data) {
-				// Анализ системного сообщения в коризне
-				var str = $(data).html();
-				// Проверяем текст сообщения на наличие ошибки
-				if (str.indexOf("Не удалось") != -1) {
-					// Сообщение с ошибкой
-					if(typeof(Noty) == "function") {
-						new Noty({
-							text: str,
-							layout:"bottomRight",
-							type:"warning",
-							theme:"",
-							closeWith: ['click'],
-							easing:"swing",
-							animation: {
-								open: 'animated fadeInUp',
-								close: 'animated fadeOutDown',
-								easing: 'swing',
-								speed: 400
-							},
-							timeout:"2000",
-							progressBar:true,
-							closable:true,
-							closeOnSelfClick:true,
-							modal:false,
-							dismissQueue:false,
-							onClose:true,
-							killer:false
-						}).show();
-					}
-				} else {
-					// Сообщение с успешным добавлением
-					if(typeof(Noty) == "function") {
-						new Noty({
-							text: str,
-							layout:"bottomRight",
-							type:"success",
-							theme:"",
-							closeWith: ['click'],
-							easing:"swing",
-							animation: {
-								open: 'animated fadeInUp',
-								close: 'animated fadeOutDown',
-								easing: 'swing',
-								speed: 400
-							},
-							timeout:"2000",
-							progressBar:true,
-							closable:true,
-							closeOnSelfClick:true,
-							modal:false,
-							dismissQueue:false,
-							onClose:true,
-							killer:false
-						}).show();
-					}
-
-					// Добавляем активный класс если товар успешно добавился в корзину
-					function inCart(obj){
-						obj.addClass("inCart");
-						var count = obj.find('.inCart__count');
-						var newCount = parseInt(count.text()) + 1;
-						count.text(newCount)
-					}
-
-					// Запуск функции активного класса товара в других категориях
-					$('.product__item[data-id="' + id + '"]').each(function(){
-						inCart($(this))
-						$(this).addClass('inCart');
-					});
-
-					// Анимация добавления товара в корзину
-					function animateCart(){
-						var img = t.find('img');
-						var w = img.width();
-						var bascket = $(".cart__icon");
-
-						if(!img.length){
-							img = t.parents().find('.productView__image img');
-							w = 200;
+			$('.count-cart').animate({opacity: 0,display: "none"},500);
+			$('.count-cart').animate({display: "inline",opacity: 1},500);
+			// Находим форму, которую отправляем на сервер, для добавления товара в корзину
+			var formBlock = $($(this).get(0));
+			// Проверка на существование формы отправки запроса на добавление товара в корзину
+			if (1 > formBlock.length || formBlock.get(0).tagName != 'FORM') {
+				alert('Не удалось найти форму добавления товара в корзину');
+				return false;
+			}
+			// Получаем данные формы, которые будем отправлять на сервер
+			var formData = formBlock.serializeArray();
+			var t = $(this);
+			var id = t.find('input[name="form[goods_id]"]').val()
+			// Сообщаем серверу, что мы пришли через ajax запрос
+			formData.push({name: 'ajax_q', value: 1});
+			// Так же сообщим ему, что нужно сразу отобразить форму быстрого заказа
+			//formData.push({name: 'fast_order', value: 1});
+			// Аяксом добавляем товар в корзину и вызываем форму быстрого заказа товара
+			$.ajax({
+				type: "POST",
+				cache: false,
+				url: formBlock.attr('action'),
+				data: formData,
+				success: function(data) {
+					// Анализ системного сообщения в коризне
+					var str = $(data).html();
+					// Проверяем текст сообщения на наличие ошибки
+					if (str.indexOf("Не удалось") != -1) {
+						// Сообщение с ошибкой
+						if(typeof(Noty) == "function") {
+							new Noty({
+								text: str,
+								layout:"bottomRight",
+								type:"warning",
+								theme:"",
+								closeWith: ['click'],
+								easing:"swing",
+								animation: {
+									open: 'animated fadeInUp',
+									close: 'animated fadeOutDown',
+									easing: 'swing',
+									speed: 400
+								},
+								timeout:"2000",
+								progressBar:true,
+								closable:true,
+								closeOnSelfClick:true,
+								modal:false,
+								dismissQueue:false,
+								onClose:true,
+								killer:false
+							}).show();
+						}
+					} else {
+						// Сообщение с успешным добавлением
+						if(typeof(Noty) == "function") {
+							new Noty({
+								text: str,
+								layout:"bottomRight",
+								type:"success",
+								theme:"",
+								closeWith: ['click'],
+								easing:"swing",
+								animation: {
+									open: 'animated fadeInUp',
+									close: 'animated fadeOutDown',
+									easing: 'swing',
+									speed: 400
+								},
+								timeout:"2000",
+								progressBar:true,
+								closable:true,
+								closeOnSelfClick:true,
+								modal:false,
+								dismissQueue:false,
+								onClose:true,
+								killer:false
+							}).show();
 						}
 
-						img.clone()
-						.css({
-							'width' : w,
-							'position' : 'absolute',
-							'z-index' : '9999',
-							'display' : 'block',
-							bottom: img.offset().top,
-							left: img.offset().left
-						})
-						.appendTo("body")
-						.animate({
-							opacity: 0.1,
-							left: bascket.offset()['left'],
-							top: bascket.offset()['top'],
-							width: 20
-						}, 1000, function() {	
-							$(this).remove();
+						// Добавляем активный класс если товар успешно добавился в корзину
+						function inCart(obj){
+							obj.addClass("inCart");
+							var count = obj.find('.inCart__count');
+							var newCount = parseInt(count.text()) + 1;
+							count.text(newCount)
+						}
+
+						// Запуск функции активного класса товара в других категориях
+						$('.product__item[data-id="' + id + '"]').each(function(){
+							inCart($(this))
+							$(this).addClass('inCart');
 						});
+
+						// Анимация добавления товара в корзину
+						function animateCart(){
+							var img = t.find('img');
+							var w = img.width();
+							var bascket = $(".cart__icon");
+
+							if(!img.length){
+								img = t.parents().find('.productView__image img');
+								w = 200;
+							}
+
+							img.clone()
+							.css({
+								'width' : w,
+								'position' : 'absolute',
+								'z-index' : '9999',
+								'display' : 'block',
+								bottom: img.offset().top,
+								left: img.offset().left
+							})
+							.appendTo("body")
+							.animate({
+								opacity: 0.1,
+								left: bascket.offset()['left'],
+								top: bascket.offset()['top'],
+								width: 20
+							}, 1000, function() {	
+								$(this).remove();
+							});
+						}
+
+						// Запуск Анимации
+						animateCart();
+
+						// Открытие/Закрытие корзины при добавлении
+						// $('.cart.dropdown').addClass('opened');
+						// setTimeout(function () {
+						// 	$('.cart.dropdown').removeClass('opened');
+						// 	$.fancybox.close();
+						// }, 2000);
+
 					}
-
-					// Запуск Анимации
-					animateCart();
-
-					// Открытие/Закрытие корзины при добавлении
-					// $('.cart.dropdown').addClass('opened');
-					// setTimeout(function () {
-					// 	$('.cart.dropdown').removeClass('opened');
-					// 	$.fancybox.close();
-					// }, 2000);
-
+					// Скрытое обновление корзины
+					$('.hiddenUpdate').html(data);
 				}
-				// Скрытое обновление корзины
-				$('.hiddenUpdate').html(data);
-			}
+			});
+			return false;
 		});
-		return false;
+	}
+
+	// Бронировать
+	$('.add-cart').off('click').on('click', function(event){
+		event.preventDefault();
+		var formBlock = $(this).closest('.product__form');
+    var goodsMod = formBlock.find('[name="form[goods_mod_id]"]').val();
+		var name = formBlock.find('.product__name span').text();
+		var image = formBlock.find('.product__img img').attr('src');
+		// Определяем изображение товара
+		if(typeof(image) == 'undefined'){
+			var image = formBlock.find('.product__img img').attr('data-src');
+		}
+		// Обновляем данные
+		$('.modal__title-icon img').attr('src', image)
+    $('#fancy-book-goods-mod').val(goodsMod)
+		$('#fancybox__book .subtitle').text(name)
+		// Открываем окно
+		$.fancybox.open($('#fancybox__book'), {
+			keyboard: false,
+			baseClass: "book",
+		});
 	});
 }
 
@@ -1034,7 +1058,7 @@ function quickViewMod() {
 		// При наведении на блок товара загружаем контент этого товара, который будет использоваться для быстрого просмотра, чтобы загрузка происходила быстрее.
 		$('.product__item.has-mod').mouseover(function() {
 			// Если в блоке нет ссылки на быстрый просмотр, то не подгружаем никаких данных
-			var link = $(this).find('a.add-mod');
+			var link = $(this).find('.add-mod');
 			if(link.length < 1) {
 				return true;
 			}
@@ -3276,76 +3300,161 @@ function cartSaleSum(){
 
 
 ///////////////////////////////////////
+/* Валидаторы */
+///////////////////////////////////////
+// Валидаторы для Имени
+function validName(id){
+  var name = $(id).find('.form__person');
+  if(name.val() != ''){
+    name.removeClass('error');
+    name.parent().removeClass('error');
+    name.attr('placeholder','Введите Имя');
+    return true;
+  }else{
+		setTimeout(function () {
+			name.addClass('error');
+			name.parent().addClass('error');
+			name.attr('placeholder','Вы не ввели Имя');
+		}, 2000);
+    return false;
+  }
+}
+
+// Валидаторы для телефона
+function validPhone(id){
+  var phone = $(id).find('.form__phone');
+  var check = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{5,10}$/.test(phone.val());
+  if(check == true && check != ''){
+    phone.removeClass('error');
+    phone.parent().removeClass('error');
+    phone.attr('placeholder','Введите номер');
+    return true;
+  }
+  else{
+		setTimeout(function () {
+			phone.addClass('error');
+			phone.parent().addClass('error');
+			phone.attr('placeholder','Вы не ввели номер');
+		}, 2000);
+		return false;
+  }
+}
+
+// Валидаторы для почты
+function validEmail(id){
+  var email = $(id).find('.form__email');
+  var check = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email.val());
+  if(check == true && check != ''){
+    email.removeClass('error');
+    email.parent().removeClass('error');
+    email.attr('placeholder','Введите Email');
+    return true;
+  }else{
+		setTimeout(function () {
+			email.addClass('error');
+			email.parent().addClass('error');
+			email.val('');
+			email.attr('placeholder','Вы ввели неверный Email');
+		}, 2000);
+		return false;
+  }
+}
+
+
+///////////////////////////////////////
 /* Аякс Отправка формы без обновления страницы */
 ///////////////////////////////////////
-function ajaxForms(id,flag,successMessage,errorMessage){
+function ajaxForms(id,flag,successMessage,errorMessage,subMessage){
   var flag = false;
   //console.log('ajaxForms loaded ', id)
   var form = $(id).find('.form__callback');
   form.on('submit',function(event){
     event.preventDefault();
-    if(!flag){
-      t = $(this);
-      var url = t.prop('action');
-      var formData = t.serializeArray();
-      formData.push({name: 'ajax_q', value: 1});
-      formData.push({name: 'only_body', value: 1});
-      $.ajax({
-        method: 'POST',
-        cache: false,
-        url: url,
-        data: formData,
-        success: function(d){
-          var serverCall = JSON.parse(d).status;
-          if(serverCall == "ok"){
-						setTimeout(function () {
-							$.fancybox.close();
-						},1000);
-            t.hide();
-            t.find('.form__input').val(' ');
-            t.parent().append('<div class="form__text">'+ errorMessage +'</div>');
-						$(id).addClass('error')
-            new Noty({
-              text: '<div class="noty__addto"><div class="noty__message">' + successMessage + '</div></div>',
-              layout:"bottomRight",
-              type:"success",
-              easing:"swing",
-              animation: {
-                open: 'animated fadeInUp',
-                close: 'animated fadeOutDown',
-                easing: 'swing',
-                speed: 400
-              },
-              timeout:"4000",
-              progressBar:true
-            }).show();
-            flag = true;
-          }
-        }
-      });
-    }else{
-      function callBackError(type) {
-        t.find('.form__input').val(' ');
-        t.parent().find('.form__text').hide();
-				$(id).addClass('error')
-        new Noty({
-          text: '<div class="noty__addto"><div class="noty__message">' + errorMessage + '</div></div>',
-          layout:"bottomRight",
-          type:"warning",
-          easing:"swing",
-          animation: {
-            open: 'animated fadeInUp',
-            close: 'animated fadeOutDown',
-            easing: 'swing',
-            speed: 400
-          },
-          timeout:"4000",
-          progressBar:true
-        }).show();
-      }
-      callBackError();
-    }
+		if(!flag){
+			t = $(this);
+			if(t.find('button').hasClass('disabled')){
+				console.log('button disabled')
+				return false;
+			}else{
+				var url = t.prop('action');
+				var formData = t.serializeArray();
+				formData.push({name: 'ajax_q', value: 1});
+				formData.push({name: 'only_body', value: 1});
+				$.ajax({
+					method: 'POST',
+					cache: false,
+					url: url,
+					data: formData,
+					success: function(d){
+						var serverCall = JSON.parse(d).status;
+						console.log('status:', serverCall)
+						if(serverCall == "ok"){
+							$(id).removeClass('error')
+							$(id).addClass('success')
+							$(id).find('.modal__title .title').text(successMessage)
+							$(id).find('.modal__title .subtitle').text(subMessage)
+							t.hide();
+							setTimeout(function () {
+								// $.fancybox.close();
+								t.show();
+								$(id).removeClass('error')
+								$(id).removeClass('success')
+								$(id).find('.modal__title .title').text('Бронирование')
+								$(id).find('.modal__title .subtitle').text('Наш специалист свяжется с вами в ближайшее время')
+							},5000);
+							// Отмечаем успешную отправку
+							flag = true;
+							// Убираем флаг чтобы можно было еще раз отправить форму
+							setTimeout(function () {
+								console.log('flag false 6sec')
+								flag = false;
+							},6000);
+
+						}else{
+							// Ошибка статуса с сервера
+							console.log('serverCall ERROR', serverCall)
+							fromError()
+						}
+					},
+					error: function(){
+						// Ошибка отправки аякса
+						console.log('error ajax')
+						fromError()
+					}
+				});
+			}
+		}else{
+			// Ошибка флага
+			console.log('flag off')
+			fromError();
+		}
   });
+
+	// Функция ошибки
+	function fromError(){
+		console.log('fromError')
+		// Блокируем кнопку
+		t.find('button').addClass('disabled')
+		// Уведомление
+		new Noty({
+			text: '<div class="noty__addto"><div class="noty__message">' + errorMessage + '</div></div>',
+			layout:"center",
+			type:"error",
+			easing:"swing",
+			animation: {
+				open: 'animated fadeInUp',
+				close: 'animated fadeOutDown',
+				easing: 'swing',
+				speed: 400
+			},
+			timeout:"4000",
+			progressBar:true
+		}).show();
+		// Включаем кнопку отправки
+		setTimeout(function () {
+			t.find('button').removeClass('disabled')
+		},7000);
+	}
 
   // Валидация при клике
   form.on('submit',function(event){
@@ -3356,7 +3465,7 @@ function ajaxForms(id,flag,successMessage,errorMessage){
 }
 
 // "Обратный звонок".
-ajaxForms('#callback','callbackFlag','Спасибо за обращение! Мы перезвоним вам в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
+// ajaxForms('#callback','callbackFlag','Спасибо за обращение! Мы перезвоним вам в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
 // "Обратный звонок" в модальном окне.
 // ajaxForms('#fancybox__callback','fancyCallbackFlag','Запрос обратного звонка успешно отправлен администрации магазина','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
 // "Обратная связь" в модальном окне.
@@ -3369,8 +3478,12 @@ ajaxForms('.form__feedback','feedbackFlag','Спасибо за обращени
 ajaxForms('#fancybox__notify','notifyFlag','Вы будете уведомлены о поступлении товара','Вы уже отправляли запрос. Пожалуйста ожидайте.')
 // "Обратный звонок".
 ajaxForms('.page-сallback','pageCallbackFlag','Спасибо за обращение! Мы перезвоним вам в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
-// "Обратный звонок".
-ajaxForms('#feedback','fancyFeedbackFlag','Запрос обратной связи успешно отправлен администрации магазина','Вы уже отправляли запрос. Пожалуйста ожидайте.')
+// "Бронирование".
+ajaxForms('#fancybox__book','fancyBookFlag','Ваша заявка успешно отправлена!','Вы уже отправляли запрос. Пожалуйста ожидайте.','Наш специалист свяжется с вами в ближайшее время')
+// "Слайдер".
+ajaxForms('.slider__form','fancySliderFlag','Ваша заявка успешно отправлена!','Вы уже отправляли запрос. Пожалуйста ожидайте.','Наш специалист свяжется с вами в ближайшее время')
+
+
 
 // Функция изменения изображений при наведении на товар
 function imageHover(){
@@ -3583,7 +3696,7 @@ $(document).ready(function(){
 	openMenu();
 	addTo();
 	addCart();
-	quickViewMod();
+	// quickViewMod();
 	toTop();
 	cartSaleSum();
 	pdtNews();
@@ -3598,23 +3711,23 @@ $(document).ready(function(){
 	$('div, section, ul').removeClass('loading');
 
 	// Добавление товара в корзину
-	$('.add-cart').on('click', function() {
-		var form = $(this).closest('form');
-		if ($(this).hasClass('quick')) {
-			form.attr('rel', 'quick');
-		} else {
-			var rel = form.attr('rel');
-			if (rel) {
-				form.attr('rel', rel.replace('quick', ''));
-			}
-		}
-		form.trigger('submit');
-		return false;
-	});
+	// $('.add-cart').on('click', function() {
+	// 	var form = $(this).closest('form');
+	// 	if ($(this).hasClass('quick')) {
+	// 		form.attr('rel', 'quick');
+	// 	} else {
+	// 		var rel = form.attr('rel');
+	// 		if (rel) {
+	// 			form.attr('rel', rel.replace('quick', ''));
+	// 		}
+	// 	}
+	// 	form.trigger('submit');
+	// 	return false;
+	// });
 
 	// Уведомить при отсутствии товара
 	$('.add-notify').on('click', function(){
-		var formBlock = $(this).closest('.goodsListForm');
+		var formBlock = $(this).closest('.product__form');
     var goodsMod = formBlock.find('[name="form[goods_mod_id]"]').val();
     $('#fancy-notify-goods-mod').val(goodsMod)
 	});
@@ -3638,9 +3751,21 @@ $(document).ready(function(){
 
   // Возврашаем пользователя на страницу с которой был сделан обратный звонок
   $('.callbackredirect').val(document.location.href);
+	
+	// Выбор даты доставки. Документация к плагину //t1m0n.name/air-datepicker/docs/index-ru.html
+	$(".form__date").datepicker({
+		// Если true, то при активации даты, календарь закроется.
+		autoClose: true,
+		// Можно выбрать только даты, идущие за сегодняшним днем, включая сегодня
+		minDate: new Date(),
+		// Выбор даты от и до
+		range: true,
+		toggleSelected: false,
+		multipleDatesSeparator: ' - '
+	});
 
 });
-
+ 
 // Запуск функций при изменении экрана
 $(window).resize(function(){
   if(getClientWidth() > 481 && window.outerHeight < 630){
