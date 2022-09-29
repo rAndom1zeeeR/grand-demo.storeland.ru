@@ -3365,13 +3365,13 @@ function validEmail(id){
 /* Аякс Отправка формы без обновления страницы */
 ///////////////////////////////////////
 function ajaxForms(id,flag,successMessage,errorMessage,subMessage){
-  var flag = false;
+	var flag = false;
   //console.log('ajaxForms loaded ', id)
   var form = $(id).find('.form__callback');
   form.on('submit',function(event){
     event.preventDefault();
-		if(!flag){
-			t = $(this);
+		t = $(this);		
+		if(!flag && validForm()){
 			if(t.find('button').hasClass('disabled')){
 				console.log('button disabled')
 				return false;
@@ -3389,52 +3389,55 @@ function ajaxForms(id,flag,successMessage,errorMessage,subMessage){
 						var serverCall = JSON.parse(d).status;
 						console.log('status:', serverCall)
 						if(serverCall == "ok"){
-							$(id).removeClass('error')
-							$(id).addClass('success')
-							$(id).find('.modal__title .title').text(successMessage)
-							$(id).find('.modal__title .subtitle').text(subMessage)
-							t.hide();
-							setTimeout(function () {
-								// $.fancybox.close();
-								t.show();
-								$(id).removeClass('error')
-								$(id).removeClass('success')
-								$(id).find('.modal__title .title').text('Бронирование')
-								$(id).find('.modal__title .subtitle').text('Наш специалист свяжется с вами в ближайшее время')
-							},5000);
+							$.fancybox.close();
+							var content = '<div class="modal success"><div class="block__title block__title-separator"><h2 class="title">'+ successMessage +'</h2><div class="subtitle">'+ subMessage +'</div></div></div>'
+							$.fancybox.open(content);
 							// Отмечаем успешную отправку
 							flag = true;
 							// Убираем флаг чтобы можно было еще раз отправить форму
 							setTimeout(function () {
-								console.log('flag false 6sec')
+								console.log('fancybox close')
+								$.fancybox.close();
+							},3000);
+							setTimeout(function () {
+								console.log('flag false in 8sec')
 								flag = false;
-							},6000);
+							},8000);
 
 						}else{
 							// Ошибка статуса с сервера
 							console.log('serverCall ERROR', serverCall)
-							fromError()
+							fromError(t)
 						}
 					},
 					error: function(){
 						// Ошибка отправки аякса
 						console.log('error ajax')
-						fromError()
+						fromError(t)
 					}
 				});
 			}
 		}else{
 			// Ошибка флага
 			console.log('flag off')
-			fromError();
+			fromError(t);
 		}
   });
 
 	// Функция ошибки
-	function fromError(){
+	function fromError(t){
 		console.log('fromError')
 		// Блокируем кнопку
 		t.find('button').addClass('disabled')
+		var text = t.find('button span').text()
+		t.find('button span').text('Подождите')
+		// Включаем кнопку отправки
+		setTimeout(function () {
+			t.find('button').removeClass('disabled')
+			t.find('button span').text(text)
+			console.log('set default button in 9sec')
+		},9000);
+		
 		// Уведомление
 		new Noty({
 			text: '<div class="noty__addto"><div class="noty__message">' + errorMessage + '</div></div>',
@@ -3450,18 +3453,14 @@ function ajaxForms(id,flag,successMessage,errorMessage,subMessage){
 			timeout:"4000",
 			progressBar:true
 		}).show();
-		// Включаем кнопку отправки
-		setTimeout(function () {
-			t.find('button').removeClass('disabled')
-		},7000);
 	}
 
   // Валидация при клике
-  form.on('submit',function(event){
-    validName(form);
-    validPhone(form);
-    validEmail(form);
-  });
+  function validForm(){
+		if(validName(form) || validPhone(form) || validEmail(form)){
+			return true
+		}    
+  }
 }
 
 // "Обратный звонок".
@@ -3473,15 +3472,15 @@ ajaxForms('#fancybox__feedback','fancyFeedbackFlag','Запрос обратно
 // "Обратная связь".
 ajaxForms('.form__feedback','feedbackFlag','Спасибо за обращение! Мы свяжемся с вами в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте.')
 // "Подписаться".
-//ajaxForms('#subscribe','subscribeFlag','Спасибо за обращение! Вы подписались на наши уведомления','Вы уже отправляли запрос. Пожалуйста ожидайте.')
+ajaxForms('.subscribe','subscribeFlag','Спасибо за обращение! Вы подписались на наши уведомления','Вы уже отправляли запрос. Пожалуйста ожидайте.')
 // "Уведомить" в модальном окне.
 ajaxForms('#fancybox__notify','notifyFlag','Вы будете уведомлены о поступлении товара','Вы уже отправляли запрос. Пожалуйста ожидайте.')
 // "Обратный звонок".
 ajaxForms('.page-сallback','pageCallbackFlag','Спасибо за обращение! Мы перезвоним вам в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
 // "Бронирование".
-ajaxForms('#fancybox__book','fancyBookFlag','Ваша заявка успешно отправлена!','Вы уже отправляли запрос. Пожалуйста ожидайте.','Наш специалист свяжется с вами в ближайшее время')
+ajaxForms('#fancybox__book','bookFlag','Ваша заявка успешно отправлена!','Вы уже отправляли запрос. Пожалуйста ожидайте.','Наш специалист свяжется с вами в ближайшее время')
 // "Слайдер".
-ajaxForms('.slider__form','fancySliderFlag','Ваша заявка успешно отправлена!','Вы уже отправляли запрос. Пожалуйста ожидайте.','Наш специалист свяжется с вами в ближайшее время')
+ajaxForms('.slider__form','sliderFlag','Ваша заявка успешно отправлена!','Вы уже отправляли запрос. Пожалуйста ожидайте.','Наш специалист свяжется с вами в ближайшее время')
 
 
 

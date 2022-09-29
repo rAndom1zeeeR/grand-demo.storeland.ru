@@ -218,21 +218,6 @@
 									<div class="form__field form__fields-icons">
 										<label class="form__label"><span>Количество гостей</span></label>
 										<input class="form__input form__guests" type="text" name="form[guests]" value="" placeholder="4 гостей" autocomplete="off" required />
-										<!-- <select class="form__guests" name="state[]" multiple placeholder="Select a state..." autocomplete="off">
-											<option value="">Select a state...</option>
-											<option value="AL">Alabama</option>
-											<option value="AK">Alaska</option>
-											<option value="AZ">Arizona</option>
-											<option value="AR">Arkansas</option>
-											<option value="CA" selected>California</option>
-											<option value="CO">Colorado</option>
-											<option value="CT">Connecticut</option>
-											<option value="DE">Delaware</option>
-											<option value="DC">District of Columbia</option>
-											<option value="FL">Florida</option>
-											<option value="GA">Georgia</option>
-											<option value="HI">Hawaii</option>
-										</select> -->
 										<i class="icon-person"></i>
 									</div>
 								</div>
@@ -242,7 +227,7 @@
 								<!-- Скрытые поля формы -->
 								<input type="hidden" name="hash" value="{HASH}" />
 								<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
-								<input type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="Подобрать номер"/>
+								<input type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="Подобрать номер" placeholder="Ваше имя" />
 								<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 								{ANTISPAM_CODE}
 							</form>

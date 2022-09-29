@@ -98,6 +98,7 @@ input.focus, select.focus, textarea.focus {border-color: var(--color-primary);}
 textarea {height: auto;padding-top: 1rem;resize: vertical;}
 select {cursor: pointer;}
 input.error, textarea.error {border-color: var(--color-red);}
+input.error + i, textarea.error + i {color: var(--color-red);}
 input[type="file"] {line-height: 3rem;border: 0;padding: 0;background: transparent;color: var(--color-darkgray);}
 
 .square {background-color: transparent;border: 1px solid var(--color-black);color: var(--color-black);width: 1.5rem;height: 1.5rem;line-height: 1.5rem;font-size: 1.25rem;border-radius: .25rem;margin: 0;padding: 0;text-align: center;cursor: pointer;}
@@ -226,6 +227,8 @@ h6 {font-size: 0.875rem;}
 .form__fields-icons textarea + i {top: .75rem;bottom: auto;}
 .form__fields-icons input:focus + i {color: var(--color-primary);}
 .form__fields-icons textarea:focus + i {color: var(--color-primary);}
+.form__fields-icons select:focus + i {color: var(--color-primary);}
+.form__fields-icons.error .form__label {color: var(--color-red);}
 .form__fields input, .form__fields textarea, .form__fields select {background-color: var(--color-white);border: 0;}
 .form__field {position: relative;}
 .form__pp {font-size: .75rem;margin-top: 1rem;}
@@ -323,7 +326,8 @@ h6 {font-size: 0.875rem;}
 /*** Модальные окна ***/
 /**************************************/
 .fancybox-content {max-width: 50rem;padding: 2rem;background-color: var(--color-background);border-radius: .625rem;}
-.fancybox-content.modal {max-width: 24rem;}
+.fancybox-content.modal {max-width: 34rem;}
+.modal .block__title {margin: 0;}
 /* .fancybox-content .form__buttons {text-align: center;} */
 /* .modal__content input, .modal__content textarea {background-color: var(--color-background);} */
 @media all and (max-width: 479px) {
@@ -1538,7 +1542,7 @@ h6 {font-size: 0.875rem;}
 .news__content {width: calc(100% - 7.5rem);padding: 0 1rem;}
 .news__desc {margin-top: .5rem;line-height: 1.25rem;height: 2.5rem;overflow: hidden;}
 .news__item + .news__item {margin-top: 1rem;}
-.news__overflow {max-height: 39.125rem;overflow-y: auto;}
+.news__overflow {max-height: 24.5rem;overflow-y: auto;}
 .news__overflow::-webkit-scrollbar {width: .5rem;}
 .news__image {margin: 0 auto;width: 100%;height: 16.75rem;background-color: var(--color-white);border-radius: .625rem .625rem 0 0;}
 .news__image img {border-radius: .625rem .625rem 0 0;object-fit: cover;height: 100%;}
@@ -1728,7 +1732,6 @@ footer .contacts__block {margin-top: 1.5rem;}
 /*** Бронирование ***/
 /**************************************/
 #fancybox__book {max-width: 54rem;width: 100%;}
-#fancybox__book.success {max-width: 34rem;}
 #fancybox__book .form__field {width: calc(50% - 1rem);margin: 1rem .5rem 0 .5rem;flex-grow: 1;}
 #fancybox__book .button-primary {width: calc(50% - 1rem);margin: 1rem .5rem 0 .5rem;line-height: 3rem;padding: 0 3rem 0 0;font-size: 1rem;}
 #fancybox__book .button-primary i {width: 3rem;height: 3rem;background-color: #79CEFF;border-radius: 0 .5rem .5rem 0;position: absolute;top: 0;right: 0;display: flex;align-items: center;justify-content: center;}
