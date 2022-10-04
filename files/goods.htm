@@ -99,7 +99,7 @@
 					</div>
 					<!-- Кнопки Показать\Скрыть -->
 					<div class="features__buttons">
-						<a class="button-more button-link" href="javascript:;" data-text="Скрыть все характеристики..."><span>Показать все характеристики...</span></a>
+						<a class="button-link button-more" href="javascript:;" data-text="Скрыть все характеристики..."><span>Показать все характеристики...</span></a>
 					</div>
 				</div>
 				{% ENDIF %}
@@ -126,7 +126,7 @@
 					</div>
 					<!-- Кнопки Показать\Скрыть -->
 					<div class="description__buttons">
-						<a class="button-more button-link" href="javascript:;" data-text="Скрыть описание..."><span>Показать описание...</span></a>
+						<a class="button-link button-more" href="javascript:;" data-text="Скрыть описание..."><span>Показать описание...</span></a>
 					</div>
 				</div>
 				{% ENDIF %}
@@ -307,7 +307,7 @@
 									
 									{% IF opinion_list.DELETE_URL %}
 									<div class="opinion__delete">
-										<a class="button-more button-link" href="{opinion_list.DELETE_URL}?return_to={CURRENT_URL | urlencode}%3Fgenerally_is_good%3D{GOODS_OPINION_GENERALLY_IS_GOOD | urlencode}%26page={OPINION_PAGES_LIST_CURRENT}" onclick="alert('Вы действительно хотите удалить отзыв?')">
+										<a class="button-link button-more" href="{opinion_list.DELETE_URL}?return_to={CURRENT_URL | urlencode}%3Fgenerally_is_good%3D{GOODS_OPINION_GENERALLY_IS_GOOD | urlencode}%26page={OPINION_PAGES_LIST_CURRENT}" onclick="alert('Вы действительно хотите удалить отзыв?')">
 											<i class="icon-close"></i>
 											<span>Удалить</span>
 										</a>
@@ -321,7 +321,7 @@
 
 						<!-- Кнопка Показать все отзывы -->
 						<div class="opinion__buttons">
-							<a class="button-more button-link" href="javascript:;" data-text="Скрыть все отзывы..."><span>Показать все отзывы...</span></a>
+							<a class="button-link button-more" href="javascript:;" data-text="Скрыть все отзывы..."><span>Показать все отзывы...</span></a>
 						</div>
 
 						<!-- Нижняя навигация (страницы) -->
@@ -412,7 +412,7 @@
 							
 							<!-- Кнопка отправки формы -->
 							<div class="opinion__block flex">
-								<button class="button-secondary" type="submit" title="Добавить отзыв о &laquo;{GOODS_NAME}&raquo;">
+								<button class="button-secondary button-icon" type="submit" title="Добавить отзыв о &laquo;{GOODS_NAME}&raquo;">
 									<span>Оставить отзыв</span>
 									<i class="icon-chevron_right"></i>
 								</button>
@@ -538,7 +538,7 @@
 						<!-- Добавление товара в корзину -->
 						<div class="productView__addtoCart flex">
 							<!-- В корзину -->
-							<button class="add-cart button-primary" type="submit" title="Положить &laquo;{GOODS_NAME}&raquo; в корзину">
+							<button class="add-cart button-primary button-icon" type="submit" title="Положить &laquo;{GOODS_NAME}&raquo; в корзину">
 								<span>Забронировать</span>
 								<i class="icon-chevron_right"></i>
 							</button>
@@ -702,7 +702,7 @@
 					
 					<!-- Подробнее -->
 					<div class="product__more">
-						<a class="add-more button-link button-more" href="{related_goods.URL_MIN_PRICE_NOW | url_amp}">
+						<a class="button-link button-more" href="{related_goods.URL_MIN_PRICE_NOW | url_amp}">
 							<span>Подробнее...</span>
 						</a>
 					</div>
@@ -711,7 +711,7 @@
 					<div class="product__addCart">
 						<!-- Добавление в корзину -->
 						{% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE && related_goods.MAX_REST_VALUE=0 %}
-						<a class="add-notify button-empty"
+						<a class="add-notify button-empty button-icon"
 							title="Уведомить"
 							data-tooltip="Уведомить"
 							rel="nofollow"
@@ -725,7 +725,7 @@
 							<i class="icon-notification"></i>
 						</a>
 						{% ELSE %}
-						<a class="add-cart button-primary"
+						<a class="add-cart button-primary button-icon"
 							title="Добавить в корзину &laquo;{related_goods.NAME}&raquo;"
 							data-tooltip="В корзину"
 							rel="nofollow"
@@ -996,7 +996,7 @@
 					
 					<!-- Подробнее -->
 					<div class="product__more">
-						<a class="add-more button-link button-more" href="{related_views_goods.URL_MIN_PRICE_NOW | url_amp}">
+						<a class="button-link button-more" href="{related_views_goods.URL_MIN_PRICE_NOW | url_amp}">
 							<span>Подробнее...</span>
 						</a>
 					</div>
@@ -1005,7 +1005,7 @@
 					<div class="product__addCart">
 						<!-- Добавление в корзину -->
 						{% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE && related_views_goods.MAX_REST_VALUE=0 %}
-						<a class="add-notify button-empty"
+						<a class="add-notify button-empty button-icon"
 							title="Уведомить"
 							data-tooltip="Уведомить"
 							rel="nofollow"
@@ -1019,7 +1019,7 @@
 							<i class="icon-notification"></i>
 						</a>
 						{% ELSE %}
-						<a class="add-cart button-primary"
+						<a class="add-cart button-primary button-icon"
 							title="Добавить в корзину &laquo;{related_views_goods.NAME}&raquo;"
 							data-tooltip="В корзину"
 							rel="nofollow"

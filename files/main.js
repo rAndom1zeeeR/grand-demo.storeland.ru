@@ -2713,12 +2713,19 @@ function coupons() {
 function pdtVisible(id){
 	var item = $(id).find('.product__item');
 	var visible = $(id).find('.product__item:visible').length;
+	console.log('id', id)
+	console.log('item', item.length)
+	console.log('visible', visible)
 
 	// Кнопка показать все
 	var button = $(id).find('.products__buttons a');
 	
 	// Скрываем кнопку показать все если мало товаров
-	item.length > visible ? button.parent().show() : button.parent().hide()
+	if (item.length > visible){
+		button.parent().show()
+	}else{
+		button.parent().hide()
+	}
 
 	// Функция открытия скрытых товаров
 	button.on('click', function (event){
@@ -3201,16 +3208,6 @@ function openMenu() {
 		}
 	});
 
-	// Открытие Меню
-  $('.mainnav__icon').on('click', function (event){
-    event.preventDefault();
-		$(this).toggleClass('opened');
-		$('#mobmenu').toggleClass('opened');
-		$('#overlay').toggleClass('opened transparent');
-		$('.mobmenu__menu').addClass('opened')
-		$('.mobmenu__nav-item[data-open="menu"]').addClass('opened')
-  });
-
 	// Открытие элементов
   $('[data-open]').on('click', function(event){
     event.preventDefault();
@@ -3223,6 +3220,38 @@ function openMenu() {
       $('[data-content="'+ value +'"]').addClass('opened').slideDown('slow');
     }
   });
+
+	// Открытие Меню
+  $('.header__menu').on('click', function (event){
+    event.preventDefault();
+		$(this).toggleClass('opened');
+		$('.popup').addClass('opened');
+		$('.search').addClass('hide');
+		$('.mobmenu').removeClass('hide');
+  });
+
+	// Открыть поиск
+	$('.header__search').on('click', function(event){
+		event.preventDefault();
+		$('.popup').addClass('opened');
+		$('.search').addClass('opened');
+		$('.search').removeClass('hide');
+		$('.mobmenu').addClass('hide');
+	})
+
+}
+
+// Сворачивание меню в мобильной версии
+function mobmenu(){
+	if(getClientWidth() < 1024){
+		$('.mobmenu__title').off('click').on('click', function(event){
+			event.preventDefault();
+			$(this).next().slideToggle();
+		});
+	}else{
+		$('.mobmenu__content').attr('style', '')
+		$('.mobmenu__title').off('click')
+	}
 }
 
 // Функция удаления классов всех активных элементов
@@ -3601,7 +3630,7 @@ function pdtCat() {
 			mouseDrag: true,
 			touchDrag: true,
 			pullDrag: true,
-			stagePadding: 60,
+			stagePadding: 48,
 			responsiveClass: true,
 			responsiveRefreshRate: 100,
 			responsive: {
@@ -3649,7 +3678,7 @@ function indexCatalog(){
   // Если каталог на главной
   if(catalog_full){
     var promises = $.map(catalog_full, function(el){
-      return $.ajax(el.href + '?only_body=1&goods_view_type=2')
+      return $.ajax(el.href + '?only_body=1&goods_view_type=2&per_page=20')
         .then(function(data){
           var container = $('.products__container.' + el.id);
           var parentContainer = container.find('.products__list');
@@ -3699,6 +3728,7 @@ $(document).ready(function(){
 	toTop();
 	cartSaleSum();
 	pdtNews();
+	mobmenu()
   mainnav('header .mainnav', '1', 991);
 	setTimeout(function () {
 		pdtCat();
@@ -3767,6 +3797,7 @@ $(document).ready(function(){
  
 // Запуск функций при изменении экрана
 $(window).resize(function(){
+	mobmenu()
   if(getClientWidth() > 481 && window.outerHeight < 630){
     $('body').addClass('landscape');
   }else{

@@ -129,7 +129,7 @@
 						
 						<!-- Подробнее -->
 						<div class="product__more">
-							<a class="add-more button-link button-more" href="{favorites_goods.URL_MIN_PRICE_NOW | url_amp}">
+							<a class="button-link button-more" href="{favorites_goods.URL_MIN_PRICE_NOW | url_amp}">
 								<span>Подробнее...</span>
 							</a>
 						</div>
@@ -138,7 +138,7 @@
 						<div class="product__addCart">
 							<!-- Добавление в корзину -->
 							{% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE && favorites_goods.MAX_REST_VALUE=0 %}
-							<a class="add-notify button-empty"
+							<a class="add-notify button-empty button-icon"
 								title="Уведомить"
 								data-tooltip="Уведомить"
 								rel="nofollow"
@@ -152,7 +152,7 @@
 								<i class="icon-notification"></i>
 							</a>
 							{% ELSE %}
-							<a class="add-cart button-primary"
+							<a class="add-cart button-primary button-icon"
 								title="Добавить в корзину &laquo;{favorites_goods.NAME}&raquo;"
 								data-tooltip="В корзину"
 								rel="nofollow"
