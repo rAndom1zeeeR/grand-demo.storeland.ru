@@ -154,7 +154,7 @@
 
 		{% IF index_page %}
 		<!-- Слайдшоу -->
-		<div id="slideshow" class="loading">
+		<div id="slideshow2" class="loading" style="display: none;">
 			<!-- Слайд 1 -->
 			<div class="slider__item flex lozad" data-background-image="{ASSETS_IMAGES_PATH}slide_1.jpg?design=THEMENAME">
 				<div class="container">
@@ -200,6 +200,282 @@
 				</div>
 			</div>
 
+		</div>
+
+		
+
+		<!-- Swiper -->
+		<div id="slideshow">
+			<div class="swiper mySwiper">
+				<div class="swiper-wrapper">
+					<!-- Слайд 1 -->
+					<div class="slider__item swiper-slide flex lozad" data-background-image="{ASSETS_IMAGES_PATH}slide_1.jpg?design=THEMENAME">
+						<div class="container">
+							<div class="slider__content">
+								<div class="slider__subtitle"><span>Забронируйте номер на сайте и получите дополнительную скидку</span></div>
+								<a class="slider__title" href="{CATALOG_URL}"><span>Лучший курорт на всем побережье южного берега Крыма</span></a>
+								<!-- Форма бронирования -->
+								<div class="slider__form">
+									<form method="post" action="{CALLBACK_URL}" class="form__callback flex" enctype="multipart/form-data">
+										<div class="form__fields">
+											<div class="form__field form__fields-icons">
+												<label class="form__label"><span>Телефон для связи</span></label>
+												<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
+												<i class="icon-phone"></i>
+											</div>
+										</div>
+										<div class="form__fields">
+											<div class="form__field form__fields-icons">
+												<label class="form__label" for="deliveryConvenientDate"><span>Даты заезда и выезда</span></label>
+												<input class="form__input form__date" type="text" name="form[date]" value="" maxlength="10" minlength="10" autocomplete="off" placeholder="17.11.2022 - 10.12.2022" required />
+												<i class="icon-calendar"></i>
+											</div>
+										</div>
+										<div class="form__fields">
+											<div class="form__field form__fields-icons">
+												<label class="form__label"><span>Количество гостей</span></label>
+												<input class="form__input form__guests" type="text" name="form[guests]" value="" placeholder="4 гостей" autocomplete="off" required />
+												<i class="icon-person"></i>
+											</div>
+										</div>
+										<div class="form__buttons">
+											<button class="button-primary form__button" type="submit" title="Подобрать номер"><span>Подобрать номер</span></button>
+										</div>
+										<!-- Скрытые поля формы -->
+										<input type="hidden" name="hash" value="{HASH}" />
+										<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
+										<input type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="Подобрать номер" placeholder="Ваше имя" />
+										<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
+										{ANTISPAM_CODE}
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Слайд 2 -->
+					<div class="slider__item swiper-slide flex lozad" data-background-image="{ASSETS_IMAGES_PATH}slide_2.jpg?design=THEMENAME">
+						<div class="container">
+							<div class="slider__content">
+								<div class="slider__subtitle"><span>Забронируйте номер на сайте и получите дополнительную скидку</span></div>
+								<a class="slider__title" href="{CATALOG_URL}"><span>Лучший курорт на всем побережье южного берега Крыма</span></a>
+								<!-- Форма бронирования -->
+								<div class="slider__form">
+									<form method="post" action="{CALLBACK_URL}" class="form__callback flex" enctype="multipart/form-data">
+										<div class="form__fields">
+											<div class="form__field form__fields-icons">
+												<label class="form__label"><span>Телефон для связи</span></label>
+												<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
+												<i class="icon-phone"></i>
+											</div>
+										</div>
+										<div class="form__fields">
+											<div class="form__field form__fields-icons">
+												<label class="form__label" for="deliveryConvenientDate"><span>Даты заезда и выезда</span></label>
+												<input class="form__input form__date" type="text" name="form[date]" value="" maxlength="10" minlength="10" autocomplete="off" placeholder="17.11.2022 - 10.12.2022" required />
+												<i class="icon-calendar"></i>
+											</div>
+										</div>
+										<div class="form__fields">
+											<div class="form__field form__fields-icons">
+												<label class="form__label"><span>Количество гостей</span></label>
+												<input class="form__input form__guests" type="text" name="form[guests]" value="" placeholder="4 гостей" autocomplete="off" required />
+												<i class="icon-person"></i>
+											</div>
+										</div>
+										<div class="form__buttons">
+											<button class="button-primary form__button" type="submit" title="Подобрать номер"><span>Подобрать номер</span></button>
+										</div>
+										<!-- Скрытые поля формы -->
+										<input type="hidden" name="hash" value="{HASH}" />
+										<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
+										<input type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="Подобрать номер" placeholder="Ваше имя" />
+										<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
+										{ANTISPAM_CODE}
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Слайд 3 -->
+					<div class="slider__item swiper-slide flex lozad" data-background-image="{ASSETS_IMAGES_PATH}slide_3.jpg?design=THEMENAME">
+						<div class="container">
+							<div class="slider__content">
+								<div class="slider__subtitle"><span>Забронируйте номер на сайте и получите дополнительную скидку</span></div>
+								<a class="slider__title" href="{CATALOG_URL}"><span>Лучший курорт на всем побережье южного берега Крыма</span></a>
+								<!-- Форма бронирования -->
+								<div class="slider__form">
+									<form method="post" action="{CALLBACK_URL}" class="form__callback flex" enctype="multipart/form-data">
+										<div class="form__fields">
+											<div class="form__field form__fields-icons">
+												<label class="form__label"><span>Телефон для связи</span></label>
+												<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
+												<i class="icon-phone"></i>
+											</div>
+										</div>
+										<div class="form__fields">
+											<div class="form__field form__fields-icons">
+												<label class="form__label" for="deliveryConvenientDate"><span>Даты заезда и выезда</span></label>
+												<input class="form__input form__date" type="text" name="form[date]" value="" maxlength="10" minlength="10" autocomplete="off" placeholder="17.11.2022 - 10.12.2022" required />
+												<i class="icon-calendar"></i>
+											</div>
+										</div>
+										<div class="form__fields">
+											<div class="form__field form__fields-icons">
+												<label class="form__label"><span>Количество гостей</span></label>
+												<input class="form__input form__guests" type="text" name="form[guests]" value="" placeholder="4 гостей" autocomplete="off" required />
+												<i class="icon-person"></i>
+											</div>
+										</div>
+										<div class="form__buttons">
+											<button class="button-primary form__button" type="submit" title="Подобрать номер"><span>Подобрать номер</span></button>
+										</div>
+										<!-- Скрытые поля формы -->
+										<input type="hidden" name="hash" value="{HASH}" />
+										<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
+										<input type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="Подобрать номер" placeholder="Ваше имя" />
+										<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
+										{ANTISPAM_CODE}
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Слайд 4 -->
+					<div class="slider__item swiper-slide flex lozad" data-background-image="{ASSETS_IMAGES_PATH}slide_4.jpg?design=THEMENAME">
+						<div class="container">
+							<div class="slider__content">
+								<div class="slider__subtitle"><span>Забронируйте номер на сайте и получите дополнительную скидку</span></div>
+								<a class="slider__title" href="{CATALOG_URL}"><span>Лучший курорт на всем побережье южного берега Крыма</span></a>
+								<!-- Форма бронирования -->
+								<div class="slider__form">
+									<form method="post" action="{CALLBACK_URL}" class="form__callback flex" enctype="multipart/form-data">
+										<div class="form__fields">
+											<div class="form__field form__fields-icons">
+												<label class="form__label"><span>Телефон для связи</span></label>
+												<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
+												<i class="icon-phone"></i>
+											</div>
+										</div>
+										<div class="form__fields">
+											<div class="form__field form__fields-icons">
+												<label class="form__label" for="deliveryConvenientDate"><span>Даты заезда и выезда</span></label>
+												<input class="form__input form__date" type="text" name="form[date]" value="" maxlength="10" minlength="10" autocomplete="off" placeholder="17.11.2022 - 10.12.2022" required />
+												<i class="icon-calendar"></i>
+											</div>
+										</div>
+										<div class="form__fields">
+											<div class="form__field form__fields-icons">
+												<label class="form__label"><span>Количество гостей</span></label>
+												<input class="form__input form__guests" type="text" name="form[guests]" value="" placeholder="4 гостей" autocomplete="off" required />
+												<i class="icon-person"></i>
+											</div>
+										</div>
+										<div class="form__buttons">
+											<button class="button-primary form__button" type="submit" title="Подобрать номер"><span>Подобрать номер</span></button>
+										</div>
+										<!-- Скрытые поля формы -->
+										<input type="hidden" name="hash" value="{HASH}" />
+										<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
+										<input type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="Подобрать номер" placeholder="Ваше имя" />
+										<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
+										{ANTISPAM_CODE}
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div> -->
+				<div class="swiper-pagination">
+					<div class="container">
+						<div class="swiper-container">
+							<div class="swiper-wrapper">
+								<!-- Подпись слайда 1 -->
+								<div class="swiper-slide">
+									<div class="pagination__item">
+										<div class="progressbar">
+											<div class="status"></div>
+										</div>
+										<div class="pagination__name">Побережье</div>
+									</div>
+								</div>
+								<!-- Подпись слайда 2 -->
+								<div class="swiper-slide">
+									<div class="pagination__item">
+										<div class="progressbar">
+											<div class="status"></div>
+										</div>
+										<div class="pagination__name">Ресторан</div>
+									</div>
+								</div>
+								<!-- Подпись слайда 3 -->
+								<div class="swiper-slide">
+									<div class="pagination__item">
+										<div class="progressbar">
+											<div class="status"></div>
+										</div>
+										<div class="pagination__name">SPA</div>
+									</div>
+								</div>
+								<!-- Подпись слайда 4 -->
+								<div class="swiper-slide">
+									<div class="pagination__item">
+										<div class="progressbar">
+											<div class="status"></div>
+										</div>
+										<div class="pagination__name">Бассейн</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Swiper JS -->
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+			<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+			<!-- Initialize Swiper -->
+			<script>
+				var indexBannerPaginationSlider = new Swiper('.swiper-pagination .swiper-container', {
+					slidesPerView: 'auto',
+					watchSlidesVisibility: true,
+					breakpoints: {
+						768: {
+							spaceBetween: 32,
+							slidesPerView: '4',
+						}
+					}
+				});
+
+				var swiper = new Swiper(".mySwiper", {
+					loop: true,
+					preloadImages: false,
+					watchSlidesVisibility: true,
+					watchOverflow: true,
+					hashNavigation: false,
+					autoplay: {
+						delay: 5000,
+						disableOnInteraction: false,
+					},
+					thumbs: {
+						autoScrollOffset: 0,
+						swiper: indexBannerPaginationSlider,
+					},
+					// effect: 'fade',
+					// fadeEffect: {
+					// 		crossFade: true
+					// },
+					// pagination: {
+					// 	el: ".swiper-pagination",
+					// 	clickable: true,
+					// },
+				});
+
+
+			</script>
 		</div>
 
 		<!-- Категории каталога с товарами на главной -->
@@ -2664,7 +2940,8 @@
 
 		<!-- Наверх -->
 		<div id="toTop" class="toTop">
-			<i class="icon-arrow_up"></i>
+			<i class="icon-chevron_up"></i>
+			<span>Наверх</span>
 		</div>
 
 		<noindex>

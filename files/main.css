@@ -533,12 +533,9 @@ h6 {font-size: 0.875rem;}
 /**************************************/
 /*** Наверх ***/
 /**************************************/
-#toTop {color: var(--color-black);background-color: var(--color-white);border: .125rem solid var(--color-black);border-radius: .25rem;position: fixed;bottom: 1rem;right: 1rem;width: 3rem;height: 3rem;line-height: 3rem;font-size: 1.5rem;text-align: center;transition: all 0.3s ease;z-index: 9;}
-#toTop:hover {color: var(--color-white);background-color: var(--color-black);border-color: var(--color-black);cursor: pointer;}
-#toTop i {display: inline-block;}
-@media all and (max-width: 767px) {
-	#toTop {bottom: 4rem;display: none !important;}
-}
+#toTop {color: var(--color-lightgray);padding-top: 1rem;width: 8rem;height: 50vh;bottom: 0;left: 0;font-size: 1rem;font-weight: bold;text-align: center;position: fixed;transition: all 0.3s ease;z-index: 9;}
+#toTop:hover {cursor: pointer;background-color: rgba(70, 177, 239, 0.1);}
+#toTop i {display: inline-block;margin-right: .5rem;}
 
 
 /**************************************/
@@ -1375,7 +1372,7 @@ h6 {font-size: 0.875rem;}
 /*** Шапка ***/
 /**************************************/
 #header {background-color: var(--color-black);}
-.index #header {position: absolute;top: 0;left: 0;width: 100%;background-color: transparent;}
+.index #header {position: absolute;top: 0;left: 0;width: 100%;background-color: transparent;z-index: 2;}
 .header__block {margin: 0 .5rem;padding: .75rem 1.5rem;background-color: var(--shadow-white);border-radius: 1.5rem;transition: all 0.3s ease-in-out;}
 .header__block:hover {background-color: var(--color-primary);cursor: pointer;}
 .header__block i {font-size: 1.5rem;vertical-align: middle;}
@@ -1577,6 +1574,16 @@ h6 {font-size: 0.875rem;}
 	#slideshow .form__fields:nth-child(n), #slideshow .form__button {width: 100%;border-radius: .625rem;}
 	#slideshow .form__fields:nth-child(2) {margin-top: .75rem;}
 }
+
+/* Свайпер */
+.swiper {height: 100%;}
+.swiper-pagination {position: absolute;bottom: 3rem;width: 100%;}
+.swiper-container {overflow: hidden;}
+.pagination__item {cursor: pointer;}
+.pagination__name {color: var(--color-white);font-weight: 500;font-size: 1rem;line-height: 1.4;margin-top: 1rem;}
+.progressbar {max-width: 100%;width: 100%;height: 3px;border-radius: 5px;background-color: var(--shadow-white);display: block;position: relative;overflow: hidden;}
+.progressbar .status {background: var(--color-white);width: 0;height: 100%;top: 0;left: 0;position: absolute;display: block;}
+.swiper-slide-thumb-active .status {width: 100%;-webkit-transition: all 5.2s linear;transition: all 5.2s linear;}
 
 
 /**************************************/
@@ -1789,7 +1796,6 @@ footer .contacts__block {margin-top: 1.5rem;}
 .book #fancybox__book.success .modal__title-icon {display: none;}
 #fancybox__book .modal__title-icon img {border-radius: .625rem;}
 #fancybox__book .block__title {margin: 0;}
-
 
 
 
