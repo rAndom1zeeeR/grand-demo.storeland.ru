@@ -2908,17 +2908,21 @@
 
 						<!-- Результаты поиска -->
 						<div id="search__result" style="display: none;">
-							<div class="result__inner flex-start">
-								<div class="result__category">
-									<div class="result__title">Категории товаров</div>
-								</div>
-								<div class="result__goods">
-									<div class="result__title">Товары</div>
-								</div>
-								<div class="result__showAll">
-									<div class="button-link button-more">
-										<span>Все результаты</span>
-									</div>									
+							<div class="row">
+								<div class="result__inner">
+									<div class="result__category">
+										<div class="result__title">Категории товаров</div>
+										<div class="result__items flex"></div>
+									</div>
+									<div class="result__goods">
+										<div class="result__title">Товары</div>
+										<div class="result__items flex"></div>
+									</div>
+									<div class="result__showAll">
+										<div class="button-link button-more">
+											<span>Все результаты</span>
+										</div>									
+									</div>
 								</div>
 							</div>
 						</div>
@@ -3089,7 +3093,7 @@
 				</div>
 			</div>
 
-			<!-- Обратный звонок в модальном окне -->
+			<!-- Бронирование в модальном окне -->
 			<div id="fancybox__book" class="modal" style="display:none">
 				<div class="modal__title flex-start">
 					<div class="modal__title-icon">
@@ -3164,9 +3168,10 @@
 
 			<!-- Обратный звонок в модальном окне -->
 			<div id="fancybox__callback" class="modal" style="display:none">
-				<div class="modal__title block__title">
+				<div class="modal__title block__title block__title-separator">
 					<h2 class="title">Обратный звонок</h2>
 				</div>
+				<div class="subtitle">Наш специалист поможет Вам разобраться с любыми вопросами</div>
 				<div class="modal__content">
 					<form method="post" action="{CALLBACK_URL}" class="form__callback" enctype="multipart/form-data">
 						<input type="hidden" name="hash" value="{HASH}" />
@@ -3174,13 +3179,18 @@
 						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 						{ANTISPAM_CODE}
 						<div class="form__fields">
+							<label class="form__label">Ваше имя</label>
 							<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
 						</div>
 						<div class="form__fields">
+							<label class="form__label">Ваш телефон</label>
 							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
 						</div>
 						<div class="form__buttons">
-							<button class="button-primary form__button" type="submit" title="Заказать звонок"><span>Заказать звонок</span></button>
+							<button class="form__button button-secondary button-icon" type="submit" title="Заказать звонок">
+								<span>Заказать звонок</span>
+								<i class="icon-chevron_right"></i>
+							</button>
 							<div class="form__pp">
 								<span>Нажимая на кнопку &laquo;Заказать звонок&raquo;, Вы соглашаетесь с</span>
 								<span data-fancybox data-src="#fancybox__pp" href="javascript:;">правилами обработки данных</span>

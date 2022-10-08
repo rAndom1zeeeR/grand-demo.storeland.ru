@@ -76,6 +76,8 @@ p {margin: 0 0 1rem 0;line-height: 1.5;}
 .disc li {line-height: 1.5;}
 .show {display: block;}
 .hide {display: none !important;}
+.fadeIn {opacity: 1;filter: alpha(opacity=100);transition: opacity .3s ease;}
+.fadeOut {opacity: 0;filter: alpha(opacity=0);transition: opacity .3s ease;}
 [class^="icon-"], [class*=" icon-"] {display: block;}
 
 
@@ -169,8 +171,8 @@ button:hover, [class*="button-"]:hover, .paymentFormSubmitLink:hover, .paymentFo
 /*** Кнопка с иконкой ***/
 .button-icon {padding: 0 3rem 0 0;flex-grow: 1;z-index: 1;transition: all 0.3s ease-in-out;}
 .button-icon i {width: 3rem;height: 3rem;font-size: 1rem;border-radius: 0 .5rem .5rem 0;position: absolute;top: 0;right: 0;display: flex;align-items: center;justify-content: center;}
-.button-icon:after {content: '';width: 0;height: 100%;top: 0;right: 0;z-index: -1;border-radius: .625rem;position: absolute;transition: all 0.4s ease;}
-.button-icon:hover:after {left: 0;width: 100%;}
+.button-icon:after {content: '';width: 0;height: 100%;top: 0;left: 0;z-index: -1;border-radius: .625rem;position: absolute;transition: all 0.4s ease;}
+.button-icon:hover:after {right: 0;width: 100%;}
 .button-icon.button-primary i {background-color: #79CEFF;}
 .button-icon.button-primary:hover {background-color: #79CEFF;}
 .button-icon.button-primary:hover:after {background-color: #79CEFF;}
@@ -244,10 +246,12 @@ h6 {font-size: 0.875rem;}
 .form__fields-icons.error .form__label {color: var(--color-red);}
 .form__fields input, .form__fields textarea, .form__fields select {background-color: var(--color-white);border: 0;}
 .form__field {position: relative;}
-.form__pp {font-size: .75rem;margin-top: 1rem;}
+.form__pp {font-size: .875rem;margin-top: 1rem;line-height: 1.125rem;color: var(--color-darkgray);}
 .form__pp [data-fancybox] {text-decoration: underline;display: inline;}
 .form__pp [data-fancybox]:hover {text-decoration: none;cursor: pointer;}
+.form__pp a {color: var(--color-darkgray);}
 .form__buttons {margin-top: 1rem;width: 100%;}
+.form__button {width: 100%;}
 
 
 /**************************************/
@@ -480,8 +484,7 @@ h6 {font-size: 0.875rem;}
 .feedback .form__fields {width: calc(50% - 1rem);margin: 0 .5rem 1rem;}
 .feedback .form__message {width: 100%;}
 .feedback .button-secondary {width: 50%;}
-.feedback .form__pp {width: 50%;margin: 0;padding-left: 1rem;color: var(--color-darkgray);}
-.feedback .form__pp a {color: var(--color-darkgray);}
+.feedback .form__pp {width: 50%;margin: 0;padding-left: 1rem;}
 @media all and (max-width: 1199px) {
 	.feedback .block__title {width: 100%;padding-right: 0;}
 	.feedback .feedbackForm {width: 100%;padding-left: 0;}
@@ -534,8 +537,8 @@ h6 {font-size: 0.875rem;}
 /**************************************/
 /*** Наверх ***/
 /**************************************/
-#toTop {color: var(--color-lightgray);padding-top: 1rem;width: 8rem;height: 50vh;bottom: 0;left: 0;font-size: 1rem;font-weight: bold;text-align: center;position: fixed;transition: all 0.3s ease;z-index: 9;}
-#toTop:hover {cursor: pointer;background-color: rgba(70, 177, 239, 0.1);}
+#toTop {color: var(--color-lightgray);padding-top: 2rem;width: 8rem;height: 100vh;top: 0;left: 0;font-size: 1rem;font-weight: bold;text-align: center;position: fixed;transition: all 0.3s ease;z-index: 9;}
+#toTop:hover {cursor: pointer;background-color: rgba(70, 177, 239, 0.1);color: var(--color-primary);}
 #toTop i {display: inline-block;margin-right: .5rem;}
 
 
@@ -623,7 +626,7 @@ h6 {font-size: 0.875rem;}
 .RUB .num + span {display: none;}
 .price__old .num:after {display: none;}
 .has-price-old .price__old {margin-right: 1rem;}
-.price__old:after {content: '';display: block;width: 120%;height: 1px;background-color: var(--color-lightgray);position: absolute;top: 50%;left: -10%;transform: rotate(-10deg);}
+.price__old:after {content: '';display: block;width: 120%;height: 1px;background-color: rgba(255, 255, 255, 0.6);position: absolute;top: 50%;left: -10%;transform: rotate(-10deg);}
 
 
 /**************************************/
@@ -830,6 +833,7 @@ h6 {font-size: 0.875rem;}
 #pdt__sales .product__price {margin: 0 5rem 0 0;padding: 0;border-radius: 0;background-color: transparent;color: var(--color-black);}
 #pdt__sales .product__price:after {display: none;}
 #pdt__sales .product__price .price__old {color: var(--color-lightgray);font-size: 1rem;}
+#pdt__sales .product__price .price__old:after {background-color: var(--color-lightgray);}
 #pdt__sales .product__price .price__now {font-size: 1.5rem;line-height: 1;}
 #pdt__sales .product__addCart {flex-grow: 1;}
 #pdt__sales .product__addCart a {width: 100%;}
@@ -1139,8 +1143,7 @@ h6 {font-size: 0.875rem;}
 .opinion__block input + i {color: var(--color-lightgray);position: absolute;top: 2.25rem;left: .75rem;font-size: 1.25rem;}
 .opinion__block textarea + i {color: var(--color-lightgray);position: absolute;top: 2.25rem;left: .75rem;font-size: 1.25rem;}
 .opinion__block .button-secondary {width: 50%;}
-.opinion__block .form__pp {width: 50%;margin: 0;padding-left: 1rem;color: var(--color-darkgray);}
-.opinion__block .form__pp a {color: var(--color-darkgray);}
+.opinion__block .form__pp {width: 50%;margin: 0;padding-left: 1rem;}
 .opinion__label {margin-right: .5rem;}
 .goodsOpinionRating.loading {height: 1.5rem;display: none;}
 .generally input {display: none;}
@@ -1194,12 +1197,14 @@ h6 {font-size: 0.875rem;}
 .neighbor__item {margin: 1rem 1rem 0 0;}
 .neighbor__item span {margin: 0 .5rem;}
 
+
 /**************************************/
 /*** Сопутствующие товары ***/
 /**************************************/
 .related {margin-top: 3rem;padding: 3rem 0;position: relative;}
 #related-views:before {content: '';background-color: var(--color-background);width: 250%;height: calc(100% + 6rem);top: 0;left: -75%;display: block;position: absolute;}
 .related .product__addCart {display: none;}
+
 
 /**************************************/
 /*** Быстрый просмотр ***/
@@ -1310,6 +1315,7 @@ h6 {font-size: 0.875rem;}
 	.cart__image {width: 100%;height: 16rem;}
 	.cart__content {width: 100%;padding: 1rem 0 0 0;}
 }
+
 
 /**************************************/
 /*** Быстрый заказ ***/
@@ -1502,20 +1508,22 @@ h6 {font-size: 0.875rem;}
 #search__result {margin-top: 2rem;}
 #search__result ::-webkit-scrollbar {width: .5rem;height: 0;}
 .header__inner {position: relative;}
-.result__category {width: 50%;overflow-y: auto;padding-right: 1rem;margin-bottom: 1.5rem;}
+.result__category {width: 100%;margin-bottom: .5rem;}
 .result__category .result__image {width: 3rem;height: 3rem;display: none;}
-.result__goods {width: 50%;overflow-y: auto;padding-right: 1rem;margin-bottom: 1.5rem;}
-.result__goods .result__image {width: 2.5rem;height: 2.5rem;}
-.result__goods .result__name {width: calc(100% - 2.5rem);padding-left: 1rem;}
-.result__showAll {display: none;width: 100%;text-align: center;margin-top: 1rem}
+.result__category .result__name {font-weight: bold;text-transform: uppercase;}
+.result__goods {width: 100%;margin-bottom: .5rem;}
+.result__goods .result__image {width: 5rem;height: 5rem;}
+.result__goods .result__name {width: calc(100% - 5rem);padding-left: 1rem;}
+.result__goods .result__item {width: calc(33.333333% - 2rem);}
+.result__showAll {display: none;width: 100%;margin-top: 1rem;margin-left: 1rem;}
 .result__showAll:hover {color: var(--color-primary);cursor: pointer;transition: all 0.3s ease;}
-.result__item {margin-top: 1rem;}
-.result__item:first-child {margin-top: 0;}
-.result__name {line-height: 1.25rem;}
-.result__title {font-size: 1rem;font-weight: bold;}
+.result__item {margin: 0 1rem 1rem 1rem;align-items: flex-start;}
+.result__name {font-size: 1rem;line-height: 1.25rem;}
+.result__title {font-size: 1rem;font-weight: bold;display: none;}
+.result__image img {border-radius: .625rem;object-fit: cover;height: 100%;}
 @media all and (max-width: 1023px) {
-	.result__category {width: 100%;padding: 0;max-height: calc(50vh - 10rem);}
-	.result__goods {width: 100%;padding: 0;max-height: calc(50vh - 5rem);}
+	.result__category {width: 100%;max-height: calc(50vh - 10rem);padding: 0;overflow-y: auto;}
+	.result__goods {width: 100%;max-height: calc(50vh - 5rem);padding: 0;overflow-y: auto;}
 }
 @media all and (max-width: 639px) {
 }
@@ -1670,7 +1678,7 @@ footer .contacts__block {margin-top: 1.5rem;}
 .subscribe__title {font-size: 1rem;}
 .subscribe .form__callback {position: relative;}
 .subscribe .form__button {width: 100%;height: 3rem;}
-.subscribe .form__pp {color: var(--color-darkgray);text-align: center;}
+.subscribe .form__pp {text-align: center;}
 @media all and (max-width: 1199px) {
 	.footer__text {padding: 0 3rem;}
 	.copyright {margin-bottom: .5rem;width: 100%;}
@@ -1788,7 +1796,6 @@ footer .contacts__block {margin-top: 1.5rem;}
 .swiperMedia__nav-prev:before {content: '\e909';}
 .swiperMedia__nav-next:before {content: '\e90a';}
 
-
 .swiperMedia__swiper-container {overflow: visible;z-index: 1;}
 .swiperMedia__swiper-container .swiperMedia__swiper-wrapper {height: 28rem;align-items: flex-end;}
 .swiperMedia__swiper-container .swiper-slide {width: 11rem;height: 11rem;overflow: hidden;border-radius: .625rem;}
@@ -1813,8 +1820,7 @@ footer .contacts__block {margin-top: 1.5rem;}
 #fancybox__book {max-width: 54rem;width: 100%;}
 #fancybox__book .form__field {width: calc(50% - 1rem);margin: 1rem .5rem 0 .5rem;flex-grow: 1;}
 #fancybox__book .button-primary {width: calc(50% - 1rem);margin: 1rem .5rem 0 .5rem;}
-#fancybox__book .form__pp {width: calc(50% - 1rem);margin: 1rem .5rem 0 .5rem;color: var(--color-darkgray);}
-#fancybox__book .form__pp a {color: var(--color-darkgray);}
+#fancybox__book .form__pp {width: calc(50% - 1rem);margin: 1rem .5rem 0 .5rem;}
 #fancybox__book .modal__title {margin-bottom: 1rem;}
 #fancybox__book .modal__title-icon {width: 6rem;height: 6rem;margin-right: 1rem;display: none;align-items: center;justify-content: center;}
 .book #fancybox__book .modal__title-icon {display: flex;}
@@ -1823,8 +1829,12 @@ footer .contacts__block {margin-top: 1.5rem;}
 #fancybox__book .block__title {margin: 0;}
 
 
-
-
+/**************************************/
+/*** Обратный звонок ***/
+/**************************************/
+#fancybox__callback {max-width: 30rem;}
+#fancybox__callback .subtitle {margin: 1rem 0;font-size: 1rem;line-height: 1.25rem;}
+#fancybox__callback .form__fields {margin-bottom: 1.5rem;}
 
 
 
