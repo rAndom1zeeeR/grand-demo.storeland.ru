@@ -1765,16 +1765,16 @@ footer .contacts__block {margin-top: 1.5rem;}
 }
 
 
-
 /**************************************/
 /*** Фотогалерея ***/
 /**************************************/
 #gallery {padding-top: 0;overflow: hidden;}
-.gallery__items {flex-wrap: nowrap;}
-.gallery__item {margin: .5rem;position: relative;}
-.gallery__image {width: 17.5rem;height: 17.5rem;border-radius: .625rem;background-position: center;background-size: cover;position: relative;display: block;}
-.gallery__image img {object-fit: cover;max-width: initial;max-height: initial;width: 100%;height: 100%;left: 0;top: 0;transition: all 0.3s ease-in-out;position: relative;border-radius: .625rem;}
-.gallery__image:hover img {z-index: 1;transition: all 0.3s ease-in-out;width: 140%;height: 140%;left: -20%;top: -20%;}
+#gallery .swiper {overflow: visible;}
+.gallery__items + .gallery__items {margin-top: 1rem;}
+.gallery__item.swiper-slide {width: 17rem;height: 17rem;position: relative;}
+.gallery__image {width: 100%;height: 100%;border-radius: .625rem;position: relative;display: block;overflow: hidden;outline: 0;}
+.gallery__image img {object-fit: cover;height: 100%;left: 0;top: 0;transition: all 0.3s ease-in-out;position: absolute;border-radius: .625rem;transform: scale(1);}
+.gallery__image:hover img {z-index: 1;transition: all 0.3s ease-in-out;transform: scale(1.1)}
 
 
 /**************************************/

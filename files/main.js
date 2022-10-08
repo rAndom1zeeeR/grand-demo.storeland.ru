@@ -3399,7 +3399,6 @@ function ajaxForms(id,flag,successMessage,errorMessage,subMessage){
 		t = $(this);		
 		if(!flag && validForm()){
 			if(t.find('button').hasClass('disabled')){
-				console.log('button disabled')
 				return false;
 			}else{
 				var url = t.prop('action');
@@ -3413,7 +3412,6 @@ function ajaxForms(id,flag,successMessage,errorMessage,subMessage){
 					data: formData,
 					success: function(d){
 						var serverCall = JSON.parse(d).status;
-						console.log('status:', serverCall)
 						if(serverCall == "ok"){
 							$.fancybox.close();
 							var content = '<div class="modal success"><div class="block__title block__title-separator"><h2 class="title">'+ successMessage +'</h2><div class="subtitle">'+ subMessage +'</div></div></div>'
@@ -3422,37 +3420,31 @@ function ajaxForms(id,flag,successMessage,errorMessage,subMessage){
 							flag = true;
 							// Убираем флаг чтобы можно было еще раз отправить форму
 							setTimeout(function () {
-								console.log('fancybox close')
 								$.fancybox.close();
 							},3000);
 							setTimeout(function () {
-								console.log('flag false in 8sec')
 								flag = false;
 							},8000);
 
 						}else{
 							// Ошибка статуса с сервера
-							console.log('serverCall ERROR', serverCall)
 							fromError(t)
 						}
 					},
 					error: function(){
 						// Ошибка отправки аякса
-						console.log('error ajax')
 						fromError(t)
 					}
 				});
 			}
 		}else{
 			// Ошибка флага
-			console.log('flag off')
 			fromError(t);
 		}
   });
 
 	// Функция ошибки
 	function fromError(t){
-		console.log('fromError')
 		// Блокируем кнопку
 		t.find('button').addClass('disabled')
 		var text = t.find('button span').text()
@@ -3461,7 +3453,6 @@ function ajaxForms(id,flag,successMessage,errorMessage,subMessage){
 		setTimeout(function () {
 			t.find('button').removeClass('disabled')
 			t.find('button span').text(text)
-			console.log('set default button in 9sec')
 		},9000);
 		
 		// Уведомление
@@ -3686,12 +3677,6 @@ function indexCatalog(){
 					name.each(function(){
 						container.find('.products__nav-dots').append($(this).removeClass('product__name product__margin'));
 					})
-					// for(var i=0;i<name.index();i++){
-					// 	container.find('.products__nav').append(name.removeClass('product__name product__margin'));
-					// }
-					// console.log('$newProducts', $newProducts)
-					// console.log('itemsLength', itemsLength)
-					// console.log('$parentContainer', $parentContainer)
           // Вывод товаров
           if(!parentContainer.find('.products__list').length){
             parentContainer.append($newProducts);
@@ -3836,7 +3821,8 @@ function tabs() {
 	});
 }
 
-function indexSwiper(){
+// Слайдер на главной
+function swiperSlider(){
 	var PaginationSlider = new Swiper('#slideshow .swiper-container', {
 		slidesPerView: 'auto',
 		watchSlidesVisibility: true,
@@ -3865,8 +3851,8 @@ function indexSwiper(){
 	});
 }
 
-
-function indexMedia(){
+// Слайдер Медиа
+function swiperMediaSlider(){
 	
 	function updateMedia(t){
 		var src = $(t.slides[t.realIndex].innerHTML).find('img').attr('src');
@@ -3923,4 +3909,67 @@ function indexMedia(){
 		}
 	});
 
+}
+
+// Слайдер Фотогаллерея
+function swiperGallery(){
+	var swiperOne = new Swiper("#gallery .gallery__swiper-one", {
+		loop: true,
+		autoplay: {
+			deleay: 5000,
+			pauseOnMouseEnter: true,
+		},
+		slidesPerView: 'auto',
+		spaceBetween: 16,
+		watchSlidesVisibility: true,
+		breakpoints: {
+			320: {
+				slidesOffsetBefore: 20,
+				slidesOffsetAfter: 20,
+			},
+			480: {
+			},
+			640: {
+				slidesOffsetBefore: 30,
+				slidesOffsetAfter: 30,
+			},
+			768: {
+			},
+			1024: {
+				slidesOffsetBefore: 60,
+				slidesOffsetAfter: 60,
+			},
+			1200: {
+			}
+		}
+	});
+
+	var swiperTwo = new Swiper("#gallery .gallery__swiper-two", {
+		loop: true,
+		autoplay: {
+			deleay: 6000,
+			pauseOnMouseEnter: true,
+		},
+		slidesPerView: 'auto',
+		spaceBetween: 16,
+		watchSlidesVisibility: true,
+		breakpoints: {
+			320: {
+				slidesOffsetBefore: 30,
+				slidesOffsetAfter: 30,
+			},
+			480: {
+			},
+			640: {
+			},
+			768: {
+			},
+			1024: {
+				slidesOffsetBefore: 60,
+				slidesOffsetAfter: 60,
+			},
+			1200: {
+			}
+		}
+	});
 }
