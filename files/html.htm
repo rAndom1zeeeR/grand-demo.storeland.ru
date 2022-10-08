@@ -153,60 +153,9 @@
 		</header>
 
 		{% IF index_page %}
-		<!-- Слайдшоу -->
-		<div id="slideshow2" class="loading" style="display: none;">
-			<!-- Слайд 1 -->
-			<div class="slider__item flex lozad" data-background-image="{ASSETS_IMAGES_PATH}slide_1.jpg?design=THEMENAME">
-				<div class="container">
-					<div class="slider__content">
-						<div class="slider__subtitle"><span>Забронируйте номер на сайте и получите дополнительную скидку</span></div>
-						<a class="slider__title" href="{CATALOG_URL}"><span>Лучший курорт на всем побережье южного берега Крыма</span></a>
-						<!-- Форма бронирования -->
-						<div class="slider__form">
-							<form method="post" action="{CALLBACK_URL}" class="form__callback flex" enctype="multipart/form-data">
-								<div class="form__fields">
-									<div class="form__field form__fields-icons">
-										<label class="form__label"><span>Телефон для связи</span></label>
-										<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
-										<i class="icon-phone"></i>
-									</div>
-								</div>
-								<div class="form__fields">
-									<div class="form__field form__fields-icons">
-										<label class="form__label" for="deliveryConvenientDate"><span>Даты заезда и выезда</span></label>
-										<input class="form__input form__date" type="text" name="form[date]" value="" maxlength="10" minlength="10" autocomplete="off" placeholder="17.11.2022 - 10.12.2022" required />
-										<i class="icon-calendar"></i>
-									</div>
-								</div>
-								<div class="form__fields">
-									<div class="form__field form__fields-icons">
-										<label class="form__label"><span>Количество гостей</span></label>
-										<input class="form__input form__guests" type="text" name="form[guests]" value="" placeholder="4 гостей" autocomplete="off" required />
-										<i class="icon-person"></i>
-									</div>
-								</div>
-								<div class="form__buttons">
-									<button class="button-primary form__button" type="submit" title="Подобрать номер"><span>Подобрать номер</span></button>
-								</div>
-								<!-- Скрытые поля формы -->
-								<input type="hidden" name="hash" value="{HASH}" />
-								<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
-								<input type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="Подобрать номер" placeholder="Ваше имя" />
-								<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
-								{ANTISPAM_CODE}
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-
-		
-
-		<!-- Swiper -->
+		<!-- Слайдшоу Swiper -->
 		<div id="slideshow">
-			<div class="swiper mySwiper">
+			<div class="swiper">
 				<div class="swiper-wrapper">
 					<!-- Слайд 1 -->
 					<div class="slider__item swiper-slide flex lozad" data-background-image="{ASSETS_IMAGES_PATH}slide_1.jpg?design=THEMENAME">
@@ -385,8 +334,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- <div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div> -->
+				<!-- Навигация -->
 				<div class="swiper-pagination">
 					<div class="container">
 						<div class="swiper-container">
@@ -432,50 +380,6 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- Swiper JS -->
-			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
-			<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
-			<!-- Initialize Swiper -->
-			<script>
-				var indexBannerPaginationSlider = new Swiper('.swiper-pagination .swiper-container', {
-					slidesPerView: 'auto',
-					watchSlidesVisibility: true,
-					breakpoints: {
-						768: {
-							spaceBetween: 32,
-							slidesPerView: '4',
-						}
-					}
-				});
-
-				var swiper = new Swiper(".mySwiper", {
-					loop: true,
-					preloadImages: false,
-					watchSlidesVisibility: true,
-					watchOverflow: true,
-					hashNavigation: false,
-					autoplay: {
-						delay: 5000,
-						disableOnInteraction: false,
-					},
-					thumbs: {
-						autoScrollOffset: 0,
-						swiper: indexBannerPaginationSlider,
-					},
-					// effect: 'fade',
-					// fadeEffect: {
-					// 		crossFade: true
-					// },
-					// pagination: {
-					// 	el: ".swiper-pagination",
-					// 	clickable: true,
-					// },
-				});
-
-
-			</script>
 		</div>
 
 		<!-- Категории каталога с товарами на главной -->
@@ -1410,41 +1314,65 @@
 			</div>
 		</section>
 		{% ENDIF index_page_goods %}
-
+		
 		<!-- Материалы СМИ -->
 		{% IFNOT news_list_mass_media_empty %}
-		<section id="news_list_mass_media" data-background-color="white" style="display: none;">
+		<section id="news_media" data-background-color="white">
 			<div class="container">
-				<div class="owl-carousel media">
-					{% FOR news_list_mass_media %}
-					<div class="media__inner flex-start">
-						<div class="media__slider">
-							<div class="news__item">
-								<a class="news__image flex-center" href="{news_list_mass_media.URL}" title="Перейти к странице &laquo;{news_list_mass_media.TITLE}&raquo;">
-									<img src="{% IF news_list_mass_media.IMG %}{news_list_mass_media.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" alt="{news_list_mass_media.TITLE}" />
-								</a>
-							</div>
+				<div class="">
+					<div class="swiperMedia">
+						<div class="swiperMedia__images">
+							<a class="swiperMedia__image" href="">
+								<img class="swiperMedia__img" src="{% IF news_list_mass_media.IMG %}{news_list_mass_media.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" alt="{news_list_mass_media.TITLE}" />
+								<img class="swiperMedia__img swiperMedia__img--holder" src="{% IF news_list_mass_media.IMG %}{news_list_mass_media.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" alt="{news_list_mass_media.TITLE}" />
+							</a>
 						</div>
-						<div class="media__block">
-							<div class="block__title block__title-separator">
-								<h2 class="title"><span>{news_list_mass_media.TITLE}</span></h2>
-								<div class="subtitle">{news_list_mass_media.TIME | date('m.d.Y')}</div>
-							</div>
-							<div class="media__content flex-center">
-								<div class="media__icon">
-									<i class="icon-gift"></i>
+
+						<div class="swiperMedia__nav flex justify-between">
+							<div class="swiperMedia__nav-prev"></div>
+							<div class="swiperMedia__nav-next"></div>
+						</div>
+
+						<div class="swiperMedia__count">
+							<b>1</b>/<span>10</span>
+						</div>
+
+						<div class="swiperMedia__content swiperMedia__content-container">
+							<div class="swiper-wrapper swiperMedia__content-wrapper">
+								{% FOR news_list_mass_media %}
+								<div class="media__block swiper-slide">
+									<div class="block__title block__title-separator">
+										<div class="subtitle">{news_list_mass_media.TIME | date('d.m.Y')}</div>
+										<a class="title" href="{news_list_mass_media.URL}" title="{news_list_mass_media.TITLE}"><span>{news_list_mass_media.TITLE}</span></a>
+									</div>
+									<div class="media__content flex-center">
+										<div class="media__icon">
+											<i class="icon-gift"></i>
+										</div>
+										<div class="media__text">{news_list_mass_media.TEXT_SHORT}</div>
+									</div>
 								</div>
-								<div class="media__text">{news_list_mass_media.TEXT_SHORT}</div>
+								{% ENDFOR %}
 							</div>
 						</div>
+
+						<div class="swiperMedia__swiper-container">
+							<div class="swiper-wrapper swiperMedia__swiper-wrapper">
+								{% FOR news_list_mass_media %}
+								<div class="swiper-slide">
+									<div class="pagination__image">
+										<img data-href="{news_list_mass_media.URL}" src="{% IF news_list_mass_media.IMG %}{news_list_mass_media.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" alt="{news_list_mass_media.TITLE}" />
+									</div>
+								</div>
+								{% ENDFOR %}
+							</div>
+						</div>
+
 					</div>
-					{% ENDFOR %}
 				</div>
-				<!-- Навигация -->
-				<div class="news__dots"></div>
 			</div>
 		</section>
-		{% ENDIF news_list_mass_media_empty %}
+		{% ENDIF %}
 
 		<!-- Распродажа -->
 		{% IFNOT index_page_sale_goods_empty %}
@@ -3427,6 +3355,7 @@
 			quantity();
 			prodQty();
 			// initTabs();
+			tabs()
 			counterDate();
 		});
 	</script>
@@ -3449,7 +3378,7 @@
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}debounce.js?design=THEMENAME"></script>
 	{% ENDIF %}
 
-	<!-- Страница: Товар -->
+	<!-- Страница: Главная -->
 	{% IF index_page %}
 	<script async type="text/javascript">
 		$(document).ready(function () {
@@ -3464,10 +3393,17 @@
 			monthNames();
 			indexCatalog();
 			counterDate();
+			indexSwiper();
+			indexMedia();
 		});
 	</script>
+
 	{% ENDIF %}
 
+	<!-- Swiper JS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+	
 	<!-- Скрипт выбора даты -->
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}air-datepicker.js?design=THEMENAME"></script>
 

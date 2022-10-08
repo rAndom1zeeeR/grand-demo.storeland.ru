@@ -2713,9 +2713,6 @@ function coupons() {
 function pdtVisible(id){
 	var item = $(id).find('.product__item');
 	var visible = $(id).find('.product__item:visible').length;
-	console.log('id', id)
-	console.log('item', item.length)
-	console.log('visible', visible)
 
 	// Кнопка показать все
 	var button = $(id).find('.products__buttons a');
@@ -3838,4 +3835,92 @@ function tabs() {
 		scrollTab()
 	});
 }
-tabs()
+
+function indexSwiper(){
+	var PaginationSlider = new Swiper('#slideshow .swiper-container', {
+		slidesPerView: 'auto',
+		watchSlidesVisibility: true,
+		breakpoints: {
+			768: {
+				spaceBetween: 32,
+				slidesPerView: '4',
+			}
+		}
+	});
+
+	var swiper = new Swiper("#slideshow .swiper", {
+		loop: true,
+		preloadImages: false,
+		watchSlidesVisibility: true,
+		watchOverflow: true,
+		hashNavigation: false,
+		autoplay: {
+			delay: 5000,
+			disableOnInteraction: false,
+		},
+		thumbs: {
+			autoScrollOffset: 0,
+			swiper: PaginationSlider,
+		}
+	});
+}
+
+
+function indexMedia(){
+	
+	function updateMedia(t){
+		var src = $(t.slides[t.realIndex].innerHTML).find('img').attr('src');
+		var href = $(t.slides[t.realIndex].innerHTML).find('img').attr('data-href');
+		$('.swiperMedia__images').find('img').attr('src', src)
+		$('.swiperMedia__images').find('a').attr('href', href)
+		$('.swiperMedia__count b').text(t.realIndex + 1);
+		$('.swiperMedia__count span').text(t.slides.length / 3)
+	}
+
+	var contentSlider = new Swiper('.swiperMedia__content-container', {
+		slidesPerView: '1',
+		loop: true,
+		allowTouchMove: false,
+		navigation: {
+			prevEl: '.swiperMedia__nav-prev',
+			nextEl: '.swiperMedia__nav-next',
+		},
+	});
+
+	var swiper = new Swiper(".swiperMedia__swiper-container", {
+		slidesPerView: 'auto',
+		watchSlidesVisibility: true,
+		watchSlidesProgress: true,
+		loop: true,
+		autoplay: false,
+		spaceBetween: 16,
+		lazy: {
+			loadPrevNext: true,
+			loadPrevNextAmount: '4',
+			loadOnTransitionStart: true,
+		},
+		navigation: false,
+		slideToClickedSlide: true,
+		navigation: {
+			prevEl: '.swiperMedia__nav-prev',
+			nextEl: '.swiperMedia__nav-next',
+		},
+		on: {
+			init: function(){
+				updateMedia(this)
+			},
+			slideChangeTransitionStart: function(){
+				$('.swiperMedia__images').removeClass('swiperMedia__images--load');
+				contentSlider.slideTo(this.realIndex);
+				updateMedia(this)
+			},
+			slideChange: function(){
+				updateMedia(this)
+			},
+			slideChangeTransitionEnd: function(){
+				$('.swiperMedia__images').addClass('swiperMedia__images--load');				
+			},
+		}
+	});
+
+}
