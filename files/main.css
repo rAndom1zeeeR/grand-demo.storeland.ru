@@ -330,6 +330,32 @@ h6 {font-size: 0.875rem;}
 
 
 /**************************************/
+/*** Навигация swiper slider ***/
+/**************************************/
+.swiper-navigate {margin-top: 1rem;}
+.swiper-navigate .swiper-navigation {width: 6rem;}
+.swiper-navigate .swiper-button-next, .swiper-navigate .swiper-button-prev {background-color: transparent;}
+.swiper-navigate .swiper-button-next:hover, .swiper-navigate .swiper-button-prev:hover {color: var(--color-primary);border-color: var(--color-primary);background-color: transparent;}
+.swiper-navigate .swiper-pagination-progressbar {background: var(--color-slategray);width: calc(100% - 6rem - 4rem - 2rem);margin: 0 1rem;border-radius: .25rem;flex-grow: 1;position: relative;text-align: right;bottom: auto;}
+.swiper-navigate .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {background: var(--color-primary);border-radius: .25rem;}
+.swiper-navigate .swiper-fraction {width: 4rem;position: relative;justify-content: flex-end;}
+.swiper-navigate .swiper-pagination-current {font-size: 1.25rem;font-weight: bold;color: var(--color-primary);}
+.swiper-navigate .swiper-pagination-separator {margin: 0 .125rem;}
+
+
+
+
+.swiper-button-next, .swiper-button-prev {color: var(--color-lightgray);background-color: var(--color-white);border: 1px solid var(--color-lightgray);border-radius: 100%;width: 2.5rem;height: 2.5rem;line-height: 2.5rem;padding: 0;text-align: center;z-index: 2;transition: all 0.3s ease;cursor: pointer;top: auto;margin: 0;}
+.swiper-button-next:hover, .swiper-button-prev:hover {color: var(--color-white);background-color: var(--color-primary);border-color: var(--color-primary);}
+.swiper-button-next {right: 0;} 
+.swiper-button-prev {left: 0;}
+.swiper-button-prev:after, .swiper-button-next:after {font-size: 1rem;font-family: 'icomoon';font-weight: normal;}
+.swiper-button-prev:after {content: '\e909';}
+.swiper-button-next:after {content: '\e90a';}
+
+
+
+/**************************************/
 /*** Навигация по страницам ***/
 /**************************************/
 .pages {justify-content: flex-end;}
@@ -826,6 +852,7 @@ h6 {font-size: 0.875rem;}
 /*** Распродажа ***/
 /**************************************/
 #pdt__sales.loading {height: 33.5rem;}
+#pdt__sales .product__item {margin-top: 0;}
 #pdt__sales .product__image {width: 24rem;height: 24rem;}
 #pdt__sales .product__ico {display: none;}
 #pdt__sales .product__shop {width: calc(100% - 24rem);}
