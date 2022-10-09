@@ -2785,7 +2785,7 @@ function pdtSlider(id){
 }
 
 // Распродажа
-function pdtServices() {
+function pdtServices22() {
 	var id = '#services'
 	var carousel = $(id).find('.owl-carousel');
 	var buttons = $(id).find('.owl-navigate .owl-nav');
@@ -2844,159 +2844,7 @@ function pdtServices() {
 	}
 }
 
-// Распродажа
-function pdtSales() {
-	function updateMedia(t){
-		var newIndex = t.realIndex + 1;
-		var newCount = t.slides.length / 3;
-		var total = $('#pdt__sales .swiper-pagination-total');
-		var current = $('#pdt__sales .swiper-pagination-current');
 
-		if (newCount > 10){
-			total.text(newCount);
-		}else{
-			total.text('0' + newCount);
-		}
-
-		if (newIndex > 10){
-			current.text(newIndex);
-		}else{
-			current.text('0' + newIndex);
-		}
-	}
-
-	var swiperSales = new Swiper("#pdt__sales .products__list", {
-		loop: true,
-		autoplay: {
-			deleay: 6000,
-			pauseOnMouseEnter: true,
-		},
-		watchSlidesVisibility: true,
-		slidesPerView: 'auto',
-		simulateTouch: true,
-		navigation: {
-			nextEl: ".swiper-button-next",
-			prevEl: ".swiper-button-prev",
-		},
-		pagination: {
-			el: '.swiper-progressbar',
-    	type: 'progressbar',
-		},
-		on: {
-			init: function(){
-				updateMedia(this)
-			},
-			slideChangeTransitionStart: function(){
-				updateMedia(this)
-			},
-			slideChange: function(){
-				updateMedia(this)
-			},
-		}
-	});
-}
-
-// Новости
-function pdtNews() {
-	var id = '#news';
-	var carousel = $(id).find('.owl-carousel');
-	var buttons = $(id).find('.owl-nav');
-	var dots = $(id).find('.owl-dots');
-	// Функция слайдера для Новостей
-	carousel.owlCarousel({
-		items: 2,
-		margin: 16,
-		loop: false,
-		rewind: true,
-		lazyLoad: true,
-		nav: true,
-		navContainer: buttons,
-		navText: [ , ],
-		dots: true,
-		dotsData: false,
-		dotsContainer: dots,
-		autoHeight: true,
-		autoHeightClass: 'owl-height',
-		autoplay: false,
-		autoplayHoverPause: true,
-		smartSpeed: 500,
-		mouseDrag: true,
-		touchDrag: true,
-		pullDrag: true,
-		responsiveClass: true,
-		responsiveRefreshRate: 100,
-		responsive: {
-			0:{items:1, autoHeight: true},
-			320:{items:1, autoHeight: true},
-			480:{items:2},
-			640:{items:2},
-			768:{items:3},
-			1024:{items:3},
-			1200:{items:2}
-		},
-		onInitialized: navigation,
-		onChanged: navigation
-	});
-
-	function navigation(event) {
-		var items = event.item.count - 1;
-		var item = event.item.index + 1;
-		// Удаляем счетчик слайдов
-		$(id).find('.owl-pages span').remove();
-		// Добавляем счетчик слайдов
-		$(id).find('.owl-pages').append('<span class="owl-page__curent">0'+ item +'</span><span class="owl-page__separator">/</span><span class="owl-page__total">0'+ items +'</span>')
-		// Навигация при клике на кнопку
-		$(id).find('.owl-dot').on('click', function () {
-			carousel.trigger('to.owl.carousel', [$(this).index(), 300]);
-		});
-	}
-}
-
-// Новости СМИ
-function pdtNewsMedia() {
-	var id = $('#news_list_mass_media');
-	var carousel = $(id).find('.owl-carousel');
-	var buttons = $(id).find('.owl-nav');
-	var dots = $(id).find('.news__dots');
-	// Функция слайдера для Новостей
-	carousel.owlCarousel({
-		items: 1,
-		margin: 16,
-		loop: true,
-		rewind: true,
-		lazyLoad: true,
-		nav: true,
-		navContainer: '',
-		navText: [ , ],
-		dots: true,
-		dotsContainer: dots,
-		dotsData: false,
-		autoHeight: true,
-		autoHeightClass: 'owl-height',
-		autoplay: false,
-		autoplayHoverPause: true,
-		smartSpeed: 500,
-		mouseDrag: true,
-		touchDrag: true,
-		pullDrag: true,
-		responsiveClass: true,
-		responsiveRefreshRate: 100,
-		onInitialized: dotsImage
-	});
-
-	// Изображения
-	function dotsImage(event){
-		id.find('.owl-item:not(.cloned)').each(function(){
-			var image = $(this).find('img').attr('src')
-			var index = $(this).index() - 1;
-			dots.find('.owl-dot:nth-child('+ index +')').append('<img src="'+ image +'" />');
-		})
-		// Навигация при клике на кнопку
-		dots.find('.owl-dot').on('click', function () {
-			carousel.trigger('to.owl.carousel', [$(this).index(), 300]);
-		});
-	}
-}
 
 // Отсчет даты до окончания акции
 function counterDate() {
@@ -3122,12 +2970,12 @@ function catalog() {
 // Фильтр по ценам
 function priceFilter() {
 	var
-			priceFilterMinAvailable = parseInt($('.goodsFilterPriceRangePointers .min').text()),  // Минимальное значение цены для фильтра
-			priceFilterMaxAvailable = parseInt($('.goodsFilterPriceRangePointers .max').text()),  // Максимальное значение цены для фильтра
-			priceSliderBlock = $('#goods-filter-price-slider'), // Максимальное значение цены для фильтра
-			priceInputMin = $("#goods-filter-min-price"), // Поле ввода текущего значения цены "От"
-			priceInputMax = $("#goods-filter-max-price"), // Поле ввода текущего значения цены "До"
-			priceSubmitButtonBlock = $(".goodsFilterPriceSubmit");  // Блок с кнопкой, которую есть смысл нажимать только тогда, когда изменялся диапазон цен.
+		priceFilterMinAvailable = parseInt($('.goodsFilterPriceRangePointers .min').text()),  // Минимальное значение цены для фильтра
+		priceFilterMaxAvailable = parseInt($('.goodsFilterPriceRangePointers .max').text()),  // Максимальное значение цены для фильтра
+		priceSliderBlock = $('#goods-filter-price-slider'), // Максимальное значение цены для фильтра
+		priceInputMin = $("#goods-filter-min-price"), // Поле ввода текущего значения цены "От"
+		priceInputMax = $("#goods-filter-max-price"), // Поле ввода текущего значения цены "До"
+		priceSubmitButtonBlock = $(".goodsFilterPriceSubmit");  // Блок с кнопкой, которую есть смысл нажимать только тогда, когда изменялся диапазон цен.
 
 	// Слайдер, который используется для удобства выбора цены
 	priceSliderBlock.slider({
@@ -3554,39 +3402,6 @@ function imageHover(){
 	});
 }
 
-// Слайдер для главной страницы
-function slideShow() {
-	// Слайдер на главной
-	var owlS = $('#slideshow .owl-carousel');
-	owlS.owlCarousel({
-		items: 1,
-		loop: true,
-		rewind: true,
-		lazyLoad: true,
-		nav: false,
-		navText: [ , ],
-		navContainer: '',
-		dots: true,
-		dotsContainer: '',
-		dotsData: false,
-		dotsSpeed: 400,
-		dotsEach: true,
-		smartSpeed: 500,
-		URLhashListener: true,
-		autoplay: false,
-    autoplayTimeout: '3000',
-		autoplayHoverPause: true,
-		autoHeight: false,
-		autoHeightClass: 'owl-height',
-		responsiveClass: true,
-		responsiveRefreshRate: 100,
-		mouseDrag: true,
-		touchDrag: true,
-		pullDrag: true,
-		animateOut: 'fadeOut',
-    animateIn: 'fadeIn',
-	});
-}
 
 // Слайдер для главной страницы
 function pdtCat() {	
@@ -3710,7 +3525,7 @@ $(document).ready(function(){
 	// quickViewMod();
 	toTop();
 	cartSaleSum();
-	pdtNews();
+	swiperNewsSlider();
 	mobmenu()
   mainnav('header .mainnav', '1', 991);
 	setTimeout(function () {
@@ -3823,7 +3638,7 @@ function tabs() {
 }
 
 // Слайдер на главной
-function swiperSlider(){
+function slideShow(){
 	var PaginationSlider = new Swiper('#slideshow .swiper-container', {
 		slidesPerView: 'auto',
 		watchSlidesVisibility: true,
@@ -3854,7 +3669,6 @@ function swiperSlider(){
 
 // Слайдер Медиа
 function swiperMediaSlider(){
-	
 	function updateMedia(t){
 		var src = $(t.slides[t.realIndex].innerHTML).find('img').attr('src');
 		var href = $(t.slides[t.realIndex].innerHTML).find('img').attr('data-href');
@@ -3913,8 +3727,8 @@ function swiperMediaSlider(){
 }
 
 // Слайдер Фотогаллерея
-function swiperGallery(){
-	var swiperOne = new Swiper("#gallery .gallery__swiper-one", {
+function swiperGallerySlider(){
+	var swiperGalleryOne = new Swiper("#gallery .gallery__swiper-one", {
 		loop: true,
 		autoplay: {
 			deleay: 5000,
@@ -3947,7 +3761,7 @@ function swiperGallery(){
 		}
 	});
 
-	var swiperTwo = new Swiper("#gallery .gallery__swiper-two", {
+	var swiperGalleryTwo = new Swiper("#gallery .gallery__swiper-two", {
 		loop: true,
 		autoplay: {
 			deleay: 6000,
@@ -3975,6 +3789,211 @@ function swiperGallery(){
 			1200: {
 				centeredSlides: false,
 			}
+		}
+	});
+}
+
+
+// Распродажа
+function pdtSales() {
+	var id = '#pdt__sales'
+	function updateMedia(t){
+		var newIndex = t.realIndex + 1;
+		var newCount = t.slides.length / 3;
+		var total = $(id).find('.swiper-pagination-total');
+		var current = $(id).find('.swiper-pagination-current');
+
+		if (newCount > 10){
+			total.text(newCount);
+		}else{
+			total.text('0' + newCount);
+		}
+
+		if (newIndex > 10){
+			current.text(newIndex);
+		}else{
+			current.text('0' + newIndex);
+		}
+	}
+
+	var swiperSales = new Swiper("#pdt__sales .swiper", {
+		loop: true,
+		autoplay: {
+			deleay: 6000,
+			pauseOnMouseEnter: true,
+		},
+		watchSlidesVisibility: true,
+		slidesPerView: 'auto',
+		simulateTouch: true,
+		navigation: {
+			nextEl: ".swiper-button-next",
+			prevEl: ".swiper-button-prev",
+		},
+		pagination: {
+			el: '.swiper-progressbar',
+    	type: 'progressbar',
+		},
+		on: {
+			init: function(){
+				updateMedia(this)
+			},
+			slideChangeTransitionStart: function(){
+				updateMedia(this)
+			},
+			slideChange: function(){
+				updateMedia(this)
+			},
+		}
+	});
+}
+
+// Новости
+function swiperNewsSlider() {
+	var id = '#news'
+	function updateMedia(t){
+		var newIndex = t.realIndex + 1;
+		var newCount = t.slides.length;
+		var total = $(id).find('.swiper-pagination-total');
+		var current = $(id).find('.swiper-pagination-current');
+
+		if (newCount > 10){
+			total.text(newCount);
+		}else{
+			total.text('0' + newCount);
+		}
+
+		if (newIndex > 10){
+			current.text(newIndex);
+		}else{
+			current.text('0' + newIndex);
+		}
+	}
+
+	var swiperNews = new Swiper("#news .swiper__container", {
+		loop: false,
+		autoplay: {
+			deleay: 6000,
+			pauseOnMouseEnter: true,
+		},
+		watchSlidesVisibility: true,
+		simulateTouch: true,
+		slidesPerView: '2',
+		spaceBetween: 16,
+		navigation: {
+			nextEl: ".swiper-button-next",
+			prevEl: ".swiper-button-prev",
+		},
+		pagination: {
+			el: '.swiper-progressbar',
+    	type: 'progressbar',
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: '1',
+			},
+			320: {
+				slidesPerView: '1',
+			},
+			480: {
+				slidesPerView: '2',
+			},
+			640: {
+				slidesPerView: '3',
+			},
+			768: {
+				slidesPerView: '3',
+			},
+			1024: {
+				slidesPerView: '3',
+			},
+			1200: {
+				slidesPerView: '2',
+			}
+		},
+		on: {
+			init: function(){
+				updateMedia(this)
+			},
+			slideChangeTransitionStart: function(){
+				updateMedia(this)
+			},
+			slideChange: function(){
+				updateMedia(this)
+			},
+		}
+	});
+}
+
+// Услуги
+function swiperServicesSlider() {
+	var id = '#services'
+	function updateMedia(t){
+		var newIndex = t.realIndex + 1;
+		var newCount = t.slides.length;
+		var total = $(id).find('.swiper-pagination-total');
+		var current = $(id).find('.swiper-pagination-current');
+
+		if (newCount > 10){
+			total.text(newCount);
+		}else{
+			total.text('0' + newCount);
+		}
+
+		if (newIndex > 10){
+			current.text(newIndex);
+		}else{
+			current.text('0' + newIndex);
+		}
+	}
+
+	var swiperServices = new Swiper("#services .swiper__container", {
+		loop: false,
+		autoplay: false,
+		watchSlidesVisibility: true,
+		simulateTouch: true,
+		slidesPerView: '4',
+		spaceBetween: 16,
+		navigation: {
+			nextEl: ".swiper-button-next",
+			prevEl: ".swiper-button-prev",
+		},
+		pagination: {
+			el: '.swiper-progressbar',
+    	type: 'progressbar',
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: '1',
+			},
+			320: {
+				slidesPerView: '1',
+			},
+			480: {
+				slidesPerView: '2',
+			},
+			640: {
+				slidesPerView: '2',
+			},
+			768: {
+				slidesPerView: '3',
+			},
+			1024: {
+				slidesPerView: '4',
+			},
+			1200: {
+				slidesPerView: '4',
+			}
+		},
+		on: {
+			init: function(){
+				updateMedia(this)
+			},
+			slideChangeTransitionStart: function(){
+				updateMedia(this)
+			},
+			slideChange: function(){
+				updateMedia(this)
+			},
 		}
 	});
 }

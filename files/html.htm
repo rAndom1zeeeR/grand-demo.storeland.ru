@@ -1322,7 +1322,7 @@
 				<div class="">
 					<div class="swiperMedia">
 						<div class="swiperMedia__images">
-							<a class="swiperMedia__image" href="">
+							<a class="swiperMedia__image" href="#">
 								<img class="swiperMedia__img" src="{% IF news_list_mass_media.IMG %}{news_list_mass_media.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" alt="{news_list_mass_media.TITLE}" />
 								<img class="swiperMedia__img swiperMedia__img--holder" src="{% IF news_list_mass_media.IMG %}{news_list_mass_media.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" alt="{news_list_mass_media.TITLE}" />
 							</a>
@@ -1340,7 +1340,7 @@
 						<div class="swiperMedia__content swiperMedia__content-container">
 							<div class="swiper-wrapper swiperMedia__content-wrapper">
 								{% FOR news_list_mass_media %}
-								<div class="media__block swiper-slide">
+								<div class="swiper-slide media__block">
 									<div class="block__title block__title-separator">
 										<div class="subtitle">{news_list_mass_media.TIME | date('d.m.Y')}</div>
 										<a class="title" href="{news_list_mass_media.URL}" title="{news_list_mass_media.TITLE}"><span>{news_list_mass_media.TITLE}</span></a>
@@ -1382,7 +1382,7 @@
 					<a class="title" href="{DISCOUNT_URL}" title="Перейти в Распродажа"><span>Горячее предложение</span></a>
 					<div class="subtitle">Сезонные скидки на наши самые популярные номера</div>
 				</div>
-				<div class="swiper products__list">
+				<div class="swiper swiper__container products__list">
 					<div class="swiper-wrapper">
 						{% FOR index_page_sale_goods %}
 						<div class="swiper-slide product__item {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE && index_page_sale_goods.MAX_REST_VALUE=0 %}product__empty{% ENDIF %} {% IF index_page_sale_goods.COUNT_MODIFICATION > 1 %}has-mod{% ENDIF %} {% IF index_page_sale_goods.NB_GOODS_IN_CART %}inCart{% ENDIF %}" data-id="{index_page_sale_goods.ID}" itemscope itemtype="https://schema.org/Product">
@@ -1677,6 +1677,8 @@
 						</div>
 						{% ENDFOR %}
 					</div>
+
+					<!-- Навигация -->
 					<div class="swiper-navigate flex">
 						<div class="swiper-navigation">
 							<div class="swiper-button-prev"></div>
@@ -1689,8 +1691,8 @@
 							<div class="swiper-pagination-total">10</div>
 						</div>
 					</div>
-				</div>
 
+				</div>
 			</div>
 		</section>
 		{% ENDIF index_page_sale_goods_empty %}
@@ -1757,24 +1759,24 @@
 					<h2 class="title"><span>Дополнительные услуги</span></h2>
 					<div class="subtitle">Вы останетесь довольны качеством обслуживания и высоким профессионализмом наших сотрудников</div>
 				</div>
-				<div class="">
-					<div class="services__items flex-stretch owl-carousel">
-						<div class="services__item">
+				<div class="swiper swiper__container">
+					<div class="swiper-wrapper services__items">
+						<div class="swiper-slide services__item">
 							<div class="services__index">1</div>
 							<div class="services__image lozad" data-background-image="{ASSETS_IMAGES_PATH}services_1.jpg?design=THEMENAME"></div>
 							<div class="services__name">Конференц зал для деловых встреч</div>
 						</div>
-						<div class="services__item">
+						<div class="swiper-slide services__item">
 							<div class="services__index">2</div>
 							<div class="services__image lozad" data-background-image="{ASSETS_IMAGES_PATH}services_2.jpg?design=THEMENAME"></div>
 							<div class="services__name">Изумительный ресторан</div>
 						</div>
-						<div class="services__item">
+						<div class="swiper-slide services__item">
 							<div class="services__index">3</div>
 							<div class="services__image lozad" data-background-image="{ASSETS_IMAGES_PATH}services_3.jpg?design=THEMENAME"></div>
 							<div class="services__name">Грандиозный SPA-комплекс</div>
 						</div>
-						<div class="services__item">
+						<div class="swiper-slide services__item">
 							<div class="services__index">4</div>
 							<div class="services__image lozad" data-background-image="{ASSETS_IMAGES_PATH}services_4.jpg?design=THEMENAME"></div>
 							<div class="services__name">Проживание с домашними любимцами</div>
@@ -1782,13 +1784,16 @@
 					</div>
 
 					<!-- Навигация -->
-					<div class="owl-navigate flex">
-						<div class="owl-nav"></div>
-						<div class="owl-dots flex"></div>
-						<div class="owl-pages flex">
-							<span class="owl-page__curent">01</span>
-							<span class="owl-page__separator">/</span>
-							<span class="owl-page__total">00</span>
+					<div class="swiper-navigate flex">
+						<div class="swiper-navigation">
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-button-next"></div>
+						</div>
+						<div class="swiper-progressbar"></div>
+						<div class="swiper-fraction flex">
+							<div class="swiper-pagination-current">00</div>							
+							<div class="swiper-pagination-separator">/</div>
+							<div class="swiper-pagination-total">10</div>
 						</div>
 					</div>
 
@@ -2530,30 +2535,36 @@
 					<!-- Список Новости -->
 					{% IFNOT news_list_shop_empty %}
 					<div id="news_list_shop">
-						<div class="owl-carousel">
-							{% FOR news_list_shop %}
-							<div class="news__item">
-								<a class="news__image flex-center" href="{news_list_shop.URL}" title="Перейти к странице &laquo;{news_list_shop.TITLE}&raquo;">
-									<noscript>
-									<img src="{% IF news_list_shop.IMG %}{news_list_shop.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" alt="{news_list_shop.TITLE}" />
-									</noscript>
-									<img class="lozad script__on" data-src="{% IF news_list_shop.IMG %}{news_list_shop.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" alt="{news_list_shop.TITLE}" />
-								</a>
-								<a class="news__title" href="{news_list_shop.URL}" title="Перейти к странице &laquo;{news_list_shop.TITLE}&raquo;"><span>{news_list_shop.TITLE}</span></a>
+						<div class="swiper swiper__container">
+							<div class="swiper-wrapper">
+								{% FOR news_list_shop %}
+								<div class="swiper-slide">
+									<a class="news__image flex-center" href="{news_list_shop.URL}" title="Перейти к странице &laquo;{news_list_shop.TITLE}&raquo;">
+										<noscript>
+										<img src="{% IF news_list_shop.IMG %}{news_list_shop.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" alt="{news_list_shop.TITLE}" />
+										</noscript>
+										<img class="lozad script__on" data-src="{% IF news_list_shop.IMG %}{news_list_shop.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" alt="{news_list_shop.TITLE}" />
+									</a>
+									<a class="news__title" href="{news_list_shop.URL}" title="Перейти к странице &laquo;{news_list_shop.TITLE}&raquo;"><span>{news_list_shop.TITLE}</span></a>
+								</div>
+								{% ENDFOR %}
 							</div>
-							{% ENDFOR %}
-						</div>
-						<!-- Навигация -->
-						<div class="owl-navigate flex">
-							<div class="owl-nav"></div>
-							<div class="owl-dots flex"></div>
-							<div class="owl-pages flex">
-								<span class="owl-page__curent">01</span>
-								<span class="owl-page__separator">/</span>
-								<span class="owl-page__total">00</span>
-							</div>
-						</div>
 
+							<!-- Навигация -->
+							<div class="swiper-navigate flex">
+								<div class="swiper-navigation">
+									<div class="swiper-button-prev"></div>
+									<div class="swiper-button-next"></div>
+								</div>
+								<div class="swiper-progressbar"></div>
+								<div class="swiper-fraction flex">
+									<div class="swiper-pagination-current">00</div>							
+									<div class="swiper-pagination-separator">/</div>
+									<div class="swiper-pagination-total">10</div>
+								</div>
+							</div>
+
+						</div>
 					</div>
 					{% ENDIF news_list_shop_empty %}
 				</div>
@@ -3406,15 +3417,13 @@
 			pdtVisible('#pdt__best');
 			pdtSlider('#pdt__viewed');
 			pdtSales();
-			pdtServices();
-			pdtNewsMedia();
 			slideShow();
 			monthNames();
 			indexCatalog();
 			counterDate();
-			swiperSlider();
 			swiperMediaSlider();
-			swiperGallery();
+			swiperGallerySlider();
+			swiperServicesSlider();
 		});
 	</script>
 
