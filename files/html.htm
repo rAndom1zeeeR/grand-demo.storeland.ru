@@ -414,20 +414,22 @@
 							</div>
 							<!-- Навигация -->
 							<div class="products__right">
-								<div class="products__nav flex">
-									<!-- Навигация. Назад -->
-									<a class="products__nav-prev" href="javascript:;">
-										<i class="icon-chevron_left"></i>
-									</a>
-									<!-- Навигация. Товары -->
-									<div class="products__nav-dots flex"></div>
-									<!-- Навигация. Вперед -->
-									<a class="products__nav-next" href="javascript:;">
-										<i class="icon-chevron_right"></i>
-									</a>
-								</div>
 								<!-- Вывод товаров -->
-								<div class="products__list owl-carousel"></div>
+								<div class="products__nav flex">
+									<div class="products__nav-prev">
+										<i class="icon-chevron_left"></i>
+									</div>
+									<div class="products__nav-names ">
+										<div class="swiper-wrapper"></div>
+									</div>
+									<div class="products__nav-next">
+										<i class="icon-chevron_right"></i>
+									</div>
+								</div>
+								<!-- Вывод товара -->
+								<div class="products__list swiper">
+									<div class="swiper-wrapper"></div>
+								</div>
 							</div>							
 						</div>
 					</div>
@@ -3416,14 +3418,14 @@
 			pdtVisible('#pdt__new');
 			pdtVisible('#pdt__best');
 			pdtSlider('#pdt__viewed');
-			pdtSales();
 			slideShow();
 			monthNames();
 			indexCatalog();
 			counterDate();
-			swiperMediaSlider();
-			swiperGallerySlider();
-			swiperServicesSlider();
+			swiperMedia();
+			swiperGallery();
+			swiperServices();
+			swiperSales();
 		});
 	</script>
 
