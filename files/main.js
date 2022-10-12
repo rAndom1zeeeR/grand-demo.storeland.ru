@@ -3956,25 +3956,6 @@ function swiperCat(){
 
 	// Функция слайдера
 	function swiperCatSlider(id,swiper,swiperDots){
-		// Основной товар
-		var swiper = new Swiper(id +' .products__list', {
-			loop: true,
-			autoplay: false,
-			watchSlidesVisibility: true,
-			simulateTouch: true,
-			touchRatio: 1,
-			touchAngle: 45,
-			grabCursor: false,
-			slideToClickedSlide: true,
-			slidesPerView: '1.1',
-			spaceBetween: 16,
-			preventClicks: true,
-			watchOverflow: true,
-			navigation: {
-				nextEl: id +' .products__nav-next',
-				prevEl: id +' .products__nav-prev',
-			},
-		});
 
 		// Навигация товаров
 		var swiperDots = new Swiper(id +' .products__nav-names', {
@@ -3994,6 +3975,47 @@ function swiperCat(){
 					this.$el.find('.swiper-slide').on('click', function(e){
 						e.preventDefault()
 					})
+				}
+			}
+		});
+
+		// Основной товар
+		var swiper = new Swiper(id +' .products__list', {
+			loop: true,
+			autoplay: false,
+			watchSlidesVisibility: true,
+			simulateTouch: true,
+			touchRatio: 1,
+			touchAngle: 45,
+			grabCursor: false,
+			slideToClickedSlide: true,
+			slidesPerView: '1.1',
+			spaceBetween: 16,
+			preventClicks: true,
+			watchOverflow: true,
+			navigation: {
+				nextEl: id +' .products__nav-next',
+				prevEl: id +' .products__nav-prev',
+			},
+			breakpoints: {
+				320: {
+					slidesPerView: 1.1,
+				},
+				480: {
+					slidesPerView: 1,
+				},
+				640: {
+					slidesPerView: 1.1,
+				},
+			},
+			on: {
+				init: function(){
+					// Если 1 товар в слайдере
+					if(this.slides.length < 4){
+						$(id +' .products__nav').parent().addClass('swiper-one')
+						this.loopDestroy();
+						swiperDots.loopDestroy();
+					}
 				}
 			}
 		});
