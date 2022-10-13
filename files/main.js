@@ -3289,60 +3289,6 @@ ajaxForms('#fancybox__book','bookFlag','Ваша заявка успешно о�
 ajaxForms('.slider__form','sliderFlag','Ваша заявка успешно отправлена!','Вы уже отправляли запрос. Пожалуйста ожидайте.','Наш специалист свяжется с вами в ближайшее время')
 
 
-
-// Функция изменения изображений при наведении на товар
-function imageHover(){
-	$('.product__item').each(function(){
-		var t = $(this);
-		var imagesLen = t.find('.product__img-id').length
-		// если больше 2 изображений товара
-		if (imagesLen > 1){
-			// Создаем элементы при наведении на которые будут меняться изображения
-			t.find('.product__img-id').each(function(){
-				var image = $(this).attr('data-image')
-				var id =  $(this).attr('data-id')
-				// Создаем элементы
-				t.find('.product__image-items').append('<div class="product__image-item" data-image="'+ image +'" data-id="'+ id +'"></div>');
-				t.find('.product__image-dots').append('<div class="product__image-dot owl-dot" data-id="'+ id +'"></div>');
-				// Добавляем активный класс на элемент навигации
-				if (id == t.find('.product__img').data('id')){
-					t.find('.product__image-item').removeClass('active')
-					t.find('.product__image-item[data-id="' + id + '"]').addClass('active')
-					t.find('.product__image-dot').removeClass('active')
-					t.find('.product__image-dot[data-id="' + id + '"]').addClass('active')
-				}
-			});
-
-			// Ховер эффект изменения изображения
-			t.find('.product__image-item').hover(function(){
-				var image = $(this).attr('data-image')
-				var id =  $(this).attr('data-id')
-				t.find('.product__img').attr({
-					'image': image,
-					'data-id': id
-				})
-				t.find('.product__img img').attr('src', image)
-				t.find('.product__image-item').removeClass('active')
-				$(this).addClass('active')
-				t.find('.product__image-dot').removeClass('active')
-				t.find('.product__image-dot[data-id="' + id + '"]').addClass('active')
-			});
-
-			t.find('.product__image-dot').on('click', function(){
-				var id =  $(this).attr('data-id')
-				var image = t.find('.product__image-item[data-id="' + id + '"]').attr('data-image')
-				// Обновляем изображение товара
-				t.find('.product__img img').attr('src', image)
-				// Обновляем активный класс
-				t.find('.product__image-dot').removeClass('active')
-				$(this).addClass('active')
-			});
-		}
-
-	});
-}
-
-
 // Слайдер для главной страницы
 function pdtCat() {	
 	$('#pdt__cat22 [class*="pdt__cat-"]').each(function(){
@@ -3450,6 +3396,7 @@ function indexCatalog(){
           addTo();
           addCart();
           quantity();
+					swiperImage();
         });
     });
     $.when.apply(this, promises)
@@ -3473,11 +3420,11 @@ $(document).ready(function(){
 	toTop();
 	cartSaleSum();
 	swiperNews();
+	swiperImage()
 	mobmenu()
   mainnav('header .mainnav', '1', 991);
 	setTimeout(function () {
 		swiperCat();
-		imageHover();
 		priceDiff('.product__item', 'percent');
 	}, 2000);
 	// Удаление классов загрузки для элементов страницы
@@ -3772,6 +3719,7 @@ function swiperSales() {
 		watchSlidesVisibility: true,
 		slidesPerView: 'auto',
 		simulateTouch: true,
+		grabCursor: true,
 		navigation: {
 			nextEl: ".swiper-button-next",
 			prevEl: ".swiper-button-prev",
@@ -3824,6 +3772,7 @@ function swiperNews() {
 		},
 		watchSlidesVisibility: true,
 		simulateTouch: true,
+		grabCursor: true,
 		slidesPerView: '2',
 		spaceBetween: 16,
 		navigation: {
@@ -3898,6 +3847,7 @@ function swiperServices() {
 		autoplay: false,
 		watchSlidesVisibility: true,
 		simulateTouch: true,
+		grabCursor: true,
 		slidesPerView: '4',
 		spaceBetween: 16,
 		navigation: {
@@ -3985,11 +3935,9 @@ function swiperCat(){
 			autoplay: false,
 			watchSlidesVisibility: true,
 			simulateTouch: true,
-			touchRatio: 1,
-			touchAngle: 45,
-			grabCursor: false,
+			grabCursor: true,
 			slideToClickedSlide: true,
-			slidesPerView: '1.1',
+			slidesPerView: 1.1,
 			spaceBetween: 16,
 			preventClicks: true,
 			watchOverflow: true,
@@ -4029,4 +3977,51 @@ function swiperCat(){
 		});
 	}
 	
+}
+
+
+// 
+function swiperImage(){
+	// Включаем функцию для каждой категории
+	$('.product__item').each(function(){
+		var id = $(this).attr('data-id');
+		swiperImageSlider('.product__image-' + id,'swiper' + id)
+	})
+	// Функция слайдера
+	function swiperImageSlider(id,swiper){
+
+		// Основной товар
+		var swiper = new Swiper(id, {
+			loop: false,
+			autoplay: false,
+			watchSlidesVisibility: true,
+			simulateTouch: true,
+			grabCursor: true,
+			slideToClickedSlide: true,
+			slidesPerView: '1',
+			spaceBetween: 0,
+			preventClicks: true,
+			watchOverflow: true,
+			preloadImages: false,
+			lazy: true,
+			pagination: {
+				el: '.swiper-pagination',
+				type: 'bullets',
+				dynamicBullets: true,
+				clickable: true,
+			},
+			navigation: {
+				nextEl: id +' .swiper-button-next',
+				prevEl: id +' .swiper-button-prev',
+			},
+			on: {
+				init: function(){
+					// Если 1 товар в слайдере
+					if(this.slides.length < 4){
+						// this.loopDestroy();
+					}
+				}
+			}
+		});
+	}
 }

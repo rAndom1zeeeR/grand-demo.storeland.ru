@@ -254,25 +254,24 @@
 								<span class="ico__new"></span>
 								{% ENDIF %}
 							</div>
-	
-							<!-- Изображение -->
-							<a class="product__img flex-center" href="{goods.URL_MIN_PRICE_NOW | url_amp}" title="{goods.NAME}" itemprop="url" data-id="{goods.IMAGE_ID}">
-								<img src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
-							</a>
-	
-							<!-- Смена Изображения при наведении -->
-							<a class="product__image-items flex" href="{goods.URL_MIN_PRICE_NOW | url_amp}"></a>
-	
-							<!-- Смена точек навигации -->
-							<div class="product__image-dots"></div>
-	
-							<!-- Скрытые Дополнительные изображения -->
-							<div class="hidden" style="display: none;">
+
+							<!-- Слайдер изображений -->
+							<div class="product__image-{goods.ID} swiper">
+								<div class="swiper-wrapper">
 								{% FOR images %}
-								<input type="hidden" class="product__img-id" data-id="{goods.images.ID}" data-image="{goods.images.MEDIUM}" />
+									<a class="swiper-slide product__img" href="{goods.URL_MIN_PRICE_NOW | url_amp}" title="{goods.NAME}" itemprop="url" data-id="{goods.images.ID}">
+										<img class="swiper-lazy" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.images.MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
+										<div class="swiper-lazy-preloader"></div>
+									</a>
 								{% ENDFOR %}
+								</div>
+								<div class="swiper-navigation">
+									<div class="swiper-button-prev"></div>
+									<div class="swiper-button-next"></div>
+								</div>
+								<div class="swiper-pagination"></div>
 							</div>
-	
+				
 						</div><!-- //END Изображение товара -->
 						
 						<!-- Информация товара -->
@@ -525,29 +524,25 @@
 									<span class="ico__new"></span>
 									{% ENDIF %}
 								</div>
-					
-								<!-- Изображение -->
-								<a class="product__img flex-center" href="{goods.URL_MIN_PRICE_NOW | url_amp}" title="{goods.NAME}" itemprop="url" data-id="{goods.IMAGE_ID}">
-									<noscript>
-										<img src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
-									</noscript>
-									<img class="lozad script__on" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
-								</a>
-					
-								<!-- Смена Изображения при наведении -->
-								<a class="product__image-items flex" href="{goods.URL_MIN_PRICE_NOW | url_amp}"></a>
-					
-								<!-- Смена точек навигации -->
-								<div class="product__image-dots"></div>
-					
-								<!-- Скрытые Дополнительные изображения -->
-								<div class="hidden" style="display: none;">
+
+								<!-- Слайдер изображений -->
+								<div class="product__image-{goods.ID} swiper">
+									<div class="swiper-wrapper">
 									{% FOR images %}
-									<input type="hidden" class="product__img-id" data-id="{goods.images.ID}" data-image="{goods.images.MEDIUM}" />
+										<a class="swiper-slide product__img" href="{goods.URL_MIN_PRICE_NOW | url_amp}" title="{goods.NAME}" itemprop="url" data-id="{goods.images.ID}">
+											<img class="swiper-lazy" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.images.MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
+											<div class="swiper-lazy-preloader"></div>
+										</a>
 									{% ENDFOR %}
+									</div>
+									<div class="swiper-navigation">
+										<div class="swiper-button-prev"></div>
+										<div class="swiper-button-next"></div>
+									</div>
+									<div class="swiper-pagination"></div>
 								</div>
 					
-							</div><!-- //END Изображение товара -->
+							</div>
 							
 							<!-- Информация товара -->
 							<div class="product__shop">						

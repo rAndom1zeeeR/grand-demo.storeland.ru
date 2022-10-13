@@ -590,38 +590,34 @@
 				<div class="product__image">
 					<!-- Стикеры -->
 					<div class="product__ico flex">
-						{% IF related_goods.IS_TOP %}
+						{% IF goods.IS_TOP %}
 						<span class="ico__best"></span>
 						{% ENDIF %}
-						{% IF related_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > related_goods.MIN_PRICE_NOW %}
+						{% IF goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > goods.MIN_PRICE_NOW %}
 						<span class="ico__sales">%</span>
-						{% ELSEIF related_goods.MIN_PRICE_OLD > related_goods.MIN_PRICE_NOW %}
+						{% ELSEIF goods.MIN_PRICE_OLD > goods.MIN_PRICE_NOW %}
 						<span class="ico__sales">%</span>
 						{% ENDIF %}
-						{% IF related_goods.IS_NEW %}
+						{% IF goods.IS_NEW %}
 						<span class="ico__new"></span>
 						{% ENDIF %}
 					</div>
-		
-					<!-- Изображение -->
-					<a class="product__img flex-center" href="{related_goods.URL_MIN_PRICE_NOW | url_amp}" title="{related_goods.NAME}" itemprop="url" data-id="{related_goods.IMAGE_ID}">
-						<noscript>
-							<img src="{% IF related_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{related_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{related_goods.NAME}" />
-						</noscript>
-						<img class="lozad script__on" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF related_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{related_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{related_goods.NAME}" />
-					</a>
-		
-					<!-- Смена Изображения при наведении -->
-					<a class="product__image-items flex" href="{related_goods.URL_MIN_PRICE_NOW | url_amp}"></a>
-		
-					<!-- Смена точек навигации -->
-					<div class="product__image-dots"></div>
-		
-					<!-- Скрытые Дополнительные изображения -->
-					<div class="hidden" style="display: none;">
+
+					<!-- Слайдер изображений -->
+					<div class="product__image-{goods.ID} swiper">
+						<div class="swiper-wrapper">
 						{% FOR images %}
-						<input type="hidden" class="product__img-id" data-id="{related_goods.images.ID}" data-image="{related_goods.images.MEDIUM}" />
+							<a class="swiper-slide product__img" href="{goods.URL_MIN_PRICE_NOW | url_amp}" title="{goods.NAME}" itemprop="url" data-id="{goods.images.ID}">
+								<img class="swiper-lazy" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.images.MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
+								<div class="swiper-lazy-preloader"></div>
+							</a>
 						{% ENDFOR %}
+						</div>
+						<div class="swiper-navigation">
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-button-next"></div>
+						</div>
+						<div class="swiper-pagination"></div>
 					</div>
 		
 				</div><!-- //END Изображение товара -->
@@ -884,38 +880,34 @@
 				<div class="product__image">
 					<!-- Стикеры -->
 					<div class="product__ico flex">
-						{% IF related_views_goods.IS_TOP %}
+						{% IF goods.IS_TOP %}
 						<span class="ico__best"></span>
 						{% ENDIF %}
-						{% IF related_views_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > related_views_goods.MIN_PRICE_NOW %}
+						{% IF goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > goods.MIN_PRICE_NOW %}
 						<span class="ico__sales">%</span>
-						{% ELSEIF related_views_goods.MIN_PRICE_OLD > related_views_goods.MIN_PRICE_NOW %}
+						{% ELSEIF goods.MIN_PRICE_OLD > goods.MIN_PRICE_NOW %}
 						<span class="ico__sales">%</span>
 						{% ENDIF %}
-						{% IF related_views_goods.IS_NEW %}
+						{% IF goods.IS_NEW %}
 						<span class="ico__new"></span>
 						{% ENDIF %}
 					</div>
-		
-					<!-- Изображение -->
-					<a class="product__img flex-center" href="{related_views_goods.URL_MIN_PRICE_NOW | url_amp}" title="{related_views_goods.NAME}" itemprop="url" data-id="{related_views_goods.IMAGE_ID}">
-						<noscript>
-							<img src="{% IF related_views_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{related_views_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{related_views_goods.NAME}" />
-						</noscript>
-						<img class="lozad script__on" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF related_views_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{related_views_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{related_views_goods.NAME}" />
-					</a>
-		
-					<!-- Смена Изображения при наведении -->
-					<a class="product__image-items flex" href="{related_views_goods.URL_MIN_PRICE_NOW | url_amp}"></a>
-		
-					<!-- Смена точек навигации -->
-					<div class="product__image-dots"></div>
-		
-					<!-- Скрытые Дополнительные изображения -->
-					<div class="hidden" style="display: none;">
+
+					<!-- Слайдер изображений -->
+					<div class="product__image-{goods.ID} swiper">
+						<div class="swiper-wrapper">
 						{% FOR images %}
-						<input type="hidden" class="product__img-id" data-id="{related_views_goods.images.ID}" data-image="{related_views_goods.images.MEDIUM}" />
+							<a class="swiper-slide product__img" href="{goods.URL_MIN_PRICE_NOW | url_amp}" title="{goods.NAME}" itemprop="url" data-id="{goods.images.ID}">
+								<img class="swiper-lazy" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.images.MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
+								<div class="swiper-lazy-preloader"></div>
+							</a>
 						{% ENDFOR %}
+						</div>
+						<div class="swiper-navigation">
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-button-next"></div>
+						</div>
+						<div class="swiper-pagination"></div>
 					</div>
 		
 				</div><!-- //END Изображение товара -->

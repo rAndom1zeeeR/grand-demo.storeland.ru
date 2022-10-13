@@ -473,27 +473,23 @@
 										{% ENDIF %}
 									</div>
 
-									<!-- Изображение -->
-									<a class="product__img flex-center" href="{index_page_favorites_goods.URL_MIN_PRICE_NOW | url_amp}" title="{index_page_favorites_goods.NAME}" itemprop="url" data-id="{index_page_favorites_goods.IMAGE_ID}">
-										<noscript>
-											<img src="{% IF index_page_favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{index_page_favorites_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{index_page_favorites_goods.NAME}" />
-										</noscript>
-										<img class="lozad script__on" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF index_page_favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{index_page_favorites_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{index_page_favorites_goods.NAME}" />
-									</a>
-
-									<!-- Смена Изображения при наведении -->
-									<a class="product__image-items flex" href="{index_page_favorites_goods.URL_MIN_PRICE_NOW | url_amp}"></a>
-
-									<!-- Смена точек навигации -->
-									<div class="product__image-dots"></div>
-
-									<!-- Скрытые Дополнительные изображения -->
-									<div class="hidden" style="display: none;">
+									<!-- Слайдер изображений -->
+									<div class="product__image-{index_page_favorites_goods.ID} swiper">
+										<div class="swiper-wrapper">
 										{% FOR images %}
-										<input type="hidden" class="product__img-id" data-id="{index_page_favorites_goods.images.ID}" data-image="{index_page_favorites_goods.images.MEDIUM}" />
+											<a class="swiper-slide product__img" href="{index_page_favorites_goods.URL_MIN_PRICE_NOW | url_amp}" title="{index_page_favorites_goods.NAME}" itemprop="url" data-id="{index_page_favorites_goods.images.ID}">
+												<img class="swiper-lazy" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF index_page_favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{index_page_favorites_goods.images.MEDIUM}{% ENDIF %}" alt="{index_page_favorites_goods.NAME}" />
+												<div class="swiper-lazy-preloader"></div>
+											</a>
 										{% ENDFOR %}
+										</div>
+										<div class="swiper-navigation">
+											<div class="swiper-button-prev"></div>
+											<div class="swiper-button-next"></div>
+										</div>
+										<div class="swiper-pagination"></div>
 									</div>
-
+						
 								</div><!-- //END Изображение товара -->
 								
 								<!-- Информация товара -->
@@ -765,26 +761,22 @@
 									<span class="ico__new"></span>
 									{% ENDIF %}
 								</div>
-					
-								<!-- Изображение -->
-								<a class="product__img flex-center" href="{index_page_new_goods.URL_MIN_PRICE_NOW | url_amp}" title="{index_page_new_goods.NAME}" itemprop="url" data-id="{index_page_new_goods.IMAGE_ID}">
-									<noscript>
-										<img src="{% IF index_page_new_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{index_page_new_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{index_page_new_goods.NAME}" />
-									</noscript>
-									<img class="lozad script__on" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF index_page_new_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{index_page_new_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{index_page_new_goods.NAME}" />
-								</a>
-					
-								<!-- Смена Изображения при наведении -->
-								<a class="product__image-items flex" href="{index_page_new_goods.URL_MIN_PRICE_NOW | url_amp}"></a>
-					
-								<!-- Смена точек навигации -->
-								<div class="product__image-dots"></div>
-					
-								<!-- Скрытые Дополнительные изображения -->
-								<div class="hidden" style="display: none;">
+
+								<!-- Слайдер изображений -->
+								<div class="product__image-{index_page_new_goods.ID} swiper">
+									<div class="swiper-wrapper">
 									{% FOR images %}
-									<input type="hidden" class="product__img-id" data-id="{index_page_new_goods.images.ID}" data-image="{index_page_new_goods.images.MEDIUM}" />
+										<a class="swiper-slide product__img" href="{index_page_new_goods.URL_MIN_PRICE_NOW | url_amp}" title="{index_page_new_goods.NAME}" itemprop="url" data-id="{index_page_new_goods.images.ID}">
+											<img class="swiper-lazy" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF index_page_new_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{index_page_new_goods.images.MEDIUM}{% ENDIF %}" alt="{index_page_new_goods.NAME}" />
+											<div class="swiper-lazy-preloader"></div>
+										</a>
 									{% ENDFOR %}
+									</div>
+									<div class="swiper-navigation">
+										<div class="swiper-button-prev"></div>
+										<div class="swiper-button-next"></div>
+									</div>
+									<div class="swiper-pagination"></div>
 								</div>
 					
 							</div><!-- //END Изображение товара -->
@@ -1057,26 +1049,22 @@
 									<span class="ico__new"></span>
 									{% ENDIF %}
 								</div>
-					
-								<!-- Изображение -->
-								<a class="product__img flex-center" href="{index_page_goods.URL_MIN_PRICE_NOW | url_amp}" title="{index_page_goods.NAME}" itemprop="url" data-id="{index_page_goods.IMAGE_ID}">
-									<noscript>
-										<img src="{% IF index_page_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{index_page_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{index_page_goods.NAME}" />
-									</noscript>
-									<img class="lozad script__on" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF index_page_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{index_page_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{index_page_goods.NAME}" />
-								</a>
-					
-								<!-- Смена Изображения при наведении -->
-								<a class="product__image-items flex" href="{index_page_goods.URL_MIN_PRICE_NOW | url_amp}"></a>
-					
-								<!-- Смена точек навигации -->
-								<div class="product__image-dots"></div>
-					
-								<!-- Скрытые Дополнительные изображения -->
-								<div class="hidden" style="display: none;">
+
+								<!-- Слайдер изображений -->
+								<div class="product__image-{index_page_goods.ID} swiper">
+									<div class="swiper-wrapper">
 									{% FOR images %}
-									<input type="hidden" class="product__img-id" data-id="{index_page_goods.images.ID}" data-image="{index_page_goods.images.MEDIUM}" />
+										<a class="swiper-slide product__img" href="{index_page_goods.URL_MIN_PRICE_NOW | url_amp}" title="{index_page_goods.NAME}" itemprop="url" data-id="{index_page_goods.images.ID}">
+											<img class="swiper-lazy" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF index_page_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{index_page_goods.images.MEDIUM}{% ENDIF %}" alt="{index_page_goods.NAME}" />
+											<div class="swiper-lazy-preloader"></div>
+										</a>
 									{% ENDFOR %}
+									</div>
+									<div class="swiper-navigation">
+										<div class="swiper-button-prev"></div>
+										<div class="swiper-button-next"></div>
+									</div>
+									<div class="swiper-pagination"></div>
 								</div>
 					
 							</div><!-- //END Изображение товара -->
@@ -1344,8 +1332,8 @@
 								{% FOR news_list_mass_media %}
 								<div class="swiper-slide media__block">
 									<div class="block__title block__title-separator">
-										<div class="subtitle">{news_list_mass_media.TIME | date('d.m.Y')}</div>
 										<a class="title" href="{news_list_mass_media.URL}" title="{news_list_mass_media.TITLE}"><span>{news_list_mass_media.TITLE}</span></a>
+										<div class="subtitle">{news_list_mass_media.TIME | date('d.m.Y')}</div>
 									</div>
 									<div class="media__content flex-center">
 										<div class="media__icon">
@@ -1410,26 +1398,22 @@
 										<span class="ico__new"></span>
 										{% ENDIF %}
 									</div>
-						
-									<!-- Изображение -->
-									<a class="product__img flex-center" href="{index_page_sale_goods.URL_MIN_PRICE_NOW | url_amp}" title="{index_page_sale_goods.NAME}" itemprop="url" data-id="{index_page_sale_goods.IMAGE_ID}">
-										<noscript>
-											<img src="{% IF index_page_sale_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{index_page_sale_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{index_page_sale_goods.NAME}" />
-										</noscript>
-										<img class="lozad script__on" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF index_page_sale_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{index_page_sale_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{index_page_sale_goods.NAME}" />
-									</a>
-						
-									<!-- Смена Изображения при наведении -->
-									<a class="product__image-items flex" href="{index_page_sale_goods.URL_MIN_PRICE_NOW | url_amp}"></a>
-						
-									<!-- Смена точек навигации -->
-									<div class="product__image-dots"></div>
-						
-									<!-- Скрытые Дополнительные изображения -->
-									<div class="hidden" style="display: none;">
+
+									<!-- Слайдер изображений -->
+									<div class="product__image-{index_page_sale_goods.ID} swiper">
+										<div class="swiper-wrapper">
 										{% FOR images %}
-										<input type="hidden" class="product__img-id" data-id="{index_page_sale_goods.images.ID}" data-image="{index_page_sale_goods.images.MEDIUM}" />
+											<a class="swiper-slide product__img" href="{index_page_sale_goods.URL_MIN_PRICE_NOW | url_amp}" title="{index_page_sale_goods.NAME}" itemprop="url" data-id="{index_page_sale_goods.images.ID}">
+												<img class="swiper-lazy" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF index_page_sale_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{index_page_sale_goods.images.MEDIUM}{% ENDIF %}" alt="{index_page_sale_goods.NAME}" />
+												<div class="swiper-lazy-preloader"></div>
+											</a>
 										{% ENDFOR %}
+										</div>
+										<div class="swiper-navigation">
+											<div class="swiper-button-prev"></div>
+											<div class="swiper-button-next"></div>
+										</div>
+										<div class="swiper-pagination"></div>
 									</div>
 						
 								</div><!-- //END Изображение товара -->
@@ -2230,38 +2214,34 @@
 								<div class="product__image">
 									<!-- Стикеры -->
 									<div class="product__ico flex">
-										{% IF recently_viewed_goods.IS_TOP %}
+										{% IF index_page_sale_goods.IS_TOP %}
 										<span class="ico__best"></span>
 										{% ENDIF %}
-										{% IF recently_viewed_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > recently_viewed_goods.MIN_PRICE_NOW %}
+										{% IF index_page_sale_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > index_page_sale_goods.MIN_PRICE_NOW %}
 										<span class="ico__sales">%</span>
-										{% ELSEIF recently_viewed_goods.MIN_PRICE_OLD > recently_viewed_goods.MIN_PRICE_NOW %}
+										{% ELSEIF index_page_sale_goods.MIN_PRICE_OLD > index_page_sale_goods.MIN_PRICE_NOW %}
 										<span class="ico__sales">%</span>
 										{% ENDIF %}
-										{% IF recently_viewed_goods.IS_NEW %}
+										{% IF index_page_sale_goods.IS_NEW %}
 										<span class="ico__new"></span>
 										{% ENDIF %}
 									</div>
-						
-									<!-- Изображение -->
-									<a class="product__img flex-center" href="{recently_viewed_goods.URL_MIN_PRICE_NOW | url_amp}" title="{recently_viewed_goods.NAME}" itemprop="url" data-id="{recently_viewed_goods.IMAGE_ID}">
-										<noscript>
-											<img src="{% IF recently_viewed_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{recently_viewed_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{recently_viewed_goods.NAME}" />
-										</noscript>
-										<img class="lozad script__on" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF recently_viewed_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{recently_viewed_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{recently_viewed_goods.NAME}" />
-									</a>
-						
-									<!-- Смена Изображения при наведении -->
-									<a class="product__image-items flex" href="{recently_viewed_goods.URL_MIN_PRICE_NOW | url_amp}"></a>
-						
-									<!-- Смена точек навигации -->
-									<div class="product__image-dots"></div>
-						
-									<!-- Скрытые Дополнительные изображения -->
-									<div class="hidden" style="display: none;">
+
+									<!-- Слайдер изображений -->
+									<div class="product__image-{index_page_sale_goods.ID} swiper">
+										<div class="swiper-wrapper">
 										{% FOR images %}
-										<input type="hidden" class="product__img-id" data-id="{recently_viewed_goods.images.ID}" data-image="{recently_viewed_goods.images.MEDIUM}" />
+											<a class="swiper-slide product__img" href="{index_page_sale_goods.URL_MIN_PRICE_NOW | url_amp}" title="{index_page_sale_goods.NAME}" itemprop="url" data-id="{index_page_sale_goods.images.ID}">
+												<img class="swiper-lazy" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF index_page_sale_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{index_page_sale_goods.images.MEDIUM}{% ENDIF %}" alt="{index_page_sale_goods.NAME}" />
+												<div class="swiper-lazy-preloader"></div>
+											</a>
 										{% ENDFOR %}
+										</div>
+										<div class="swiper-navigation">
+											<div class="swiper-button-prev"></div>
+											<div class="swiper-button-next"></div>
+										</div>
+										<div class="swiper-pagination"></div>
 									</div>
 						
 								</div><!-- //END Изображение товара -->
