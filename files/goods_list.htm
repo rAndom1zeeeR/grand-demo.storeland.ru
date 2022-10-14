@@ -134,6 +134,7 @@
 							<i class="icon-chevron_up"></i>
 						</a>
 						<a class="filter__clear" title="Очистить фильтры" href="javascript:;">
+							<i class="icon-close"></i>
 							<span>Сбросить</span>
 						</a>
 						<div class="filter__items collapsible__content">
@@ -173,6 +174,7 @@
 							<i class="icon-chevron_up"></i>
 						</a>
 						<a class="filter__clear" title="Очистить фильтры" href="javascript:;">
+							<i class="icon-close"></i>
 							<span>Сбросить</span>
 						</a>
 						<div class="collapsible__content">
@@ -183,7 +185,7 @@
 									<input type="checkbox" id="filterAttrVal{filter_attr_list.values.ID}" class="filter__input" name="form[filter][attr][{filter_attr_list.ID}][{filter_attr_list.values.ID}]" value="1" {% IF filter_attr_list.values.CHECKED %}checked="checked" {% ELSEIF filter_attr_list.values.NB_GOODS_FILTERED=0 %}disabled="disabled" {% ENDIF %} />
 									<label for="filterAttrVal{filter_attr_list.values.ID}" data-name="{filter_attr_list.values.VALUE}">
 										<span class="filter__value">{filter_attr_list.values.VALUE}</span>
-										<span class="filter__nb">({filter_attr_list.values.NB_GOODS_FILTERED})</span>
+										<span class="filter__nb">{filter_attr_list.values.NB_GOODS_FILTERED}</span>
 									</label>
 								</div>
 								{% ENDFOR %}
@@ -199,6 +201,7 @@
 							<i class="icon-chevron_up"></i>
 						</a>
 						<a class="filter__clear" title="Очистить фильтры" href="javascript:;">
+							<i class="icon-close"></i>
 							<span>Сбросить</span>
 						</a>
 						<div class="collapsible__content">
@@ -209,7 +212,7 @@
 									<input type="checkbox" id="filterPropVal{filter_prop_list.values.ID}" class="filter__input" name="form[filter][prop][{filter_prop_list.ID}][{filter_prop_list.values.ID}]" value="1" {% IF filter_prop_list.values.CHECKED %}checked="checked" {% ELSEIF filter_prop_list.values.NB_GOODS_FILTERED=0 %}disabled="disabled" {% ENDIF %} />
 									<label for="filterPropVal{filter_prop_list.values.ID}" data-name="{filter_prop_list.values.VALUE}">
 										<span class="filter__value">{filter_prop_list.values.VALUE}</span>
-										<span class="filter__nb">({filter_prop_list.values.NB_GOODS_FILTERED})</span>
+										<span class="filter__nb">{filter_prop_list.values.NB_GOODS_FILTERED}</span>
 									</label>
 								</div>
 								{% ENDFOR %}
@@ -382,7 +385,7 @@
 							</div>
 	
 							<!-- Добавление товара в избранное и сравнение и в корзину -->
-							<div style="display: none;" class="product__links flex {% IF goods.IS_HAS_IN_COMPARE_LIST || goods.IS_HAS_IN_FAVORITES_LIST %}added{% ENDIF %}">
+							<div class="product__links flex {% IF goods.IS_HAS_IN_COMPARE_LIST || goods.IS_HAS_IN_FAVORITES_LIST %}added{% ENDIF %}">
 								<!-- Если в тарифном плане подключен модуль сравнения товаров и он не выключен в настройках магазина -->
 								{% IFNOT SETTINGS_COMPARE_DISABLE && goods.IS_HAS_IN_COMPARE_LIST %}
 								<a class="add-compare added"
@@ -656,7 +659,7 @@
 								</div>
 					
 								<!-- Добавление товара в избранное и сравнение и в корзину -->
-								<div style="display: none;" class="product__links flex {% IF goods.IS_HAS_IN_COMPARE_LIST || goods.IS_HAS_IN_FAVORITES_LIST %}added{% ENDIF %}">
+								<div class="product__links flex {% IF goods.IS_HAS_IN_COMPARE_LIST || goods.IS_HAS_IN_FAVORITES_LIST %}added{% ENDIF %}">
 									<!-- Если в тарифном плане подключен модуль сравнения товаров и он не выключен в настройках магазина -->
 									{% IFNOT SETTINGS_COMPARE_DISABLE && goods.IS_HAS_IN_COMPARE_LIST %}
 									<a class="add-compare added"

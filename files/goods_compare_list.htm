@@ -15,20 +15,19 @@
         <div class="compare__switch-icon"></div>
         <span class="compare__switch-label" data-hideOff="Показать все" data-showOff="Показывать только отличия">Показывать только отличия</span>
       </div>
-      <div class="owl-nav">
-        <div class="owl-prev"></div>
-        <div class="owl-next"></div>
+      <div class="swiper-navigation">
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
       </div>
     </div>
 
     <!-- Тело таблицы сравнения товаров -->
     <div class="compare__tbody">
       <!-- Строка №1 Главное изображение товара и галлерея изображений -->
-      <div class="compare__line">
-        <!-- <div class="compare__cell"></div> -->
-        <div class="compare__content owl-carousel">
+      <div class="compare__line swiper">
+        <div class="compare__content swiper-wrapper">
           {% FOR goods_mod_info %}
-          <div class="compare__td" data-index="{goods_mod_info.index}">
+          <div class="compare__td swiper-slide" data-index="{goods_mod_info.index}">
             <a class="compare__image flex-center" href="{goods_mod_info.GOODS_MOD_URL}" data-id="{goods_mod_info.GOODS_MOD_ID}" title="Перейти к странице &laquo;{goods_mod_info.GOODS_NAME}&raquo;">
               <img src="{% IF goods_mod_info.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods_mod_info.GOODS_IMAGE_SMALL}{% ENDIF %}" rel="{goods_mod_info.GOODS_IMAGE_ID}" alt="{goods_mod_info.GOODS_NAME}" />
             </a>
@@ -40,11 +39,10 @@
       <!-- /END Строка №1 Главное изображение товара и галлерея изображений -->
       
       <!-- Строка №2 Название товара -->
-      <div class="compare__line">
-        <!-- <div class="compare__cell"></div> -->
-        <div class="compare__content owl-carousel">
+      <div class="compare__line swiper">
+        <div class="compare__content swiper-wrapper">
           {% FOR goods_mod_info %}
-          <div class="compare__td" data-index="{goods_mod_info.index}">
+          <div class="compare__td swiper-slide" data-index="{goods_mod_info.index}">
             <a class="compare__name product__name" href="{goods_mod_info.GOODS_MOD_URL}" title="{goods_mod_info.GOODS_NAME}">
               <span>{goods_mod_info.GOODS_NAME}</span>
             </a>
@@ -64,14 +62,10 @@
       <!-- /END Строка №2 Название товара -->
       
       <!-- Строка №3 В корзину -->
-      <div class="compare__line" >
-        <!-- <div class="compare__cell flex">
-          <input class="square" type="checkbox" id="compare_tb_check_cart" />
-          <label for="compare_tb_check_cart">Купить</label>
-        </div> -->
-        <div class="compare__content owl-carousel">
+      <div class="compare__line swiper">
+        <div class="compare__content swiper-wrapper">
           {% FOR goods_mod_info %}
-          <div class="compare__td" data-index="{goods_mod_info.index}">
+          <div class="compare__td swiper-slide" data-index="{goods_mod_info.index}">
             <form action="{CART_ADD_GOODS_MODIFICATION_URL}" method="post" class="product__form" data-id="{goods_mod_info.GOODS_MOD_ID}">
               <input type="hidden" name="hash" value="{HASH}" />
               <input type="hidden" name="form[goods_from]" value="{goods_mod_info.GOODS_FROM}" />
@@ -100,14 +94,14 @@
       <!-- /END Строка №3 В корзину -->
       
       <!-- Строка №4 Цены товарных модификаций -->
-      <div class="compare__line {% IF GOODS_MOD_COST_NOW_IS_SAME %}same{% ENDIF %}" >
+      <div class="compare__line swiper {% IF GOODS_MOD_COST_NOW_IS_SAME %}same{% ENDIF %}" >
         <div class="compare__cell flex">
           <input class="square" type="checkbox" id="compare_tb_check_price" />
           <label for="compare_tb_check_price">Цена</label>
         </div>
-        <div class="compare__content owl-carousel">
+        <div class="compare__content swiper-wrapper">
           {% FOR goods_mod_info %}
-          <div class="compare__td {% IF goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT>goods_mod_info.PRICE_NOW %}has-price-old{% ELSEIF goods_mod_info.PRICE_OLD>goods_mod_info.PRICE_NOW %}has-price-old{% ENDIF %}" data-index="{goods_mod_info.index}">
+          <div class="compare__td swiper-slide {% IF goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT>goods_mod_info.PRICE_NOW %}has-price-old{% ELSEIF goods_mod_info.PRICE_OLD>goods_mod_info.PRICE_NOW %}has-price-old{% ENDIF %}" data-index="{goods_mod_info.index}">
             <div class="compare__price product__price {CURRENCY_CHAR_CODE}" data-id="{goods_mod_info.GOODS_MOD_ID}">
 	            {% IF goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT > goods_mod_info.PRICE_NOW %}
               <span class="price__old {CURRENCY_CHAR_CODE}" content="{goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT}">{goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
@@ -125,28 +119,28 @@
       <!-- Строка №5 Наличие товарных модификаций -->
       <!-- В зависимости от настроек на сайте покажем либо количественное отображение остатка товаров, либо текстовое -->
       {% IF SETTINGS_COMPARE_REST_VALUE_DISPLAY_TYPE=1%}
-      <div class="compare__line {% IF GOODS_MOD_REST_VALUE_IS_SAME %}same{% ENDIF %}">
+      <div class="compare__line swiper {% IF GOODS_MOD_REST_VALUE_IS_SAME %}same{% ENDIF %}">
         <div class="compare__cell flex">
           <input class="square" type="checkbox" id="compare_tb_check_rest" />
           <label for="compare_tb_check_rest">Наличие</label>
         </div>
-        <div class="compare__content owl-carousel">
+        <div class="compare__content swiper-wrapper">
           {% FOR goods_mod_info %}
-          <div class="compare__td" data-index="{goods_mod_info.index}">
+          <div class="compare__td swiper-slide" data-index="{goods_mod_info.index}">
             <span>{goods_mod_info.REST_VALUE} {goods_mod_info.MEASURE_NAME}</span>
           </div>
           {% ENDFOR %}
         </div>
       </div>
       {% ELSE %}
-      <div class="compare__line {% IF GOODS_MOD_REST_BOOLEAN_IS_SAME %}same{% ENDIF %}">
+      <div class="compare__line swiper {% IF GOODS_MOD_REST_BOOLEAN_IS_SAME %}same{% ENDIF %}">
         <div class="compare__cell flex">
           <input class="square" type="checkbox" id="compare_tb_check_rest" />
           <label for="compare_tb_check_rest">Наличие</label>
         </div>
-        <div class="compare__content owl-carousel">
+        <div class="compare__content swiper-wrapper">
           {% FOR goods_mod_info %}
-          <div class="compare__td" data-index="{goods_mod_info.index}">
+          <div class="compare__td swiper-slide" data-index="{goods_mod_info.index}">
             <span>{% IF goods_mod_info.REST_VALUE=0 %}Товара нет в наличии{% ELSE %}Товар есть в наличии{% ENDIF %}</span>
           </div>
           {% ENDFOR %}
@@ -158,14 +152,14 @@
       <!-- Строка с артикулом покажется, если она заполнена хотя бы для одной товарной модификации -->
       <!-- Строка №6 Артикул товара -->
       {% IFNOT GOODS_ART_NUMBER_IS_EMPTY_FOR_ALL %}
-      <div class="compare__line {% IF GOODS_ART_NUMBER_IS_SAME %}same{% ENDIF %}" >
+      <div class="compare__line swiper {% IF GOODS_ART_NUMBER_IS_SAME %}same{% ENDIF %}" >
         <div class="compare__cell flex">
           <input class="square" type="checkbox" id="compare_tb_check_art_number" />
           <label for="compare_tb_check_art_number">Артикул</label>
         </div>
-        <div class="compare__content owl-carousel">
+        <div class="compare__content swiper-wrapper">
           {% FOR goods_mod_info %}
-          <div class="compare__td" data-index="{goods_mod_info.index}">
+          <div class="compare__td swiper-slide" data-index="{goods_mod_info.index}">
             <span>{% IF goods_mod_info.ART_NUMBER %}{goods_mod_info.ART_NUMBER}{% ELSE %}Не указан{% ENDIF %}</span>
           </div>
           {% ENDFOR %}
@@ -176,14 +170,14 @@
 
       <!-- Строки №7 и т.д - Характеристики товаров -->
       {% FOR goods_attr_list %}
-      <div class="compare__line {% IF goods_attr_list.IS_SAME %}same{% ENDIF %}">
+      <div class="compare__line swiper {% IF goods_attr_list.IS_SAME %}same{% ENDIF %}">
         <div class="compare__cell flex">
           <input class="square" type="checkbox" id="compare_tb_check_attr_{goods_attr_list.ID}" />
           <label for="compare_tb_check_attr_{goods_attr_list.ID}">{goods_attr_list.NAME}</label>
         </div>
-        <div class="compare__content owl-carousel">
+        <div class="compare__content swiper-wrapper">
           {% FOR values %}
-          <div class="compare__td" data-index="{goods_attr_list.values.index}">
+          <div class="compare__td swiper-slide" data-index="{goods_attr_list.values.index}">
             <span>{% IF goods_attr_list.values.VALUE %}{goods_attr_list.values.VALUE}{% ELSE %}<i class="icon-close"></i>{% ENDIF %}</span>
           </div>
           {% ENDFOR %}
@@ -202,9 +196,9 @@
             <input class="square" type="checkbox" id="compare_tb_check_description_large" />
             <label for="compare_tb_check_description_large">Описание</label>
           </div>
-          <div class="compare__content owl-carousel">
+          <div class="compare__content swiper-wrapper">
             {% FOR goods_mod_info %}
-            <div class="compare__td" data-index="{goods_mod_info.index}">
+            <div class="compare__td swiper-slide" data-index="{goods_mod_info.index}">
               <div class="htmlDataBlock">
                 {% IF goods_mod_info.GOODS_DESCRIPTION_SHORT %}
                   <p>{goods_mod_info.GOODS_DESCRIPTION_SHORT}</p>
@@ -226,9 +220,9 @@
             <input class="square" type="checkbox" id="compare_tb_check_description_short" />
             <label for="compare_tb_check_description_short">Описание</label>
           </div>
-          <div class="compare__content owl-carousel">
+          <div class="compare__content swiper-wrapper">
             {% FOR goods_mod_info %}
-            <div class="compare__td" data-index="{goods_mod_info.index}">
+            <div class="compare__td swiper-slide" data-index="{goods_mod_info.index}">
               <div class="htmlDataBlock">
                 {% IF goods_mod_info.GOODS_DESCRIPTION_SHORT %}
                   <p>{goods_mod_info.GOODS_DESCRIPTION_SHORT}</p>

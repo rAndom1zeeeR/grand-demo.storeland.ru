@@ -97,6 +97,7 @@ function toTop() {
   });
 }
 
+
 ///////////////////////////////////////
 // Уведомления
 ///////////////////////////////////////
@@ -204,56 +205,44 @@ function mainnav(id,rows,media){
 // Сравнение товаров
 ///////////////////////////////////////
 function compare() {
-	var owlCompare = $('.compare__tbody .owl-carousel');
-	owlCompare.owlCarousel({
-		items: 4,
-		margin: 16,
-		loop: false,
-		rewind: false,
-		lazyLoad: true,
-		dots: false,
-		nav: false,
-		navContainer: '',
-		navText: [ , ],
-		autoHeight: true,
-		autoHeightClass: 'owl-height',
-		autoplay: false,
-		autoplayHoverPause: false,
-		smartSpeed: 500,
-		mouseDrag: false,
-		touchDrag: true,
-		pullDrag: false,
-		responsiveClass: true,
-		responsiveRefreshRate: 100,
-		responsive: {
-			0:{items:2},
-			320:{items:2},
-			480:{items:2},
-			640:{items:3},
-			768:{items:3},
-			1024:{items:4},
-			1200:{items:4}
-		},
-		onInitialized: carouselInitialized,
-		onChanged: carouselInitialized
-	});
 
-	// Сравнение товаров. Скрываем кнопки
-	function carouselInitialized(event){
-		if (event.item.count > event.page.size) {
-			$('.compare__nav .owl-nav').css('display', 'flex');
-		}else{
-			$('.compare__nav .owl-nav').css('display', 'none');
-		}
-	}
-	
-	// Сравнение товаров. Кнопки навигации
-	$('.compare__nav .owl-prev').on('click', function(){
-		owlCompare.trigger('prev.owl.carousel');
-	});
-	$('.compare__nav .owl-next').on('click', function(){
-		owlCompare.trigger('next.owl.carousel');
-	});
+	var swiper = new Swiper('.compare__line',{
+		loop: false,
+		autoplay: false,
+		watchSlidesVisibility: true,
+		slidesPerView: 4,
+		spaceBetween: 16,
+		simulateTouch: false,
+		grabCursor: false,
+		navigation: {
+			nextEl: '.swiper-button-next',
+			prevEl: '.swiper-button-prev',
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: '1',
+			},
+			320: {
+				slidesPerView: '2',
+			},
+			480: {
+				slidesPerView: '2',
+			},
+			640: {
+				slidesPerView: '3',
+			},
+			768: {
+				slidesPerView: '3',
+			},
+			1024: {
+				slidesPerView: '4',
+			},
+			1200: {
+				slidesPerView: '4',
+			}
+		},
+
+	})
 
 	// Сравнение товаров. Отображение всех и различающихся характеристик товара
 	$('.compare__switch').on('click', function(){
@@ -377,6 +366,7 @@ function ajaxProducts() {
 
 }
 
+
 ///////////////////////////////////////
 // Разница в цене в процентах %
 ///////////////////////////////////////
@@ -398,6 +388,7 @@ function priceDiff(obj,type) {
 		}
 	});
 }
+
 
 ///////////////////////////////////////
 // Много и Мало вместо точного количества
@@ -1157,929 +1148,6 @@ function quickViewShowMod(href, atempt) {
 
 
 ///////////////////////////////////////
-// Товар. Карточка товара
-///////////////////////////////////////
-function pageGoods() {
-	// Слайдер доп. изображений
-	$('.thumblist .owl-carousel').owlCarousel({
-		items: 3,
-		margin: 32,
-		loop: false,
-		rewind: true,
-		lazyLoad: true,
-		dots: false,
-		nav: false,
-		navText: [ , ],
-		autoplay: false,
-		autoplayHoverPause: true,
-		autoHeight: true,
-		smartSpeed: 500,
-		mouseDrag: true,
-		touchDrag: true,
-		pullDrag: true,
-		responsiveClass: true,
-		responsiveRefreshRate: 100,
-		responsive: {
-			0:{items:1},
-			320:{items:2},
-			480:{items:3},
-			640:{items:4},
-			768:{items:5},
-			1024:{items:3},
-			1200:{items:3}
-		}
-	});
-
-	// Функция Сопутствующие товары Слайдер
-	function relatedViews(){
-		var id = $('#related-views');
-		var carousel = id.find('.owl-carousel');
-		var buttons = id.find('.owl-nav');
-		var dots = id.find('.owl-dots');
-		carousel.owlCarousel({
-			items: 4,
-			margin: 32,
-			loop: false,
-			rewind: true,
-			lazyLoad: true,
-			nav: true,
-			navContainer: buttons,
-			navText: [ , ],
-			dots: true,
-			dotsContainer: dots,
-			autoHeight: true,
-			autoHeightClass: 'owl-height',
-			autoplay: false,
-			autoplayHoverPause: true,
-			smartSpeed: 500,
-			mouseDrag: true,
-			touchDrag: true,
-			pullDrag: true,
-			responsiveClass: true,
-			responsiveRefreshRate: 100,
-			responsive: {
-				0:{items:1, autoHeight: true},
-				320:{items:1, autoHeight: true},
-				480:{items:2},
-				640:{items:3},
-				768:{items:3},
-				1024:{items:4},
-				1200:{items:4}
-			},
-			onInitialized: navigation,
-			onChanged: navigation
-		});
-
-		function navigation(event) {
-			var items = event.item.count;
-			var item = event.item.index + 1;
-			// Удаляем счетчик слайдов
-			$(id).find('.owl-pages span').remove();
-			// Добавляем счетчик слайдов
-			$(id).find('.owl-pages').append('<span class="owl-page__curent">0'+ item +'</span><span class="owl-page__separator">/</span><span class="owl-page__total">0'+ items +'</span>')
-			// Навигация при клике на кнопку
-			$(id).find('.owl-dot').on('click', function () {
-				carousel.trigger('to.owl.carousel', [$(this).index(), 300]);
-			});
-		}
-	}
-	relatedViews();
-
-	// Функция Сопутствующие товары Слайдер
-	function relatedGoods(){
-		var id = $('#related-goods');
-		var carousel = id.find('.owl-carousel');
-		var buttons = id.find('.owl-nav');
-		var dots = id.find('.owl-dots');
-		carousel.owlCarousel({
-			items: 4,
-			margin: 32,
-			loop: false,
-			rewind: true,
-			lazyLoad: true,
-			nav: true,
-			navContainer: buttons,
-			navText: [ , ],
-			dots: true,
-			dotsContainer: dots,
-			autoHeight: false,
-			autoHeightClass: 'owl-height',
-			autoplay: false,
-			autoplayHoverPause: true,
-			smartSpeed: 500,
-			mouseDrag: true,
-			touchDrag: true,
-			pullDrag: true,
-			responsiveClass: true,
-			responsiveRefreshRate: 100,
-			responsive: {
-				0:{items:1, autoHeight: true},
-				320:{items:1, autoHeight: true},
-				480:{items:2},
-				640:{items:3},
-				768:{items:3},
-				1024:{items:4},
-				1200:{items:4}
-			},
-			onInitialized: navigation,
-			onChanged: navigation
-		});
-
-		function navigation(event) {
-			var items = event.item.count;
-			var item = event.item.index + 1;
-			// Удаляем счетчик слайдов
-			$(id).find('.owl-pages span').remove();
-			// Добавляем счетчик слайдов
-			$(id).find('.owl-pages').append('<span class="owl-page__curent">0'+ item +'</span><span class="owl-page__separator">/</span><span class="owl-page__total">0'+ items +'</span>')
-			// Навигация при клике на кнопку
-			$(id).find('.owl-dot').on('click', function () {
-				carousel.trigger('to.owl.carousel', [$(this).index(), 300]);
-			});
-		}
-	}
-	// Сопутствующие товары Запуск Слайдера
-	relatedGoods();
-
-	// Функция показать больше для Характеристик
-	function featuresMore(){
-		var content = $('.productView__features');
-		var item = $('.features__item');
-		var itemVisible = $('.features__item:visible').length;
-		var buttons = $('.features__buttons');
-
-		// Если мало характеристик, скрываем кнопки
-		if(item.length <= itemVisible){ buttons.hide(); }
-
-		// Действия при нажатии
-		buttons.find('.button-more').on('click',function(event){
-			event.preventDefault();
-			var textActive = $(this).attr('data-text');
-			var textDefault = $(this).find('span').text();
-
-			// Обновляем текст кнопки
-			$(this).attr('data-text', textDefault).find('span').text(textActive);
-
-			// Если кнопка активна
-			if($(this).hasClass('active')){
-				$(this).removeClass('active');
-				item.removeClass('show');
-				$('html, body').animate({scrollTop : content.offset().top - 60}, 600);
-			}else{
-				$(this).addClass('active');
-				item.addClass('show');
-			}
-		});
-	}
-
-	// Функция для Описания в карточке товара
-	function descriptionMore(){
-		var content = $('.productView__description');
-		var item = content.find('.htmlDataBlock');
-		var buttons = $('.description__buttons');
-		var descHeight = item.height();
-
-		// Если большое описание
-		if (descHeight > 100) {
-			item.addClass('mask');
-			buttons.show();
-		}else{
-			item.removeClass('mask');
-			buttons.hide();
-		}
-
-		// Действия при нажатии
-		buttons.find('.button-more').on('click',function(event){
-			event.preventDefault();
-			var textActive = $(this).attr('data-text');
-			var textDefault = $(this).find('span').text();
-
-			// Обновляем текст кнопки
-			$(this).attr('data-text', textDefault).find('span').text(textActive);
-
-			// Если кнопка активна
-			if($(this).hasClass('active')){
-				$(this).removeClass('active');
-				item.addClass('mask');
-				$('html, body').animate({scrollTop : content.offset().top - 60}, 600);
-			}else{
-				$(this).addClass('active');
-				item.removeClass('mask');
-			}			
-		});
-	}
-
-	// Функция показать больше для Отзывов
-	function opinionMore(){
-		var content = $('.productView__opinion');
-		var item = content.find('.opinion__item');
-		var itemVisible = content.find('.opinion__item:visible').length;
-		var buttons = content.find('.opinion__buttons');
-
-		// Если мало Отзывов, скрываем кнопки
-		if(item.length <= itemVisible){ buttons.hide(); }
-
-		// Если кнопка активна
-		buttons.find('.button-more').on('click',function(event){
-			event.preventDefault();
-			var textActive = $(this).attr('data-text');
-			var textDefault = $(this).find('span').text();
-			
-			// Обновляем текст кнопки
-			$(this).attr('data-text', textDefault).find('span').text(textActive);
-			
-			// Если кнопка активна
-			if($(this).hasClass('active')){
-				$(this).removeClass('active');
-				item.removeClass('show');
-				$('html, body').animate({scrollTop : content.offset().top - 60}, 600);
-			}else{
-				$(this).addClass('active');
-				item.addClass('show');
-			}
-		});
-	}
-
-	// Задержка перед включением функции
-	setTimeout(function () {
-		opinionMore();
-		featuresMore();
-		descriptionMore();
-	}, 100);
-
-	// Переключение для Положительный и Отрицательный отзыв
-	$('.generally label').on('click', function(event){
-		event.preventDefault();
-		$('.generally label').removeClass('active');
-		$('.generally input').attr('checked', false);
-		$(this).addClass('active');
-		$(this).next('input').attr('checked', true);
-	});
-	
-	// Переключение для Положительный и Отрицательный отзыв
-	$('.opinion__nav a').on('click', function(){
-    if($(this).hasClass('goodOpinions')){
-      $('.good').removeClass('hide');
-      $('.bad').removeClass('show');
-      $('.good').addClass('show');
-      $('.bad').addClass('hide');
-			$('.opinion__buttons').hide();
-			$('.opinion__nav a').removeClass('active')
-			$(this).addClass('active')
-    } else if($(this).hasClass('badOpinions')){
-      $('.good').removeClass('show');
-      $('.bad').removeClass('hide');
-      $('.good').addClass('hide');
-      $('.bad').addClass('show');
-			$('.opinion__buttons').hide();
-			$('.opinion__nav a').removeClass('active')
-			$(this).addClass('active')
-    } else {
-      $('.good, .bad').removeClass('show');
-      $('.good, .bad').removeClass('hide');
-			$('.opinion__buttons').show();
-			$('.opinion__nav a').removeClass('active')
-			$(this).addClass('active')
-    }
-  });
-
-	// Добавление отзыва о товаре. Рейтинг
-	if($('.goodsOpinionRating').length){
-		$('.goodsOpinionRating').rating();
-	}
-
-	// Ссылка на отображение формы для добавление отзыва о товаре
-	$('.opinion__add').on('click', function(event){
-		event.preventDefault();
-		if ($(this).hasClass('active')) {
-			// $(this).removeClass('active');
-			$('.opinion__addForm').slideUp(600);
-		}else{
-			// $(this).addClass('active');
-			$('.opinion__addForm').slideDown(600);
-			$('html, body').animate({scrollTop : jQuery('.opinion__addForm').offset().top}, 500);
-		}
-	});
-
-	// Валидация формы на странице оформления заказа, а так же формы на страницы связи с администрацией
-	$(".opinion__form button").on('click', function(){
-		var form = $(".opinion__form");
-		form.validate({
-			errorPlacement: function(error, element) { }
-		});
-		form.submit();
-		return false;
-	});
-
-	// Иконка для обновления изображение капчи
-	$('.captcha__refresh').on('click', function(){
-		RefreshImageAction(this,1,1);
-		$('.captcha__image').attr('src',$('.captcha__image').attr('src')+'&rand'+Math.random(0,10000));
-		return false;
-	});
-	// Имитация клика для капчи
-	$('.captcha__refresh').click();
-
-	// Открытие зон доставки
-	$('.zone__open').on('click', function(event){
-		event.preventDefault();
-		if ($(this).hasClass('active')) {
-			$(this).removeClass('active');
-			$('.zone__list').slideUp(600);
-		}else{
-			$(this).addClass('active');
-			$('.zone__list').slideDown(600);
-		}
-	});
-
-	// Первая буква имени в аватаре
-	$('.opinion__item').each(function(){
-		var avatar = $(this).find('.opinion__avatar span');
-		var name = $(this).find('.opinion__name span').text()[0];
-		avatar.text(name)
-	})
-
-}
-
-// Крутит изображение при обновлении картинки защиты от роботов
-function RefreshImageAction(img,num,cnt) {
-	if(cnt>13) { return false; }
-	$(img).attr('src', $(img).attr('rel') + 'icon/refresh/' + num + '.gif');
-	num = (num==6)?0:num;
-	setTimeout(function () {
-		RefreshImageAction(img, num+1, cnt+1)
-	}, 50);
-}
-
-// Проверка вводимых значений в количестве товара
-function keyPress(oToCheckField, oKeyEvent) {
-  return oKeyEvent.charCode === 0 || /\d/.test(String.fromCharCode(oKeyEvent.charCode));
-}
-
-// Функция + - для товара
-function quantity() {
-  //Regulator Up копки + в карточке товара при добавлении в корзину
-  $('.qty__plus').off('click').on('click', function(){
-    var quantity = $(this).parent().find('input');
-    var currentVal = parseInt(quantity.val());
-    if (!isNaN(currentVal)){
-      quantity.val(currentVal + 1);
-      quantity.trigger('keyup');
-      quantity.trigger('change');
-    }
-    return false;
-  });
-  //Regulator Down копки - в карточке товара при добавлении в корзину
-  $('.qty__minus').off('click').on('click', function(){
-    var quantity = $(this).parent().find('input');
-    var currentVal = parseInt(quantity.val());
-    if (!isNaN(currentVal)){
-      quantity.val(currentVal - 1);
-      quantity.trigger('keyup');
-      quantity.trigger('change');
-    }
-    return false;
-  });
-}
-
-// Изменение кол-ва в карточке
-function prodQty($container){
-	var $goodsModView = $container || $('#main .productViewBlock')
-	$goodsModView.find('.quantity').change(function(){
-		var t = $(this);
-		// Количество
-		var val = parseInt(t.val());
-		// Если вводят 0 то заменяем на 1
-		if(val < 1){
-			t.val(1);
-			val = 1;
-		}
-		// Проверка максимальныго остатка
-		var max = parseInt(t.attr('max'));
-		if(val > max){
-			t.val(max);
-			val = max;
-			new Noty({
-				text: '<div class="noty__addto"><div class="noty__message">Внимание! Вы пытаетесь положить в корзину товара больше, чем есть в наличии</div></div>',
-				layout:"bottomRight",
-				type:"warning",
-				easing:"swing",
-				animation: {
-					open: 'animated fadeInUp',
-					close: 'animated fadeOutDown',
-					easing: 'swing',
-					speed: 400
-				},
-				timeout:"2000",
-				progressBar:true
-			}).show();
-		}
-
-		// Обновление кол-ва для функций "Добавить"
-		$goodsModView.find('.goodsDataMainModificationId').val($(this).val());
-		// Цена товара без изменений
-		var price = parseInt($goodsModView.find('.price__now').attr('content'));
-		var priceOld = parseInt($goodsModView.find('.price__old').attr('content'));
-		var newPrice = 0;
-		var newPriceOld = 0;
-
-		// Проверяем наличие добавленных товаров вместе с основным
-		if ($goodsModView.find('.productView__form [class^="goodsID-"]').length) {
-			$goodsModView.find('.productView__form [class^="goodsID-"]').each(function(){
-				// Сумма всех добавленных товаров
-				newPrice += parseInt($(this).attr('data-price'))
-				newPriceOld += parseInt($(this).attr('data-price-old'))
-			});
-		}
-
-		// Считаем новую сумму товара с учетом добавленных
-		var multi = String(val * price + newPrice);
-		var multiOld = String(val * priceOld + newPriceOld);
-
-		// Обновляем новую сумму
-		$goodsModView.find('.price__now').attr('data-price', multi);
-		$goodsModView.find('.price__now').find('.num').text(addSpaces(multi));
-		$goodsModView.find('.price__old').attr('data-price-old', multiOld);
-		$goodsModView.find('.price__old').find('.num').text(addSpaces(multiOld));
-	});
-}
-
-// Модификации select
-function goodsModification($container) {
-	// Функция собирает свойства в строку, для определения модификации товара
-	function getSlugFromGoodsDataFormModificationsProperties(obj) {
-		var properties = new Array();
-		$(obj).each(function(i){
-			properties[i] = parseInt($(this).val());
-		});
-		return properties.sort(function(a,b){
-			return a - b
-		}).join('_');
-	}
-
-	var $parentBlock = $container || $('#main .productViewBlock')
-
-	var
-		goodsDataProperties = $parentBlock.find('.goodsModificationsProperty select[name="form[properties][]"]'),  // Запоминаем поля выбора свойств, для ускорения работы со значениями свойств
-		goodsDataModifications = $parentBlock.find('.goodsModificationsSlug'); // Запоминаем блоки с информацией по модификациям, для ускорения работы
-
-	// Обновляет возможность выбора свойств модификации, для отключения возможности выбора по характеристикам модификации которой не существует.
-	function updateVisibility (y) {
-		// Проверяем в каждом соседнем поле выбора модификаций, возможно ли подобрать модификацию для указанных свойств
-		goodsDataProperties.each(function(j){
-			// Если мы сравниваем значения свойства не с самим собой, а с другим списком значений свойств
-			if( j != y ) {
-				// Проходим по всем значениям текущего свойства модификации товара
-				$(this).find('option').each(function(){
-					// Записываем временный массив свойств, которые будем использовать для проверки существования модификации
-					var checkProperties = new Array();
-					$(goodsDataProperties).each(function(i){
-						checkProperties[i] = parseInt($(this).val());
-					});
-					// Пытаемся найти модификацию соответствующую выбранным значениям свойств
-					checkProperties[j] = parseInt($(this).attr('value'));
-					// Собираем хэш определяющий модификацию по свойствам
-					slug = checkProperties.sort(function(a,b){return a - b}).join('_');
-					// Ищем модификацию по всем выбранным значениям свойств товара. Если модификации нет в возможном выборе, отмечаем потенциальное значение выбора как не доступное для выбора, т.к. такой модификации нет.
-					if(!goodsDataModifications.filter('[rel="'+slug+'"]').length) {
-						$(this).attr('disabled', true);
-						// Если выбрав данное значение свойства товара можно подобрать модификацию, то выделяем вариант выбора как доступный.
-					} else {
-						$(this).attr('disabled', false);
-					}
-				});
-			}
-		});
-	}
-	// Обновляем возможность выбора модификации товара по свойствам. Для тех свойств, выбор по которым не возможен, отключаем такую возможность.
-	// Проверяем возможность выбора на всех полях кроме первого, чтобы отключить во всех остальных варианты, которые не возможно выбрать
-	updateVisibility (0);
-	// Проверяем возможность выбора на всех полях кроме второго, чтобы в первом поле так же отключилась возможность выбора не существующих модификаций
-	updateVisibility (1);
-
-	// Изменение цены товара при изменении у товара свойства для модификации
-	goodsDataProperties.each(function(y){
-		$(this).change(function(){
-			var slug = getSlugFromGoodsDataFormModificationsProperties(goodsDataProperties),
-					goodsModView                  = $parentBlock.find('.productView'),
-					modificationBlock             = goodsModView.find('.goodsModificationsSlug[rel="'+slug+'"]'),
-					modificationId                = parseInt(modificationBlock.find('[name="id"]').val()),
-					modificationArtNumber         = modificationBlock.find('[name="art_number"]').val(),
-					modificationPriceNow          = parseInt(modificationBlock.find('[name="price_now"]').val()),
-					modificationPriceNowFormated  = modificationBlock.find('.price_now_formated').html(),
-					modificationPriceOld          = parseInt(modificationBlock.find('[name="price_old"]').val()),
-					modificationPriceOldFormated  = modificationBlock.find('.price_old_formated').html(),
-					modificationRestValue         = parseFloat(modificationBlock.find('[name="rest_value"]').val()),
-					modificationDescription       = modificationBlock.find('.description').html(),
-					modificationGoodsModImageId   = modificationBlock.find('[name="goods_mod_image_id"]').val(),
-					goodsModificationId           = goodsModView.find('.goodsModificationId'),
-					goodsPriceNow                 = goodsModView.find('.price__now'),
-					goodsPriceOld                 = goodsModView.find('.price__old'),
-					goodsAvailableQty             = goodsModView.find('.productView__qty'),
-					goodsModQty              			= goodsModView.find('.quantity'),
-					goodsArtNumberBlock           = goodsModView.find('.productView__articles'),
-					goodsArtNumber                = goodsModView.find('.goodsModArtNumber'),
-					goodsModDescriptionBlock      = goodsModView.find('.goodsModDescription'),
-					goodsModRestValue             = goodsModView.find('.goodsModRestValue');
-
-			// Изменяем данные товара для выбранных параметров. Если нашлась выбранная модификация
-			if(modificationBlock.length) {
-				// Цена товара
-				goodsPriceNow.html(modificationPriceNowFormated);
-				goodsPriceNow.attr('data-price', modificationPriceNow).attr('content', modificationPriceNow);
-
-				// Итоговая цена с сопутствующими товарами
-				var relatedPriceNow = $('#related-goods .products__total-price');
-				var goodsID = $('[class^="goodsID-"]');
-				if(goodsID.length){
-					relatedPriceNow.html(modificationPriceNowFormated);
-					relatedPriceNow.attr('data-price', modificationPriceNow).attr('content', modificationPriceNow);
-				}else{
-					relatedPriceNow.find('.num').text('0');
-				}
-
-				// Добавление сопутствующих товаров
-				$('#related-goods .checkbox__input').each(function(i, checkbox){
-					var $checkbox = $(checkbox);
-					var checkboxActive = $checkbox.prop('checked');
-					if(checkboxActive) {
-						changePrice($checkbox, checkboxActive);
-					}
-				});
-
-				// Старая цена товара
-				if(modificationPriceOld>modificationPriceNow) {
-					goodsPriceOld.html(modificationPriceOldFormated);
-				} else {
-					goodsPriceOld.hide();
-					goodsPriceOld.html('');
-				}
-
-				// Есть ли товар есть в наличии
-				if(modificationRestValue > 0) {
-					goodsModView.removeClass('productView__empty');
-					goodsModRestValue.html('В наличии').attr('data-value', modificationRestValue);
-					if (goodsAvailableQty.hasClass('.has-max')) {
-						goodsModQty.val("1").attr('max', modificationRestValue);
-					} else {
-						goodsModQty.val("1").attr('max', 99999);
-					}
-				// Если товара нет в наличии
-				} else {
-					goodsModView.addClass('productView__empty');
-					goodsModRestValue.html(modificationRestValue).attr('data-value', modificationRestValue);
-					goodsModQty.val("1").attr('max', 1);
-				}
-
-				// Много Мало Отсутствует
-				if(modificationRestValue > 0) {
-					goodsModRestValue.html('В наличии мало');
-					goodsModRestValue.parent().removeClass('alot').removeClass('zero');
-					goodsModRestValue.parent().addClass('few');
-				} else if(modificationRestValue > 10) {
-					goodsModRestValue.html('В наличии много');
-					goodsModRestValue.parent().removeClass('few').removeClass('zero');
-					goodsModRestValue.parent().addClass('alot');
-				} else {
-					goodsModRestValue.html('Нет в наличии');
-					goodsModRestValue.parent().removeClass('few').removeClass('zero');
-					goodsModRestValue.parent().addClass('zero');
-				}
-
-				// Покажем артикул модификации товара, если он указан
-				if(modificationArtNumber.length > 0) {
-					goodsArtNumberBlock.show();
-					goodsArtNumber.html(modificationArtNumber);
-				} else {
-					goodsArtNumberBlock.hide();
-					goodsArtNumber.html('');
-				}
-
-				// Описание модификации товара. Покажем если оно есть, спрячем если его у модификации нет
-				if(modificationDescription.length > 0) {
-					goodsModDescriptionBlock.show().html('<div>' + modificationDescription + '</div>');
-				} else {
-					goodsModDescriptionBlock.hide().html();
-				}
-
-				// Идентификатор товарной модификации
-				goodsModificationId.val(modificationId);
-				goodsModView.find('.goodsDataMainModificationId').attr('name','form[goods_mod_id][' + modificationId + ']');
-				var goodsDataMainImage = goodsModView.find('.productView__images');
-				// Меняет главное изображение товара на изображение с идентификатором goods_mod_image_id
-				function changePrimaryGoodsImage(goods_mod_image_id) {
-					// Если не указан идентификатор модификации товара, значит ничего менять не нужно.
-					if(1 > goods_mod_image_id) {
-						return true;
-					}
-					var
-						// Блок с изображением выбранной модификации товара
-						goodsModImageBlock = goodsDataMainImage.find('[data-id="' + parseInt(goods_mod_image_id) + '"'),
-						// Блок, в котором находится главное изображение товара
-						MainImageBlock = goodsDataMainImage.find('.productView__image'),
-						// Изображение модификации товара, на которое нужно будет изменить главное изображение товара.
-						MediumImageUrl = goodsModImageBlock.attr('data-href'),
-						// Главное изображение, в которое будем вставлять новое изображение
-						MainImage = MainImageBlock.find('img');
-					// Если изображение модификации товара найдено - изменяем главное изображение
-					MainImage.attr('src', MediumImageUrl).parent().attr('href', MediumImageUrl);
-					// Изменяем идентификатор главного изображения
-					MainImageBlock.attr("data-id", parseInt(goods_mod_image_id));
-					return true;
-				}
-				// Обновляем изображние модификации товара, если оно указано
-				changePrimaryGoodsImage(modificationGoodsModImageId);
-			} else {
-				// Отправим запись об ошибке на сервер
-				sendError('no modification by slug '+slug);
-				alert('К сожалению сейчас не получается подобрать модификацию соответствующую выбранным параметрам.');
-			}
-			// Обновляем возможность выбора другой модификации для текущих значений свойств модификации товара.
-			updateVisibility(y);
-		});
-	});
-
-	$('#related-goods .checkbox__input').on('change', function(){
-    var $checkbox = $(this);
-    var modId = $checkbox.data('mod-id');
-    var checkboxActive = $checkbox.prop('checked');
-    if (checkboxActive) {
-      // Создаём инпут с доп товаром
-      var $input = $('<input class="goodsID-' + modId + '">')
-        .attr('type', 'hidden')
-        .attr('name', 'form[goods_mod_id][' + modId + ']')
-        .attr('data-price', $checkbox.data('mod-price'))
-        .val(1);
-      $('.productView__form').append($input);
-      // Пересчёт цены
-      changePrice($checkbox, checkboxActive);
-      $(this).parent().addClass('added');
-    } else {
-      // Удаляем  доп товар
-      $('.productView__form').find('input[name="form[goods_mod_id][' + modId + ']"]').remove();
-      // Пересчёт цены
-      changePrice($checkbox, checkboxActive)
-      $(this).parent().removeClass('added');
-    }
-  });
-
-	function changePrice(currentCheckbox, checkboxActive){
-		var $checkbox = currentCheckbox;
-		var checkboxPrice = $checkbox.data('mod-price');
-		var priceNowBlock = $('.productView__price .price__now');
-		var priceNowTotal = $('.products__total-price');
-		var nowPrice = priceNowBlock.attr('data-price');
-		var nowPriceTotal = priceNowTotal.attr('data-price');
-		var newPrice = 0;
-		var newPriceTotal = 0;
-		if (checkboxActive) {
-			newPrice = String(parseInt(nowPrice) + parseInt(checkboxPrice));
-			priceNowBlock.attr('data-price', parseInt(nowPrice) + parseInt(checkboxPrice))
-			newPriceTotal = String(parseInt(nowPriceTotal) + parseInt(checkboxPrice));
-			priceNowTotal.attr('data-price', parseInt(nowPriceTotal) + parseInt(checkboxPrice))
-		} else {
-			newPrice = String(nowPrice - checkboxPrice);
-			priceNowBlock.attr('data-price', parseInt(nowPrice) - parseInt(checkboxPrice))
-			newPriceTotal = String(nowPriceTotal - checkboxPrice);
-			priceNowTotal.attr('data-price', parseInt(nowPriceTotal) - parseInt(checkboxPrice))
-		}
-		priceNowBlock.find('.num').text(addSpaces(newPrice))
-		priceNowTotal.find('.num').text(addSpaces(newPriceTotal))
-	}
-}
-
-// Инициализация табов на странице товара
-function initTabs() {
-	// Блок в котором находятся табы
-	var tabs = $('.productView__tabs');
-	if(!tabs.length) {
-		return false;
-	}
-	// Добавляем аткивные классы на первый элемент
-	tabs.find('[data-tab]').first().addClass('active');
-	tabs.find('[data-tab-content]').first().addClass('active');
-	// Проверяет хэш и если по нему была открыта вкладка, то эта функция автоматически откроет её.
-	checkTabHash();
-	// Если используется хеш, то скролим до контента
-	if(document.location.hash !== '') {
-		$('html, body').animate({scrollTop : jQuery('.tabs__content').offset().top - 68}, 600);
-	}
-	// Биндим изменение хэша - проверка какой таб нужно открыть.
-	$(window).bind('hashchange', function() { checkTabHash(); });
-}
-
-// Переключение табов
-function tabSwitch(nb) {
-	var tabs = $('.productViewBlock');
-	var tab = tabs.find('[data-tab="'+ nb +'"]');
-	var content = tabs.find('[data-tab-content="'+ nb +'"]');
-	tabs.find('[data-tab]').removeClass('active');
-	tabs.find('[data-tab-content]').removeClass('active');
-	tab.addClass('active');
-	content.addClass('active');
-	document.location.hash = "#tab_" + nb;
-}
-
-// Проверяет хэш, переданый пользователем и открывает соответствующий раздел
-function checkTabHash() {
-	// Определяем текущий хэш страницы
-	var hash = window.location.hash.substr(1);
-	if(hash == 'goodsDataOpinionAdd') {
-		hash = 'tab_4';
-	}
-	if(!hash.length || hash.indexOf('tab_') == -1) {
-		return false;
-	}
-	// Открываем тот таб, который был указан в hash-е
-	tabSwitch(hash.replace("tab_", ''))
-}
-
-
-///////////////////////////////////////
-/*** Действия удаления из ... ***/
-///////////////////////////////////////
-// Удаление товара из корзины без обновлении страницы
-function removeFromCart(elem){
-  event.preventDefault();
-  if(confirm('Вы точно хотите удалить товар из корзины?')){
-    var href = elem.attr('href');
-    var qty = elem.data('qty');
-    var id = elem.data('id');
-    var oldCount = $('.count-cart').attr('data-count');
-		// Скрываем и удаляем товар из корзины
-		elem.parents().find('.addto__item[data-id="'+ id +'"]').fadeOut().remove();
-		// Удаляем класс добавленного товара в корзину
-		$('.product__item[data-id="'+ id +'"]').removeClass('inCart')
-    $.ajax({
-      cache  : false,
-      url		 : href,
-      success: function(data){
-        var newCount = oldCount - qty;
-        $('.count-cart').attr('data-count', newCount).text(newCount);
-        $('.cart__word').html($(data).find('.cart__word').html());
-				$('.cartSumNow').attr('data-price', $(data).find('.cartSumNow').attr('data-price')).find('.num').text(addSpaces($(data).find('.cartSumNow').attr('data-price')));
-				$('.cartSumOld').attr('data-price', $(data).find('.cartSumOld').attr('data-price')).find('.num').text(addSpaces($(data).find('.cartSumOld').attr('data-price')));
-				cartSaleSum();
-        var flag = 0;
-        if(newCount != 0){
-          $('.addto__cart .addto__item').each(function(){
-            if(flag == 0){
-              if($(this).css('display') == 'none'){
-                $(this).css('display', 'flex');
-                flag++;
-              }
-            }
-          });
-        }else{
-          $('.cart').removeClass("has-items");
-          $('.count-cart').attr('data-count', '0').text("0");
-          $('.cart .addto__item').remove();
-        }
-      }
-    });
-  }
-}
-
-// Удаление ВСЕХ товаров из Корзины без обновлении страницы
-function removeFromCartAll(elem){
-  event.preventDefault();
-  if(confirm('Вы точно хотите очистить корзину?')){
-    $.ajax({
-      cache  : false,
-      url		 : elem.attr('href'),
-      success: function(data){
-        $('.totalSum').html($(data).find('.totalSum').html());
-        $('.cart').removeClass("has-items");
-        $('.count-cart').attr('data-count', '0').text("0");
-        $('.addto__cart .addto__item').remove();
-				$('.product__item').each(function(){
-					$(this).removeClass('inCart').find('.inCart__count').text('0');
-				});
-      }
-    });
-  }
-}
-
-// Удаление товара из Сравнения без обновлении страницы
-function removeFromCompare(elem){
-  event.preventDefault();
-  if(confirm('Вы точно хотите удалить товар из сравнения?')){
-    var href = elem.attr('href');
-    var id = elem.attr('data-id');
-    var oldCount = $('.count-compare').attr('data-count');
-		// Скрываем и удаляем товар из корзины
-		elem.parents().find('.addto__compare .addto__item[data-id="'+ id +'"]').fadeOut().remove();
-    $.ajax({
-      cache : false,
-      url		: href,
-      success: function(data){
-        var newCount = oldCount - 1;
-        $('.count-compare').attr('data-count', newCount).text(newCount);
-        var flag = 0;
-        if(newCount != 0){
-          $('.addto__compare .addto__item').each(function(){
-            if(flag == 0){
-              if($(this).css('display') == 'none'){
-                $(this).css('display', 'flex');
-                flag++;
-              }
-            }
-          });
-        }else{
-          $('.compare').removeClass("has-items");
-          $('.count-compare').attr('data-count', '0').text('0');
-        }
-        var obj = $('.add-compare[data-mod-id="' + id + '"]');
-        if(obj.length) {
-          obj.attr("data-action-is-add", "1")
-          .removeAttr("title")
-          .removeClass("added")
-          .attr("href", obj.attr("href")
-          .replace(obj.attr('data-action-delete-url'), obj.attr('data-action-add-url')));
-        }
-      }
-    });
-  }
-}
-
-// Удаление ВСЕХ товаров из Сравнения без обновлении страницы
-function removeFromCompareAll(elem){
-  event.preventDefault();
-  if(confirm('Вы точно хотите очистить сравнение?')){
-    $.ajax({
-      cache  : false,
-      url		 : elem.attr('href'),
-      success: function(data){
-        $('.compare').removeClass("has-items");
-        $('.count-compare').attr('data-count', '0').text("0");
-        $('.addto__compare .addto__item').remove();
-        $('.add-compare').removeAttr("title").removeClass("added");
-      }
-    });
-  }
-}
-
-// Удаление товара из Избранного без обновлении страницы
-function removeFromFavorites(elem){
-  event.preventDefault();
-  if(confirm('Вы точно хотите удалить товар из Избранного?')){
-    var href = elem.attr('href');
-    var id = elem.attr('data-id');
-    var oldCount = $('.count-favorites').attr('data-count');
-		// Скрываем и удаляем товар из корзины
-		elem.parents().find('.addto__favorites .addto__item[data-id="'+ id +'"]').fadeOut().remove();
-    $.ajax({
-      cache : false,
-      url		: href,
-      success: function(data){
-        var newCount = oldCount - 1;
-        $('.count-favorites').attr('data-count', newCount).text(newCount);
-        var flag = 0;
-        if(newCount != 0){
-          $('.addto__favorites .addto__item').each(function(){
-            if(flag == 0){
-              if($(this).css('display') == 'none'){
-                $(this).css('display', 'flex');
-                flag++;
-              }
-            }
-          });
-        }else{
-          $('.favorites').removeClass("has-items");
-          $('.count-favorites').attr('data-count', '0').text('0');
-        }
-        var obj = $('.add-favorites[data-mod-id="' + id + '"]');
-        if(obj.length) {
-          obj.attr("data-action-is-add", "1")
-          .removeAttr("title")
-          .removeClass("added")
-          .attr("href", obj.attr("href")
-          .replace(obj.attr('data-action-delete-url'), obj.attr('data-action-add-url')));
-        }
-      }
-    });
-  }
-}
-
-// Удаление ВСЕХ товаров из Избранного без обновлении страницы
-function removeFromFavoritesAll(elem){
-  event.preventDefault();
-  if(confirm('Вы точно хотите очистить Избранное?')){
-    $.ajax({
-      cache  : false,
-      url		 : elem.attr('href'),
-      success: function(d){
-        $('.favorites').removeClass("has-items");
-        $('.count-favorites').attr('data-count', '0').text("0");
-        $('.addto__favorites .addto__item').remove();
-        $('.add-favorites').removeAttr("title").removeClass("added");
-      }
-    });
-  }
-}
-
-
-///////////////////////////////////////
 // Корзина
 ///////////////////////////////////////
 function cartQuantity(){
@@ -2224,6 +1292,33 @@ function cartMinSum(){
 		$(".total__buttons button").attr('disabled', false).removeClass('disabled');
 	}
 }
+
+// Функция вычисления скидки в корзине
+function cartSaleSum(){
+	var arr = [];
+	// Находим разницу в цене
+	$('.addto__cart .addto__item').each(function(){
+		var priceNow = $(this).find('.price__now').attr('data-price')
+		var priceOld = $(this).find('.price__old').attr('data-price')
+		if(typeof(priceOld) !== 'undefined'){
+			if(priceOld > priceNow){
+				var diff = priceOld - priceNow;
+				// Добавляем разницу в массив
+				arr.push(diff);
+			}
+		}
+	});
+
+	// Итоговая сумма скидки
+	var sum = 0;
+	for (var i=0; i<arr.length; i++){
+		sum += arr[i]
+	}
+	
+	// Обновляем сумму скидки
+	$('.addto__cart .cartSumOld').find('.num').text(addSpaces(sum)).parent().show();
+}
+
 
 ///////////////////////////////////////
 /* Скрипты для оформления заказов */
@@ -2708,6 +1803,777 @@ function coupons() {
 
 
 ///////////////////////////////////////
+// Товар. Карточка товара
+///////////////////////////////////////
+function pageGoods() {
+
+	// Функция показать больше для Характеристик
+	function featuresMore(){
+		var content = $('.productView__features');
+		var item = $('.features__item');
+		var itemVisible = $('.features__item:visible').length;
+		var buttons = $('.features__buttons');
+
+		// Если мало характеристик, скрываем кнопки
+		if(item.length <= itemVisible){ buttons.hide(); }
+
+		// Действия при нажатии
+		buttons.find('.button-more').on('click',function(event){
+			event.preventDefault();
+			var textActive = $(this).attr('data-text');
+			var textDefault = $(this).find('span').text();
+
+			// Обновляем текст кнопки
+			$(this).attr('data-text', textDefault).find('span').text(textActive);
+
+			// Если кнопка активна
+			if($(this).hasClass('active')){
+				$(this).removeClass('active');
+				item.removeClass('show');
+				$('html, body').animate({scrollTop : content.offset().top - 60}, 600);
+			}else{
+				$(this).addClass('active');
+				item.addClass('show');
+			}
+		});
+	}
+
+	// Функция для Описания в карточке товара
+	function descriptionMore(){
+		var content = $('.productView__description');
+		var item = content.find('.htmlDataBlock');
+		var buttons = $('.description__buttons');
+		var descHeight = item.height();
+
+		// Если большое описание
+		if (descHeight > 100) {
+			item.addClass('mask');
+			buttons.show();
+		}else{
+			item.removeClass('mask');
+			buttons.hide();
+		}
+
+		// Действия при нажатии
+		buttons.find('.button-more').on('click',function(event){
+			event.preventDefault();
+			var textActive = $(this).attr('data-text');
+			var textDefault = $(this).find('span').text();
+
+			// Обновляем текст кнопки
+			$(this).attr('data-text', textDefault).find('span').text(textActive);
+
+			// Если кнопка активна
+			if($(this).hasClass('active')){
+				$(this).removeClass('active');
+				item.addClass('mask');
+				$('html, body').animate({scrollTop : content.offset().top - 60}, 600);
+			}else{
+				$(this).addClass('active');
+				item.removeClass('mask');
+			}			
+		});
+	}
+
+	// Функция показать больше для Отзывов
+	function opinionMore(){
+		var content = $('.productView__opinion');
+		var item = content.find('.opinion__item');
+		var itemVisible = content.find('.opinion__item:visible').length;
+		var buttons = content.find('.opinion__buttons');
+
+		// Если мало Отзывов, скрываем кнопки
+		if(item.length <= itemVisible){ buttons.hide(); }
+
+		// Если кнопка активна
+		buttons.find('.button-more').on('click',function(event){
+			event.preventDefault();
+			var textActive = $(this).attr('data-text');
+			var textDefault = $(this).find('span').text();
+			
+			// Обновляем текст кнопки
+			$(this).attr('data-text', textDefault).find('span').text(textActive);
+			
+			// Если кнопка активна
+			if($(this).hasClass('active')){
+				$(this).removeClass('active');
+				item.removeClass('show');
+				$('html, body').animate({scrollTop : content.offset().top - 60}, 600);
+			}else{
+				$(this).addClass('active');
+				item.addClass('show');
+			}
+		});
+	}
+
+	// Задержка перед включением функции
+	setTimeout(function () {
+		opinionMore();
+		featuresMore();
+		descriptionMore();
+	}, 100);
+
+	// Переключение для Положительный и Отрицательный отзыв
+	$('.generally label').on('click', function(event){
+		event.preventDefault();
+		$('.generally label').removeClass('active');
+		$('.generally input').attr('checked', false);
+		$(this).addClass('active');
+		$(this).next('input').attr('checked', true);
+	});
+	
+	// Переключение для Положительный и Отрицательный отзыв
+	$('.opinion__nav a').on('click', function(){
+    if($(this).hasClass('goodOpinions')){
+      $('.good').removeClass('hide');
+      $('.bad').removeClass('show');
+      $('.good').addClass('show');
+      $('.bad').addClass('hide');
+			$('.opinion__buttons').hide();
+			$('.opinion__nav a').removeClass('active')
+			$(this).addClass('active')
+    } else if($(this).hasClass('badOpinions')){
+      $('.good').removeClass('show');
+      $('.bad').removeClass('hide');
+      $('.good').addClass('hide');
+      $('.bad').addClass('show');
+			$('.opinion__buttons').hide();
+			$('.opinion__nav a').removeClass('active')
+			$(this).addClass('active')
+    } else {
+      $('.good, .bad').removeClass('show');
+      $('.good, .bad').removeClass('hide');
+			$('.opinion__buttons').show();
+			$('.opinion__nav a').removeClass('active')
+			$(this).addClass('active')
+    }
+  });
+
+	// Добавление отзыва о товаре. Рейтинг
+	if($('.goodsOpinionRating').length){
+		$('.goodsOpinionRating').rating();
+	}
+
+	// Ссылка на отображение формы для добавление отзыва о товаре
+	$('.opinion__add').on('click', function(event){
+		event.preventDefault();
+		if ($(this).hasClass('active')) {
+			// $(this).removeClass('active');
+			$('.opinion__addForm').slideUp(600);
+		}else{
+			// $(this).addClass('active');
+			$('.opinion__addForm').slideDown(600);
+			$('html, body').animate({scrollTop : jQuery('.opinion__addForm').offset().top}, 500);
+		}
+	});
+
+	// Валидация формы на странице оформления заказа, а так же формы на страницы связи с администрацией
+	$(".opinion__form button").on('click', function(){
+		var form = $(".opinion__form");
+		form.validate({
+			errorPlacement: function(error, element) { }
+		});
+		form.submit();
+		return false;
+	});
+
+	// Иконка для обновления изображение капчи
+	$('.captcha__refresh').on('click', function(){
+		RefreshImageAction(this,1,1);
+		$('.captcha__image').attr('src',$('.captcha__image').attr('src')+'&rand'+Math.random(0,10000));
+		return false;
+	});
+
+	// Имитация клика для капчи
+	$('.captcha__refresh').click();
+
+	// Открытие зон доставки
+	$('.zone__open').on('click', function(event){
+		event.preventDefault();
+		if ($(this).hasClass('active')) {
+			$(this).removeClass('active');
+			$('.zone__list').slideUp(600);
+		}else{
+			$(this).addClass('active');
+			$('.zone__list').slideDown(600);
+		}
+	});
+
+	// Первая буква имени в аватаре
+	$('.opinion__item').each(function(){
+		var avatar = $(this).find('.opinion__avatar span');
+		var name = $(this).find('.opinion__name span').text()[0];
+		avatar.text(name)
+	})
+
+}
+
+// Крутит изображение при обновлении картинки защиты от роботов
+function RefreshImageAction(img,num,cnt) {
+	if(cnt>13) { return false; }
+	$(img).attr('src', $(img).attr('rel') + 'icon/refresh/' + num + '.gif');
+	num = (num==6)?0:num;
+	setTimeout(function () {
+		RefreshImageAction(img, num+1, cnt+1)
+	}, 50);
+}
+
+// Проверка вводимых значений в количестве товара
+function keyPress(oToCheckField, oKeyEvent) {
+  return oKeyEvent.charCode === 0 || /\d/.test(String.fromCharCode(oKeyEvent.charCode));
+}
+
+// Функция + - для товара
+function quantity() {
+  //Regulator Up копки + в карточке товара при добавлении в корзину
+  $('.qty__plus').off('click').on('click', function(){
+    var quantity = $(this).parent().find('input');
+    var currentVal = parseInt(quantity.val());
+    if (!isNaN(currentVal)){
+      quantity.val(currentVal + 1);
+      quantity.trigger('keyup');
+      quantity.trigger('change');
+    }
+    return false;
+  });
+  //Regulator Down копки - в карточке товара при добавлении в корзину
+  $('.qty__minus').off('click').on('click', function(){
+    var quantity = $(this).parent().find('input');
+    var currentVal = parseInt(quantity.val());
+    if (!isNaN(currentVal)){
+      quantity.val(currentVal - 1);
+      quantity.trigger('keyup');
+      quantity.trigger('change');
+    }
+    return false;
+  });
+}
+
+// Изменение кол-ва в карточке
+function prodQty($container){
+	var $goodsModView = $container || $('#main .productViewBlock')
+	$goodsModView.find('.quantity').change(function(){
+		var t = $(this);
+		// Количество
+		var val = parseInt(t.val());
+		// Если вводят 0 то заменяем на 1
+		if(val < 1){
+			t.val(1);
+			val = 1;
+		}
+		// Проверка максимальныго остатка
+		var max = parseInt(t.attr('max'));
+		if(val > max){
+			t.val(max);
+			val = max;
+			new Noty({
+				text: '<div class="noty__addto"><div class="noty__message">Внимание! Вы пытаетесь положить в корзину товара больше, чем есть в наличии</div></div>',
+				layout:"bottomRight",
+				type:"warning",
+				easing:"swing",
+				animation: {
+					open: 'animated fadeInUp',
+					close: 'animated fadeOutDown',
+					easing: 'swing',
+					speed: 400
+				},
+				timeout:"2000",
+				progressBar:true
+			}).show();
+		}
+
+		// Обновление кол-ва для функций "Добавить"
+		$goodsModView.find('.goodsDataMainModificationId').val($(this).val());
+		// Цена товара без изменений
+		var price = parseInt($goodsModView.find('.price__now').attr('content'));
+		var priceOld = parseInt($goodsModView.find('.price__old').attr('content'));
+		var newPrice = 0;
+		var newPriceOld = 0;
+
+		// Проверяем наличие добавленных товаров вместе с основным
+		if ($goodsModView.find('.productView__form [class^="goodsID-"]').length) {
+			$goodsModView.find('.productView__form [class^="goodsID-"]').each(function(){
+				// Сумма всех добавленных товаров
+				newPrice += parseInt($(this).attr('data-price'))
+				newPriceOld += parseInt($(this).attr('data-price-old'))
+			});
+		}
+
+		// Считаем новую сумму товара с учетом добавленных
+		var multi = String(val * price + newPrice);
+		var multiOld = String(val * priceOld + newPriceOld);
+
+		// Обновляем новую сумму
+		$goodsModView.find('.price__now').attr('data-price', multi);
+		$goodsModView.find('.price__now').find('.num').text(addSpaces(multi));
+		$goodsModView.find('.price__old').attr('data-price-old', multiOld);
+		$goodsModView.find('.price__old').find('.num').text(addSpaces(multiOld));
+	});
+}
+
+// Модификации select
+function goodsModification($container) {
+	// Функция собирает свойства в строку, для определения модификации товара
+	function getSlugFromGoodsDataFormModificationsProperties(obj) {
+		var properties = new Array();
+		$(obj).each(function(i){
+			properties[i] = parseInt($(this).val());
+		});
+		return properties.sort(function(a,b){
+			return a - b
+		}).join('_');
+	}
+
+	var $parentBlock = $container || $('#main .productViewBlock')
+
+	var
+		goodsDataProperties = $parentBlock.find('.goodsModificationsProperty select[name="form[properties][]"]'),  // Запоминаем поля выбора свойств, для ускорения работы со значениями свойств
+		goodsDataModifications = $parentBlock.find('.goodsModificationsSlug'); // Запоминаем блоки с информацией по модификациям, для ускорения работы
+
+	// Обновляет возможность выбора свойств модификации, для отключения возможности выбора по характеристикам модификации которой не существует.
+	function updateVisibility (y) {
+		// Проверяем в каждом соседнем поле выбора модификаций, возможно ли подобрать модификацию для указанных свойств
+		goodsDataProperties.each(function(j){
+			// Если мы сравниваем значения свойства не с самим собой, а с другим списком значений свойств
+			if( j != y ) {
+				// Проходим по всем значениям текущего свойства модификации товара
+				$(this).find('option').each(function(){
+					// Записываем временный массив свойств, которые будем использовать для проверки существования модификации
+					var checkProperties = new Array();
+					$(goodsDataProperties).each(function(i){
+						checkProperties[i] = parseInt($(this).val());
+					});
+					// Пытаемся найти модификацию соответствующую выбранным значениям свойств
+					checkProperties[j] = parseInt($(this).attr('value'));
+					// Собираем хэш определяющий модификацию по свойствам
+					slug = checkProperties.sort(function(a,b){return a - b}).join('_');
+					// Ищем модификацию по всем выбранным значениям свойств товара. Если модификации нет в возможном выборе, отмечаем потенциальное значение выбора как не доступное для выбора, т.к. такой модификации нет.
+					if(!goodsDataModifications.filter('[rel="'+slug+'"]').length) {
+						$(this).attr('disabled', true);
+						// Если выбрав данное значение свойства товара можно подобрать модификацию, то выделяем вариант выбора как доступный.
+					} else {
+						$(this).attr('disabled', false);
+					}
+				});
+			}
+		});
+	}
+	// Обновляем возможность выбора модификации товара по свойствам. Для тех свойств, выбор по которым не возможен, отключаем такую возможность.
+	// Проверяем возможность выбора на всех полях кроме первого, чтобы отключить во всех остальных варианты, которые не возможно выбрать
+	updateVisibility (0);
+	// Проверяем возможность выбора на всех полях кроме второго, чтобы в первом поле так же отключилась возможность выбора не существующих модификаций
+	updateVisibility (1);
+
+	// Изменение цены товара при изменении у товара свойства для модификации
+	goodsDataProperties.each(function(y){
+		$(this).change(function(){
+			var slug = getSlugFromGoodsDataFormModificationsProperties(goodsDataProperties),
+					goodsModView                  = $parentBlock.find('.productView'),
+					modificationBlock             = goodsModView.find('.goodsModificationsSlug[rel="'+slug+'"]'),
+					modificationId                = parseInt(modificationBlock.find('[name="id"]').val()),
+					modificationArtNumber         = modificationBlock.find('[name="art_number"]').val(),
+					modificationPriceNow          = parseInt(modificationBlock.find('[name="price_now"]').val()),
+					modificationPriceNowFormated  = modificationBlock.find('.price_now_formated').html(),
+					modificationPriceOld          = parseInt(modificationBlock.find('[name="price_old"]').val()),
+					modificationPriceOldFormated  = modificationBlock.find('.price_old_formated').html(),
+					modificationRestValue         = parseFloat(modificationBlock.find('[name="rest_value"]').val()),
+					modificationDescription       = modificationBlock.find('.description').html(),
+					modificationGoodsModImageId   = modificationBlock.find('[name="goods_mod_image_id"]').val(),
+					goodsModificationId           = goodsModView.find('.goodsModificationId'),
+					goodsPriceNow                 = goodsModView.find('.price__now'),
+					goodsPriceOld                 = goodsModView.find('.price__old'),
+					goodsAvailableQty             = goodsModView.find('.productView__qty'),
+					goodsModQty              			= goodsModView.find('.quantity'),
+					goodsArtNumberBlock           = goodsModView.find('.productView__articles'),
+					goodsArtNumber                = goodsModView.find('.goodsModArtNumber'),
+					goodsModDescriptionBlock      = goodsModView.find('.goodsModDescription'),
+					goodsModRestValue             = goodsModView.find('.goodsModRestValue');
+
+			// Изменяем данные товара для выбранных параметров. Если нашлась выбранная модификация
+			if(modificationBlock.length) {
+				// Цена товара
+				goodsPriceNow.html(modificationPriceNowFormated);
+				goodsPriceNow.attr('data-price', modificationPriceNow).attr('content', modificationPriceNow);
+
+				// Итоговая цена с сопутствующими товарами
+				var relatedPriceNow = $('#related-goods .products__total-price');
+				var goodsID = $('[class^="goodsID-"]');
+				if(goodsID.length){
+					relatedPriceNow.html(modificationPriceNowFormated);
+					relatedPriceNow.attr('data-price', modificationPriceNow).attr('content', modificationPriceNow);
+				}else{
+					relatedPriceNow.find('.num').text('0');
+				}
+
+				// Добавление сопутствующих товаров
+				$('#related-goods .checkbox__input').each(function(i, checkbox){
+					var $checkbox = $(checkbox);
+					var checkboxActive = $checkbox.prop('checked');
+					if(checkboxActive) {
+						changePrice($checkbox, checkboxActive);
+					}
+				});
+
+				// Старая цена товара
+				if(modificationPriceOld>modificationPriceNow) {
+					goodsPriceOld.html(modificationPriceOldFormated);
+				} else {
+					goodsPriceOld.hide();
+					goodsPriceOld.html('');
+				}
+
+				// Есть ли товар есть в наличии
+				if(modificationRestValue > 0) {
+					goodsModView.removeClass('productView__empty');
+					goodsModRestValue.html('В наличии').attr('data-value', modificationRestValue);
+					if (goodsAvailableQty.hasClass('.has-max')) {
+						goodsModQty.val("1").attr('max', modificationRestValue);
+					} else {
+						goodsModQty.val("1").attr('max', 99999);
+					}
+				// Если товара нет в наличии
+				} else {
+					goodsModView.addClass('productView__empty');
+					goodsModRestValue.html(modificationRestValue).attr('data-value', modificationRestValue);
+					goodsModQty.val("1").attr('max', 1);
+				}
+
+				// Много Мало Отсутствует
+				if(modificationRestValue > 0) {
+					goodsModRestValue.html('В наличии мало');
+					goodsModRestValue.parent().removeClass('alot').removeClass('zero');
+					goodsModRestValue.parent().addClass('few');
+				} else if(modificationRestValue > 10) {
+					goodsModRestValue.html('В наличии много');
+					goodsModRestValue.parent().removeClass('few').removeClass('zero');
+					goodsModRestValue.parent().addClass('alot');
+				} else {
+					goodsModRestValue.html('Нет в наличии');
+					goodsModRestValue.parent().removeClass('few').removeClass('zero');
+					goodsModRestValue.parent().addClass('zero');
+				}
+
+				// Покажем артикул модификации товара, если он указан
+				if(modificationArtNumber.length > 0) {
+					goodsArtNumberBlock.show();
+					goodsArtNumber.html(modificationArtNumber);
+				} else {
+					goodsArtNumberBlock.hide();
+					goodsArtNumber.html('');
+				}
+
+				// Описание модификации товара. Покажем если оно есть, спрячем если его у модификации нет
+				if(modificationDescription.length > 0) {
+					goodsModDescriptionBlock.show().html('<div>' + modificationDescription + '</div>');
+				} else {
+					goodsModDescriptionBlock.hide().html();
+				}
+
+				// Идентификатор товарной модификации
+				goodsModificationId.val(modificationId);
+				goodsModView.find('.goodsDataMainModificationId').attr('name','form[goods_mod_id][' + modificationId + ']');
+				var goodsDataMainImage = goodsModView.find('.productView__images');
+				// Меняет главное изображение товара на изображение с идентификатором goods_mod_image_id
+				function changePrimaryGoodsImage(goods_mod_image_id) {
+					// Если не указан идентификатор модификации товара, значит ничего менять не нужно.
+					if(1 > goods_mod_image_id) {
+						return true;
+					}
+					var
+						// Блок с изображением выбранной модификации товара
+						goodsModImageBlock = goodsDataMainImage.find('[data-id="' + parseInt(goods_mod_image_id) + '"'),
+						// Блок, в котором находится главное изображение товара
+						MainImageBlock = goodsDataMainImage.find('.productView__image'),
+						// Изображение модификации товара, на которое нужно будет изменить главное изображение товара.
+						MediumImageUrl = goodsModImageBlock.attr('data-href'),
+						// Главное изображение, в которое будем вставлять новое изображение
+						MainImage = MainImageBlock.find('img');
+					// Если изображение модификации товара найдено - изменяем главное изображение
+					MainImage.attr('src', MediumImageUrl).parent().attr('href', MediumImageUrl);
+					// Изменяем идентификатор главного изображения
+					MainImageBlock.attr("data-id", parseInt(goods_mod_image_id));
+					return true;
+				}
+				// Обновляем изображние модификации товара, если оно указано
+				changePrimaryGoodsImage(modificationGoodsModImageId);
+			} else {
+				// Отправим запись об ошибке на сервер
+				sendError('no modification by slug '+slug);
+				alert('К сожалению сейчас не получается подобрать модификацию соответствующую выбранным параметрам.');
+			}
+			// Обновляем возможность выбора другой модификации для текущих значений свойств модификации товара.
+			updateVisibility(y);
+		});
+	});
+
+	$('#related-goods .checkbox__input').on('change', function(){
+    var $checkbox = $(this);
+    var modId = $checkbox.data('mod-id');
+    var checkboxActive = $checkbox.prop('checked');
+    if (checkboxActive) {
+      // Создаём инпут с доп товаром
+      var $input = $('<input class="goodsID-' + modId + '">')
+        .attr('type', 'hidden')
+        .attr('name', 'form[goods_mod_id][' + modId + ']')
+        .attr('data-price', $checkbox.data('mod-price'))
+        .val(1);
+      $('.productView__form').append($input);
+      // Пересчёт цены
+      changePrice($checkbox, checkboxActive);
+      $(this).parent().addClass('added');
+    } else {
+      // Удаляем  доп товар
+      $('.productView__form').find('input[name="form[goods_mod_id][' + modId + ']"]').remove();
+      // Пересчёт цены
+      changePrice($checkbox, checkboxActive)
+      $(this).parent().removeClass('added');
+    }
+  });
+
+	function changePrice(currentCheckbox, checkboxActive){
+		var $checkbox = currentCheckbox;
+		var checkboxPrice = $checkbox.data('mod-price');
+		var priceNowBlock = $('.productView__price .price__now');
+		var priceNowTotal = $('.products__total-price');
+		var nowPrice = priceNowBlock.attr('data-price');
+		var nowPriceTotal = priceNowTotal.attr('data-price');
+		var newPrice = 0;
+		var newPriceTotal = 0;
+		if (checkboxActive) {
+			newPrice = String(parseInt(nowPrice) + parseInt(checkboxPrice));
+			priceNowBlock.attr('data-price', parseInt(nowPrice) + parseInt(checkboxPrice))
+			newPriceTotal = String(parseInt(nowPriceTotal) + parseInt(checkboxPrice));
+			priceNowTotal.attr('data-price', parseInt(nowPriceTotal) + parseInt(checkboxPrice))
+		} else {
+			newPrice = String(nowPrice - checkboxPrice);
+			priceNowBlock.attr('data-price', parseInt(nowPrice) - parseInt(checkboxPrice))
+			newPriceTotal = String(nowPriceTotal - checkboxPrice);
+			priceNowTotal.attr('data-price', parseInt(nowPriceTotal) - parseInt(checkboxPrice))
+		}
+		priceNowBlock.find('.num').text(addSpaces(newPrice))
+		priceNowTotal.find('.num').text(addSpaces(newPriceTotal))
+	}
+}
+
+// Функция табов
+function tabs() {
+	var tab = $('.tabs__nav[data-tab]');
+	// Активный класс при клике
+	tab.on('click', function(event){
+		event.preventDefault();
+		var id = $(this).attr('data-tab')
+		var content = $('[data-tab-content="'+ id +'"]')
+		$('[data-tab="'+ id +'"]').addClass('active');
+		$('html, body').animate({scrollTop: content.offset().top - 60}, 600);
+	});
+	
+	// Функция определния позиции
+	function scrollTab(){		
+		var scrollTop = $(window).scrollTop();
+		// Проверяем видимый контент табов
+		$('[data-tab-content]:visible').each(function(){
+			var id = $(this).attr('data-tab-content')
+			if($(this).offset().top - $('.tabs__navs').height() * 2 <= scrollTop){
+				$('.tabs__nav').removeClass('active')
+				$('.tabs__nav[data-tab="'+ id +'"]').addClass('active');
+			}
+		});
+	}
+	scrollTab()
+
+	// Активный класс при скроле
+	$(window).on('scroll', function () {
+		scrollTab()
+	});
+}
+
+
+///////////////////////////////////////
+/*** Действия удаления из ... ***/
+///////////////////////////////////////
+// Удаление товара из корзины без обновлении страницы
+function removeFromCart(elem){
+  event.preventDefault();
+  if(confirm('Вы точно хотите удалить товар из корзины?')){
+    var href = elem.attr('href');
+    var qty = elem.data('qty');
+    var id = elem.data('id');
+    var oldCount = $('.count-cart').attr('data-count');
+		// Скрываем и удаляем товар из корзины
+		elem.parents().find('.addto__item[data-id="'+ id +'"]').fadeOut().remove();
+		// Удаляем класс добавленного товара в корзину
+		$('.product__item[data-id="'+ id +'"]').removeClass('inCart')
+    $.ajax({
+      cache  : false,
+      url		 : href,
+      success: function(data){
+        var newCount = oldCount - qty;
+        $('.count-cart').attr('data-count', newCount).text(newCount);
+        $('.cart__word').html($(data).find('.cart__word').html());
+				$('.cartSumNow').attr('data-price', $(data).find('.cartSumNow').attr('data-price')).find('.num').text(addSpaces($(data).find('.cartSumNow').attr('data-price')));
+				$('.cartSumOld').attr('data-price', $(data).find('.cartSumOld').attr('data-price')).find('.num').text(addSpaces($(data).find('.cartSumOld').attr('data-price')));
+				cartSaleSum();
+        var flag = 0;
+        if(newCount != 0){
+          $('.addto__cart .addto__item').each(function(){
+            if(flag == 0){
+              if($(this).css('display') == 'none'){
+                $(this).css('display', 'flex');
+                flag++;
+              }
+            }
+          });
+        }else{
+          $('.cart').removeClass("has-items");
+          $('.count-cart').attr('data-count', '0').text("0");
+          $('.cart .addto__item').remove();
+        }
+      }
+    });
+  }
+}
+
+// Удаление ВСЕХ товаров из Корзины без обновлении страницы
+function removeFromCartAll(elem){
+  event.preventDefault();
+  if(confirm('Вы точно хотите очистить корзину?')){
+    $.ajax({
+      cache  : false,
+      url		 : elem.attr('href'),
+      success: function(data){
+        $('.totalSum').html($(data).find('.totalSum').html());
+        $('.cart').removeClass("has-items");
+        $('.count-cart').attr('data-count', '0').text("0");
+        $('.addto__cart .addto__item').remove();
+				$('.product__item').each(function(){
+					$(this).removeClass('inCart').find('.inCart__count').text('0');
+				});
+      }
+    });
+  }
+}
+
+// Удаление товара из Сравнения без обновлении страницы
+function removeFromCompare(elem){
+  event.preventDefault();
+  if(confirm('Вы точно хотите удалить товар из сравнения?')){
+    var href = elem.attr('href');
+    var id = elem.attr('data-id');
+    var oldCount = $('.count-compare').attr('data-count');
+		// Скрываем и удаляем товар из корзины
+		elem.parents().find('.addto__compare .addto__item[data-id="'+ id +'"]').fadeOut().remove();
+    $.ajax({
+      cache : false,
+      url		: href,
+      success: function(data){
+        var newCount = oldCount - 1;
+        $('.count-compare').attr('data-count', newCount).text(newCount);
+        var flag = 0;
+        if(newCount != 0){
+          $('.addto__compare .addto__item').each(function(){
+            if(flag == 0){
+              if($(this).css('display') == 'none'){
+                $(this).css('display', 'flex');
+                flag++;
+              }
+            }
+          });
+        }else{
+          $('.compare').removeClass("has-items");
+          $('.count-compare').attr('data-count', '0').text('0');
+        }
+        var obj = $('.add-compare[data-mod-id="' + id + '"]');
+        if(obj.length) {
+          obj.attr("data-action-is-add", "1")
+          .removeAttr("title")
+          .removeClass("added")
+          .attr("href", obj.attr("href")
+          .replace(obj.attr('data-action-delete-url'), obj.attr('data-action-add-url')));
+        }
+      }
+    });
+  }
+}
+
+// Удаление ВСЕХ товаров из Сравнения без обновлении страницы
+function removeFromCompareAll(elem){
+  event.preventDefault();
+  if(confirm('Вы точно хотите очистить сравнение?')){
+    $.ajax({
+      cache  : false,
+      url		 : elem.attr('href'),
+      success: function(data){
+        $('.compare').removeClass("has-items");
+        $('.count-compare').attr('data-count', '0').text("0");
+        $('.addto__compare .addto__item').remove();
+        $('.add-compare').removeAttr("title").removeClass("added");
+      }
+    });
+  }
+}
+
+// Удаление товара из Избранного без обновлении страницы
+function removeFromFavorites(elem){
+  event.preventDefault();
+  if(confirm('Вы точно хотите удалить товар из Избранного?')){
+    var href = elem.attr('href');
+    var id = elem.attr('data-id');
+    var oldCount = $('.count-favorites').attr('data-count');
+		// Скрываем и удаляем товар из корзины
+		elem.parents().find('.addto__favorites .addto__item[data-id="'+ id +'"]').fadeOut().remove();
+    $.ajax({
+      cache : false,
+      url		: href,
+      success: function(data){
+        var newCount = oldCount - 1;
+        $('.count-favorites').attr('data-count', newCount).text(newCount);
+        var flag = 0;
+        if(newCount != 0){
+          $('.addto__favorites .addto__item').each(function(){
+            if(flag == 0){
+              if($(this).css('display') == 'none'){
+                $(this).css('display', 'flex');
+                flag++;
+              }
+            }
+          });
+        }else{
+          $('.favorites').removeClass("has-items");
+          $('.count-favorites').attr('data-count', '0').text('0');
+        }
+        var obj = $('.add-favorites[data-mod-id="' + id + '"]');
+        if(obj.length) {
+          obj.attr("data-action-is-add", "1")
+          .removeAttr("title")
+          .removeClass("added")
+          .attr("href", obj.attr("href")
+          .replace(obj.attr('data-action-delete-url'), obj.attr('data-action-add-url')));
+        }
+      }
+    });
+  }
+}
+
+// Удаление ВСЕХ товаров из Избранного без обновлении страницы
+function removeFromFavoritesAll(elem){
+  event.preventDefault();
+  if(confirm('Вы точно хотите очистить Избранное?')){
+    $.ajax({
+      cache  : false,
+      url		 : elem.attr('href'),
+      success: function(d){
+        $('.favorites').removeClass("has-items");
+        $('.count-favorites').attr('data-count', '0').text("0");
+        $('.addto__favorites .addto__item').remove();
+        $('.add-favorites').removeAttr("title").removeClass("added");
+      }
+    });
+  }
+}
+
+
+
+///////////////////////////////////////
 // Функция показать все на главной
 ///////////////////////////////////////
 function pdtVisible(id){
@@ -2744,49 +2610,10 @@ function pdtVisible(id){
 	});
 }
 
+
 ///////////////////////////////////////
-// Функция слайдера на главной странице
-///////////////////////////////////////
-function pdtSlider(id){
-	var carousel = $(id).find('.owl-carousel');
-	var buttons = $(id).find('.owl-nav');
-	var dots = $(id).find('.owl-dots');
-	carousel.owlCarousel({
-		items: 4,
-		margin: 32,
-		loop: false,
-		rewind: true,
-		lazyLoad: true,
-		nav: true,
-		navContainer: buttons,
-		navText: [ , ],
-		dots: false,
-		dotsContainer: dots,
-		autoHeight: false,
-		autoHeightClass: 'owl-height',
-		autoplay: false,
-		autoplayHoverPause: true,
-		smartSpeed: 500,
-		mouseDrag: true,
-		touchDrag: true,
-		pullDrag: true,
-		responsiveClass: true,
-		responsiveRefreshRate: 100,
-		responsive: {
-			0:{items:1, autoHeight: true},
-			320:{items:1, autoHeight: true},
-			480:{items:2},
-			640:{items:2},
-			768:{items:3},
-			1024:{items:4},
-			1200:{items:4}
-		}
-	});
-}
-
-
-
 // Отсчет даты до окончания акции
+///////////////////////////////////////
 function counterDate() {
 	var id = $('.counter');
 	// Если не найдет счетчик прекращаем работу функции
@@ -2824,6 +2651,7 @@ function counterDate() {
 	})
 }
 
+
 ///////////////////////////////////////
 /* Скрипты для Товары, Категории */
 ///////////////////////////////////////
@@ -2832,10 +2660,6 @@ function catalog() {
 	$('.filter__item input').on('click', function(){
 		$(this)[0].form.submit();
 	});
-
-	// $('.filtersActive input').on('click', function(){
-	// 	$(this)[0].form.submit();
-	// });
 
 	// Открытие/Скрытие фильтров в сайдбаре
 	$('.collapsible__click').on('click', function(event){
@@ -2875,13 +2699,6 @@ function catalog() {
 			$('.filters__icon').addClass('opened');
 		}
 	});
-	
-	// Фильтры поиск скрываем если меньше 4
-	// $('.filter__list').each(function(){
-	// 	var item = $(this).find('.filter__item').length;
-	// 	var search = $(this).find('.filter__search');
-	// 	item < 4 ? search.hide() : search.show()
-	// });
 
 	// Фильтры поиск
 	$('.filter__search').on('input', function() {
@@ -2905,62 +2722,64 @@ function catalog() {
 		// }).show();
 	});
 
-}
-
-// Фильтр по ценам
-function priceFilter() {
-	var
-		priceFilterMinAvailable = parseInt($('.goodsFilterPriceRangePointers .min').text()),  // Минимальное значение цены для фильтра
-		priceFilterMaxAvailable = parseInt($('.goodsFilterPriceRangePointers .max').text()),  // Максимальное значение цены для фильтра
-		priceSliderBlock = $('#goods-filter-price-slider'), // Максимальное значение цены для фильтра
-		priceInputMin = $("#goods-filter-min-price"), // Поле ввода текущего значения цены "От"
-		priceInputMax = $("#goods-filter-max-price"), // Поле ввода текущего значения цены "До"
-		priceSubmitButtonBlock = $(".goodsFilterPriceSubmit");  // Блок с кнопкой, которую есть смысл нажимать только тогда, когда изменялся диапазон цен.
-
-	// Слайдер, который используется для удобства выбора цены
-	priceSliderBlock.slider({
-		range: true,
-		min: priceFilterMinAvailable,
-		max: priceFilterMaxAvailable,
-		values: [
-			parseInt($('#goods-filter-min-price').val())
-			,parseInt($('#goods-filter-max-price').val())
-		],
-		slide: function( event, ui ) {
-			priceInputMin.val( ui.values[ 0 ] );
-			priceInputMax.val( ui.values[ 1 ] );
+	// Фильтр по ценам
+	function priceFilter() {
+		var
+			priceFilterMinAvailable = parseInt($('.goodsFilterPriceRangePointers .min').text()),  // Минимальное значение цены для фильтра
+			priceFilterMaxAvailable = parseInt($('.goodsFilterPriceRangePointers .max').text()),  // Максимальное значение цены для фильтра
+			priceSliderBlock = $('#goods-filter-price-slider'), // Максимальное значение цены для фильтра
+			priceInputMin = $("#goods-filter-min-price"), // Поле ввода текущего значения цены "От"
+			priceInputMax = $("#goods-filter-max-price"), // Поле ввода текущего значения цены "До"
+			priceSubmitButtonBlock = $(".goodsFilterPriceSubmit");  // Блок с кнопкой, которую есть смысл нажимать только тогда, когда изменялся диапазон цен.
+	
+		// Слайдер, который используется для удобства выбора цены
+		priceSliderBlock.slider({
+			range: true,
+			min: priceFilterMinAvailable,
+			max: priceFilterMaxAvailable,
+			values: [
+				parseInt($('#goods-filter-min-price').val())
+				,parseInt($('#goods-filter-max-price').val())
+			],
+			slide: function( event, ui ) {
+				priceInputMin.val( ui.values[ 0 ] );
+				priceInputMax.val( ui.values[ 1 ] );
+				priceSubmitButtonBlock.css('display', 'flex');
+			}
+		});
+		// При изменении минимального значения цены
+		priceInputMin.keyup(function(){
+			var newVal = parseInt($(this).val());
+			if(newVal < priceFilterMinAvailable) {
+				newVal = priceFilterMinAvailable;
+			}
+			priceSliderBlock.slider("values", 0, newVal);
 			priceSubmitButtonBlock.css('display', 'flex');
-		}
-	});
-	// При изменении минимального значения цены
-	priceInputMin.keyup(function(){
-		var newVal = parseInt($(this).val());
-		if(newVal < priceFilterMinAvailable) {
-			newVal = priceFilterMinAvailable;
-		}
-		priceSliderBlock.slider("values", 0, newVal);
-		priceSubmitButtonBlock.css('display', 'flex');
-	});
-	// При изменении максимального значения цены
-	priceInputMax.keyup(function(){
-		var newVal = parseInt($(this).val());
-		if(newVal > priceFilterMaxAvailable) {
-			newVal = priceFilterMaxAvailable;
-		}
-		priceSliderBlock.slider("values", 1, newVal);
-		priceSubmitButtonBlock.css('display', 'flex');
-	});
+		});
+		// При изменении максимального значения цены
+		priceInputMax.keyup(function(){
+			var newVal = parseInt($(this).val());
+			if(newVal > priceFilterMaxAvailable) {
+				newVal = priceFilterMaxAvailable;
+			}
+			priceSliderBlock.slider("values", 1, newVal);
+			priceSubmitButtonBlock.css('display', 'flex');
+		});
+	
+		// Активный фильтр цены
+		// if (priceInputMin.val() > priceFilterMinAvailable || priceInputMax.val() < priceFilterMaxAvailable) {
+		// 	$('.filters-price').addClass('has-filters');
+		// 	$('.toolbar').addClass('has-filters');
+		// 	$('#filters').addClass('has-filters');
+		// }else{
+		// 	$('.filters-price').removeClass('has-filters');
+		// 	$('.toolbar').removeClass('has-filters');
+		// 	$('#filters').removeClass('has-filters');
+		// }
+	
+	}
 
-	// Активный фильтр цены
-	// if (priceInputMin.val() > priceFilterMinAvailable || priceInputMax.val() < priceFilterMaxAvailable) {
-	// 	$('.filters-price').addClass('has-filters');
-	// 	$('.toolbar').addClass('has-filters');
-	// 	$('#filters').addClass('has-filters');
-	// }else{
-	// 	$('.filters-price').removeClass('has-filters');
-	// 	$('.toolbar').removeClass('has-filters');
-	// 	$('#filters').removeClass('has-filters');
-	// }
+	priceFilter();
 
 }
 
@@ -3087,32 +2906,6 @@ function monthNames() {
 	}
 }
 
-// Функция вычисления скидки в корзине
-function cartSaleSum(){
-	var arr = [];
-	// Находим разницу в цене
-	$('.addto__cart .addto__item').each(function(){
-		var priceNow = $(this).find('.price__now').attr('data-price')
-		var priceOld = $(this).find('.price__old').attr('data-price')
-		if(typeof(priceOld) !== 'undefined'){
-			if(priceOld > priceNow){
-				var diff = priceOld - priceNow;
-				// Добавляем разницу в массив
-				arr.push(diff);
-			}
-		}
-	});
-
-	// Итоговая сумма скидки
-	var sum = 0;
-	for (var i=0; i<arr.length; i++){
-		sum += arr[i]
-	}
-	
-	// Обновляем сумму скидки
-	$('.addto__cart .cartSumOld').find('.num').text(addSpaces(sum)).parent().show();
-}
-
 
 ///////////////////////////////////////
 /* Валидаторы */
@@ -3181,7 +2974,7 @@ function validEmail(id){
 ///////////////////////////////////////
 function ajaxForms(id,flag,successMessage,errorMessage,subMessage){
 	var flag = false;
-  //console.log('ajaxForms loaded ', id)
+  // console.log('ajaxForms loaded ', id)
   var form = $(id).find('.form__callback');
   form.on('submit',function(event){
     event.preventDefault();
@@ -3205,6 +2998,7 @@ function ajaxForms(id,flag,successMessage,errorMessage,subMessage){
 							$.fancybox.close();
 							var content = '<div class="modal success"><div class="block__title block__title-separator"><h2 class="title">'+ successMessage +'</h2><div class="subtitle">'+ subMessage +'</div></div></div>'
 							$.fancybox.open(content);
+							console.log('content', content)
 							// Отмечаем успешную отправку
 							flag = true;
 							// Убираем флаг чтобы можно было еще раз отправить форму
@@ -3287,81 +3081,9 @@ ajaxForms('.page-сallback','pageCallbackFlag','Спасибо за обраще
 ajaxForms('#fancybox__book','bookFlag','Ваша заявка успешно отправлена!','Вы уже отправляли запрос. Пожалуйста ожидайте.','Наш специалист свяжется с вами в ближайшее время')
 // "Слайдер".
 ajaxForms('.slider__form','sliderFlag','Ваша заявка успешно отправлена!','Вы уже отправляли запрос. Пожалуйста ожидайте.','Наш специалист свяжется с вами в ближайшее время')
+// "Забронировать в карточке товара".
+ajaxForms('.productView','productViewFlag','Ваша заявка успешно отправлена!','Вы уже отправляли запрос. Пожалуйста ожидайте.','Наш специалист свяжется с вами в ближайшее время')
 
-
-// Слайдер для главной страницы
-function pdtCat() {	
-	$('#pdt__cat22 [class*="pdt__cat-"]').each(function(){
-		var id = $(this).attr('data-id');
-		// Слайдер на главной
-		var owlS = $('[class*="pdt__cat-'+ id +'"] .products__list.owl-carousel');
-		var dots = owlS.prev('.products__nav').find('.products__nav-names');
-		owlS.owlCarousel({
-			items: 1,
-			margin: 16,
-			loop: false,
-			rewind: false,
-			lazyLoad: false,
-			nav: false,
-			navText: [ , ],
-			navContainer: '',
-			dots: true,
-			dotsContainer: dots,
-			dotsData: false,
-			dotsSpeed: 400,
-			dotsEach: true,
-			smartSpeed: 500,
-			URLhashListener: true,
-			autoplay: false,
-			autoplayTimeout: '3000',
-			autoplayHoverPause: true,
-			autoHeight: false,
-			autoHeightClass: 'owl-height',
-			mouseDrag: true,
-			touchDrag: true,
-			pullDrag: true,
-			stagePadding: 48,
-			responsiveClass: true,
-			responsiveRefreshRate: 100,
-			responsive: {
-				0:{items:1},
-				320:{items:1, stagePadding: 0},
-				480:{items:1, stagePadding: 0},
-				640:{items:1, stagePadding: 24},
-				768:{items:1, stagePadding: 32},
-				1024:{items:1},
-				1200:{items:1}
-			},
-			onInitialized: nav,
-			onChanged: nav
-		});
-
-		// Навигация при клике на кнопку
-		function nav(event) {
-			dots.find('a').on('click', function (event) {
-				event.preventDefault();
-				owlS.trigger('to.owl.carousel', [$(this).index(), 300]);
-			});
-
-			// Скрываем навигацию
-			if (event.item.count > event.page.size) {
-				$('[class*="pdt__cat-'+ id +'"]').removeClass('hidden-nav')
-				dots.parent().parent().find('.products__nav').show()
-			}else{
-				$('[class*="pdt__cat-'+ id +'"]').addClass('hidden-nav')
-				dots.parent().parent().find('.products__nav').hide()
-			}
-
-		}		
-
-		dots.parent().find('.products__nav-prev').on('click', function (event) {
-			owlS.trigger('prev.owl.carousel');
-		});
-		dots.parent().find('.products__nav-next').on('click', function (event) {
-			owlS.trigger('next.owl.carousel');
-		});
-	});
-}
 
 // Каталог на главной
 function indexCatalog(){
@@ -3407,137 +3129,29 @@ function indexCatalog(){
   }
 }
 
-///////////////////////////////////////
-// Загрузка основных функций шаблона
-///////////////////////////////////////
-$(document).ready(function(){
-	userAgent();
-	showPass();
-	openMenu();
-	addTo();
-	addCart();
-	// quickViewMod();
-	toTop();
-	cartSaleSum();
-	swiperNews();
-	swiperImage()
-	mobmenu()
-  mainnav('header .mainnav', '1', 991);
-	setTimeout(function () {
-		swiperCat();
-		priceDiff('.product__item', 'percent');
-	}, 2000);
-	// Удаление классов загрузки для элементов страницы
-	$('.loading').addClass('loaded');
-	$('div, section, ul').removeClass('loading');
-
-	// Добавление товара в корзину
-	// $('.add-cart').on('click', function() {
-	// 	var form = $(this).closest('form');
-	// 	if ($(this).hasClass('quick')) {
-	// 		form.attr('rel', 'quick');
-	// 	} else {
-	// 		var rel = form.attr('rel');
-	// 		if (rel) {
-	// 			form.attr('rel', rel.replace('quick', ''));
-	// 		}
-	// 	}
-	// 	form.trigger('submit');
-	// 	return false;
-	// });
-
-	// Уведомить при отсутствии товара
-	$('.add-notify').on('click', function(){
-		var formBlock = $(this).closest('.product__form');
-    var goodsMod = formBlock.find('[name="form[goods_mod_id]"]').val();
-    $('#fancy-notify-goods-mod').val(goodsMod)
-	});
-
-	// Отправка формы по Ctrl+Enter
-  $('form').bind('keypress', function(e){
-    if((e.ctrlKey) && ((e.which==10)||(e.which==13))) {$(this).submit();}
-    // Отправка данных формы по нажатию на Enter в случае если курсор находится в input полях (В некоторых браузерах при нажатии по enter срабатывает клик по первому submit полю, которое является кнопкой назад. Для этого написан этот фикс)
-  }).find('input').bind('keypress', function(e){
-    if(((e.which==10)||(e.which==13))) { try{$(this.form).submit();} catch(e){} return false; }
-  });
-
-	// Ленивая загрузка
-  $(function(){
-    var observer = lozad(); // lazy loads elements with default selector as '.lozad'
-    observer.observe();
-  });
-
-  // Маска ввода телефона
-  $(".form__phone").mask("+7 (999) 999-9999");
-
-  // Возврашаем пользователя на страницу с которой был сделан обратный звонок
-  $('.callbackredirect').val(document.location.href);
-	
-	// Выбор даты доставки. Документация к плагину //t1m0n.name/air-datepicker/docs/index-ru.html
-	$(".form__date").datepicker({
-		// Если true, то при активации даты, календарь закроется.
-		autoClose: true,
-		// Можно выбрать только даты, идущие за сегодняшним днем, включая сегодня
-		minDate: new Date(),
-		// Выбор даты от и до
-		range: true,
-		toggleSelected: false,
-		multipleDatesSeparator: ' - '
-	});
-
-});
- 
-// Запуск функций при изменении экрана
-$(window).resize(function(){
-	mobmenu()
-  if(getClientWidth() > 481 && window.outerHeight < 630){
-    $('body').addClass('landscape');
-  }else{
-    $('body').removeClass('landscape');
-  }
-  mainnav('header .mainnav', '1', 991);
-});
-
-
-// Функция табов
-function tabs() {
-	var tab = $('.tabs__nav[data-tab]');
-	// Активный класс при клике
-	tab.on('click', function(event){
-		event.preventDefault();
-		var id = $(this).attr('data-tab')
-		var content = $('[data-tab-content="'+ id +'"]')
-		$('[data-tab="'+ id +'"]').addClass('active');
-		$('html, body').animate({scrollTop: content.offset().top - 60}, 600);
-	});
-	
-	// Функция определния позиции
-	function scrollTab(){		
-		var scrollTop = $(window).scrollTop();
-		// Проверяем видимый контент табов
-		$('[data-tab-content]:visible').each(function(){
-			var id = $(this).attr('data-tab-content')
-			if($(this).offset().top - $('.tabs__navs').height() * 2 <= scrollTop){
-				$('.tabs__nav').removeClass('active')
-				$('.tabs__nav[data-tab="'+ id +'"]').addClass('active');
-			}
-		});
-	}
-	scrollTab()
-
-	// Активный класс при скроле
-	$(window).on('scroll', function () {
-		scrollTab()
-	});
-}
-
-
 // Слайдер на главной
-function slideShow(){
-	var swiperPagination = new Swiper('#slideshow .swiper-container', {
+function swiperShow(){
+	var id = '#slideshow'
+	var swiperPagination = new Swiper(id + ' .swiper-container', {
 		slidesPerView: 'auto',
 		watchSlidesVisibility: true,
 		breakpoints: {
+			0: {
+				spaceBetween: 0,
+				slidesPerView: '1',
+			},
+			320: {
+				spaceBetween: 16,
+				slidesPerView: '2',
+			},
+			480: {
+				spaceBetween: 16,
+				slidesPerView: '2',
+			},
+			640: {
+				spaceBetween: 16,
+				slidesPerView: '3',
+			},
 			768: {
 				spaceBetween: 32,
 				slidesPerView: '4',
@@ -3545,16 +3159,13 @@ function slideShow(){
 		}
 	});
 
-	var swiper = new Swiper("#slideshow .swiper", {
+	var swiper = new Swiper(id + ' .swiper', {
 		loop: true,
 		preloadImages: false,
 		watchSlidesVisibility: true,
 		watchOverflow: true,
 		hashNavigation: false,
-		autoplay: {
-			delay: 5000,
-			disableOnInteraction: false,
-		},
+		autoplay: false,
 		thumbs: {
 			autoScrollOffset: 0,
 			swiper: swiperPagination,
@@ -3575,15 +3186,17 @@ function swiperMedia(){
 
 	var swiperContent = new Swiper('.swiperMedia__content-container', {
 		slidesPerView: '1',
+		spaceBetween: 16,
 		loop: true,
 		allowTouchMove: false,
+		autoHeight: true,
 		navigation: {
 			prevEl: '.swiperMedia__nav-prev',
 			nextEl: '.swiperMedia__nav-next',
 		},
 	});
 
-	var swiper = new Swiper(".swiperMedia__swiper-container", {
+	var swiper = new Swiper('.swiperMedia__swiper-container', {
 		slidesPerView: 'auto',
 		watchSlidesVisibility: true,
 		watchSlidesProgress: true,
@@ -3693,39 +3306,39 @@ function swiperSales() {
 	var id = '#pdt__sales'
 	function updateMedia(t){
 		var newIndex = t.realIndex + 1;
-		var newCount = t.slides.length / 3;
+		var newCount = t.slides.length;
 		var total = $(id).find('.swiper-pagination-total');
 		var current = $(id).find('.swiper-pagination-current');
 
-		if (newCount > 10){
+		if (newCount > 9){
 			total.text(newCount);
 		}else{
 			total.text('0' + newCount);
 		}
 
-		if (newIndex > 10){
+		if (newIndex > 9){
 			current.text(newIndex);
 		}else{
 			current.text('0' + newIndex);
 		}
+		
+		// Скрываем навигацию если слайдер заблокирован
+		$(id).find('.swiper-pagination-lock').parent().addClass('swiper-pagination-lock')
 	}
 
-	var swiper = new Swiper("#pdt__sales .swiper", {
-		loop: true,
-		autoplay: {
-			deleay: 6000,
-			pauseOnMouseEnter: true,
-		},
+	var swiper = new Swiper(id + ' .products__list', {
+		loop: false,
+		autoplay: false,
 		watchSlidesVisibility: true,
-		slidesPerView: 'auto',
+		slidesPerView: 1,
 		simulateTouch: true,
 		grabCursor: true,
 		navigation: {
-			nextEl: ".swiper-button-next",
-			prevEl: ".swiper-button-prev",
+			nextEl: id + ' .swiper-button-next',
+			prevEl: id + ' .swiper-button-prev',
 		},
 		pagination: {
-			el: '.swiper-progressbar',
+			el: id + ' .swiper-progressbar',
     	type: 'progressbar',
 		},
 		on: {
@@ -3751,17 +3364,20 @@ function swiperNews() {
 		var total = $(id).find('.swiper-pagination-total');
 		var current = $(id).find('.swiper-pagination-current');
 
-		if (newCount > 10){
+		if (newCount > 9){
 			total.text(newCount);
 		}else{
 			total.text('0' + newCount);
 		}
 
-		if (newIndex > 10){
+		if (newIndex > 9){
 			current.text(newIndex);
 		}else{
 			current.text('0' + newIndex);
 		}
+
+		// Скрываем навигацию если слайдер заблокирован
+		$(id).find('.swiper-pagination-lock').parent().addClass('swiper-pagination-lock')
 	}
 
 	var swiper = new Swiper("#news .swiper__container", {
@@ -3775,6 +3391,12 @@ function swiperNews() {
 		grabCursor: true,
 		slidesPerView: '2',
 		spaceBetween: 16,
+		preloadImages: false,
+		lazy: {
+			enabled: true,
+			loadOnTransitionStart: true,
+			loadPrevNext: true,
+		},
 		navigation: {
 			nextEl: ".swiper-button-next",
 			prevEl: ".swiper-button-prev",
@@ -3829,20 +3451,23 @@ function swiperServices() {
 		var total = $(id).find('.swiper-pagination-total');
 		var current = $(id).find('.swiper-pagination-current');
 
-		if (newCount > 10){
+		if (newCount > 9){
 			total.text(newCount);
 		}else{
 			total.text('0' + newCount);
 		}
 
-		if (newIndex > 10){
+		if (newIndex > 9){
 			current.text(newIndex);
 		}else{
 			current.text('0' + newIndex);
 		}
+		
+		// Скрываем навигацию если слайдер заблокирован
+		$(id).find('.swiper-pagination-lock').parent().addClass('swiper-pagination-lock')
 	}
 
-	var swiper = new Swiper("#services .swiper__container", {
+	var swiper = new Swiper(id + ' .swiper__container', {
 		loop: false,
 		autoplay: false,
 		watchSlidesVisibility: true,
@@ -3851,11 +3476,11 @@ function swiperServices() {
 		slidesPerView: '4',
 		spaceBetween: 16,
 		navigation: {
-			nextEl: ".swiper-button-next",
-			prevEl: ".swiper-button-prev",
+			nextEl: id + ' .swiper-button-next',
+			prevEl: id + ' .swiper-button-prev',
 		},
 		pagination: {
-			el: '.swiper-progressbar',
+			el: id + ' .swiper-progressbar',
     	type: 'progressbar',
 		},
 		breakpoints: {
@@ -3894,7 +3519,6 @@ function swiperServices() {
 		}
 	});
 }
-
 
 // Слайдер товаров из категории на главной
 function swiperCat(){
@@ -3979,18 +3603,17 @@ function swiperCat(){
 	
 }
 
-
-// 
+// Функция слайдера в изображениях у товаров
 function swiperImage(){
-	// Включаем функцию для каждой категории
+	// Включаем функцию для каждого товара
 	$('.product__item').each(function(){
 		var id = $(this).attr('data-id');
 		swiperImageSlider('.product__image-' + id,'swiper' + id)
 	})
+
 	// Функция слайдера
 	function swiperImageSlider(id,swiper){
-
-		// Основной товар
+		// Основной слайдер
 		var swiper = new Swiper(id, {
 			loop: false,
 			autoplay: false,
@@ -4003,9 +3626,14 @@ function swiperImage(){
 			preventClicks: true,
 			watchOverflow: true,
 			preloadImages: false,
-			lazy: true,
+			nested: true,
+			lazy: {
+				enabled: true,
+				loadOnTransitionStart: true,
+				loadPrevNext: true,
+			},
 			pagination: {
-				el: '.swiper-pagination',
+				el: id +' .swiper-pagination',
 				type: 'bullets',
 				dynamicBullets: true,
 				clickable: true,
@@ -4014,14 +3642,186 @@ function swiperImage(){
 				nextEl: id +' .swiper-button-next',
 				prevEl: id +' .swiper-button-prev',
 			},
-			on: {
-				init: function(){
-					// Если 1 товар в слайдере
-					if(this.slides.length < 4){
-						// this.loopDestroy();
-					}
-				}
-			}
 		});
 	}
+
 }
+
+// Функции стандартного слайдера
+function swiperSlider(id){
+	// Обновление данных
+	function updateMedia(t){
+		var newIndex = t.realIndex + 1;
+		var newCount = t.slides.length;
+		var total = $(id).find('.swiper-pagination-total');
+		var current = $(id).find('.swiper-pagination-current');
+
+		if (newCount > 9){
+			total.text(newCount);
+		}else{
+			total.text('0' + newCount);
+		}
+
+		if (newIndex > 9){
+			current.text(newIndex);
+		}else{
+			current.text('0' + newIndex);
+		}
+
+		// Скрываем навигацию если слайдер заблокирован
+		$(id).find('.swiper-pagination-lock').parent().addClass('swiper-pagination-lock')
+	}
+
+	// Слайдер товаров
+	var swiper = new Swiper(id + ' .products__grid', {
+		loop: false,
+		autoplay: false,
+		watchSlidesVisibility: true,
+		simulateTouch: true,
+		grabCursor: true,
+		slidesPerView: '4',
+		spaceBetween: 16,
+		nested: true,
+		preloadImages: false,
+		lazy: {
+			enabled: true,
+			loadOnTransitionStart: true,
+			loadPrevNext: true,
+		},
+		navigation: {
+			nextEl: id + ' .swiper-navigate .swiper-button-next',
+			prevEl: id + ' .swiper-navigate .swiper-button-prev',
+		},
+		pagination: {
+			el: id + ' .swiper-navigate .swiper-progressbar',
+    	type: 'progressbar',
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: '1',
+			},
+			320: {
+				slidesPerView: '1',
+			},
+			480: {
+				slidesPerView: '2',
+			},
+			640: {
+				slidesPerView: '2',
+			},
+			768: {
+				slidesPerView: '2',
+			},
+			1024: {
+				slidesPerView: '3',
+			},
+			1200: {
+				slidesPerView: '4',
+			}
+		},
+		on: {
+			init: function(){
+				updateMedia(this)
+			},
+			slideChangeTransitionStart: function(){
+				updateMedia(this)
+			},
+			slideChange: function(){
+				updateMedia(this)
+			},
+		}
+	});
+
+}
+
+
+///////////////////////////////////////
+// Загрузка основных функций шаблона
+///////////////////////////////////////
+$(document).ready(function(){
+	userAgent();
+	showPass();
+	openMenu();
+	addTo();
+	addCart();
+	// quickViewMod();
+	toTop();
+	cartSaleSum();
+	swiperNews();
+	swiperImage()
+	mobmenu()
+  mainnav('header .mainnav', '1', 991);
+	setTimeout(function () {
+		swiperCat();
+		priceDiff('.product__item', 'percent');
+	}, 2000);
+	// Удаление классов загрузки для элементов страницы
+	$('.loading').addClass('loaded');
+	$('div, section, ul').removeClass('loading');
+
+	// Добавление товара в корзину
+	// $('.add-cart').on('click', function() {
+	// 	var form = $(this).closest('form');
+	// 	if ($(this).hasClass('quick')) {
+	// 		form.attr('rel', 'quick');
+	// 	} else {
+	// 		var rel = form.attr('rel');
+	// 		if (rel) {
+	// 			form.attr('rel', rel.replace('quick', ''));
+	// 		}
+	// 	}
+	// 	form.trigger('submit');
+	// 	return false;
+	// });
+
+	// Уведомить при отсутствии товара
+	$('.add-notify').on('click', function(){
+		var formBlock = $(this).closest('.product__form');
+    var goodsMod = formBlock.find('[name="form[goods_mod_id]"]').val();
+    $('#fancy-notify-goods-mod').val(goodsMod)
+	});
+
+	// Отправка формы по Ctrl+Enter
+  $('form').bind('keypress', function(e){
+    if((e.ctrlKey) && ((e.which==10)||(e.which==13))) {$(this).submit();}
+    // Отправка данных формы по нажатию на Enter в случае если курсор находится в input полях (В некоторых браузерах при нажатии по enter срабатывает клик по первому submit полю, которое является кнопкой назад. Для этого написан этот фикс)
+  }).find('input').bind('keypress', function(e){
+    if(((e.which==10)||(e.which==13))) { try{$(this.form).submit();} catch(e){} return false; }
+  });
+
+	// Ленивая загрузка
+  $(function(){
+    var observer = lozad(); // lazy loads elements with default selector as '.lozad'
+    observer.observe();
+  });
+
+  // Маска ввода телефона
+  $(".form__phone").mask("+7 (999) 999-9999");
+
+  // Возврашаем пользователя на страницу с которой был сделан обратный звонок
+  $('.callbackredirect').val(document.location.href);
+	
+	// Выбор даты доставки. Документация к плагину //t1m0n.name/air-datepicker/docs/index-ru.html
+	$(".form__date").datepicker({
+		// Если true, то при активации даты, календарь закроется.
+		autoClose: true,
+		// Можно выбрать только даты, идущие за сегодняшним днем, включая сегодня
+		minDate: new Date(),
+		// Выбор даты от и до
+		range: true,
+		toggleSelected: false,
+		multipleDatesSeparator: ' - '
+	});
+
+});
+ 
+// Запуск функций при изменении экрана
+$(window).resize(function(){
+	mobmenu()
+  if(getClientWidth() > 481 && window.outerHeight < 630){
+    $('body').addClass('landscape');
+  }else{
+    $('body').removeClass('landscape');
+  }
+  mainnav('header .mainnav', '1', 991);
+});
