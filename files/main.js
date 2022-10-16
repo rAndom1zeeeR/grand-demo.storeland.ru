@@ -1913,6 +1913,17 @@ function pageGoods() {
 		descriptionMore();
 	}, 100);
 
+	// Все фото
+	if ($('.thumblist__item').length > 5){
+		$('.productView__image-more').show()
+		// Открываем галлерею
+		$('.productView__image-more').on('click', function(event){
+			event.preventDefault();
+			$('.thumblist__item:nth-child(5) .thumblist__image').click();
+		});
+		$('.productView__image-count').text($('.thumblist__item').length + 1);
+	}
+
 	// Переключение для Положительный и Отрицательный отзыв
 	$('.generally label').on('click', function(event){
 		event.preventDefault();
@@ -2998,7 +3009,6 @@ function ajaxForms(id,flag,successMessage,errorMessage,subMessage){
 							$.fancybox.close();
 							var content = '<div class="modal success"><div class="block__title block__title-separator"><h2 class="title">'+ successMessage +'</h2><div class="subtitle">'+ subMessage +'</div></div></div>'
 							$.fancybox.open(content);
-							console.log('content', content)
 							// Отмечаем успешную отправку
 							flag = true;
 							// Убираем флаг чтобы можно было еще раз отправить форму
@@ -3165,7 +3175,10 @@ function swiperShow(){
 		watchSlidesVisibility: true,
 		watchOverflow: true,
 		hashNavigation: false,
-		autoplay: false,
+		autoplay: {
+			delay: 5000,
+		},
+		speed: 400,
 		thumbs: {
 			autoScrollOffset: 0,
 			swiper: swiperPagination,
@@ -3220,7 +3233,7 @@ function swiperMedia(){
 			},
 			slideChangeTransitionStart: function(){
 				$('.swiperMedia__images').removeClass('swiperMedia__images--load');
-				swiperContent.slideTo(this.realIndex);
+				swiperContent.slideToLoop(this.realIndex);
 				updateMedia(this)
 			},
 			slideChange: function(){
@@ -3305,8 +3318,8 @@ function swiperGallery(){
 function swiperSales() {
 	var id = '#pdt__sales'
 	function updateMedia(t){
+		var newCount = t.snapGrid.length;
 		var newIndex = t.realIndex + 1;
-		var newCount = t.slides.length;
 		var total = $(id).find('.swiper-pagination-total');
 		var current = $(id).find('.swiper-pagination-current');
 
@@ -3359,8 +3372,8 @@ function swiperSales() {
 function swiperNews() {
 	var id = '#news'
 	function updateMedia(t){
+		var newCount = t.snapGrid.length;
 		var newIndex = t.realIndex + 1;
-		var newCount = t.slides.length;
 		var total = $(id).find('.swiper-pagination-total');
 		var current = $(id).find('.swiper-pagination-current');
 
@@ -3446,8 +3459,8 @@ function swiperNews() {
 function swiperServices() {
 	var id = '#services'
 	function updateMedia(t){
+		var newCount = t.snapGrid.length;
 		var newIndex = t.realIndex + 1;
-		var newCount = t.slides.length;
 		var total = $(id).find('.swiper-pagination-total');
 		var current = $(id).find('.swiper-pagination-current');
 
@@ -3651,8 +3664,8 @@ function swiperImage(){
 function swiperSlider(id){
 	// Обновление данных
 	function updateMedia(t){
+		var newCount = t.snapGrid.length;
 		var newIndex = t.realIndex + 1;
-		var newCount = t.slides.length;
 		var total = $(id).find('.swiper-pagination-total');
 		var current = $(id).find('.swiper-pagination-current');
 

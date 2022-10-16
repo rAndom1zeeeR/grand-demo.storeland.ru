@@ -49,10 +49,7 @@
 				
 				<!-- Главное изображение -->
 				<a class="productView__image flex-center" href="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=marketplace{% ELSE %}{GOODS_IMAGE_LARGE}{% ENDIF %}" data-fancybox="images">
-					<noscript>
-					<img src="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=marketplace{% ELSE %}{GOODS_IMAGE_MEDIUM}{% ENDIF %}" title="{GOODS_NAME}" alt="{GOODS_NAME}" itemprop="image" />
-					</noscript>
-					<img class="lozad scriptOff" data-src="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=marketplace{% ELSE %}{GOODS_IMAGE_MEDIUM}{% ENDIF %}" title="{GOODS_NAME}" alt="{GOODS_NAME}" itemprop="image" />
+					<img class="lozad" data-src="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=marketplace{% ELSE %}{GOODS_IMAGE_MEDIUM}{% ENDIF %}" title="{GOODS_NAME}" alt="{GOODS_NAME}" itemprop="image" />
 				</a>
 
 				<!-- Дополнительные изображения -->
@@ -63,7 +60,7 @@
 						{% IF goods_images.ID = GOODS_IMAGE_ID %}{continue}{% ENDIF %}
 						<div class="thumblist__item" data-index="{goods_images.index}">
 							<a class="thumblist__image flex-center" href="{goods_images.LARGE}" data-fancybox="images">
-								<img src="{goods_images.MEDIUM}" alt="{goods_images.NAME}" itemprop="image" />
+								<img src="{goods_images.MEDIUM}" alt="{goods_images.NAME}" />
 							</a>
 						</div>
 						{% ENDFOR %}
@@ -75,6 +72,15 @@
 				{% FOR goods_images %}
 				<input type="hidden" data-id="{goods_images.ID}" data-href="{goods_images.LARGE}" />
 				{% ENDFOR %}
+
+				<!-- Смотреть все -->
+				<div class="productView__image-more">
+					<i class="icon-image"></i>
+					<span>Все</span>
+					<span class="productView__image-count">50</span>
+					<span>фото</span>
+				</div>
+
 			</div>
 		</div>
 
@@ -589,6 +595,12 @@
 								<i class="icon-notification"></i>
 								<span>Уведомить</span>
 							</a>
+						</div>
+
+						<!-- Политика конфиденциальности -->
+						<div class="form__pp text-center">
+							<span>Нажимая на кнопку «Подписаться», Вы соглашаетесь с</span>
+							<a data-fancybox="" data-src="#fancybox__pp" href="javascript:;">правилами обработки данных</a>
 						</div>
 
 					</form>
