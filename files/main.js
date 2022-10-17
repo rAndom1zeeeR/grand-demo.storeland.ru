@@ -2838,7 +2838,7 @@ function openMenu() {
   });
 
 	// Открытие Меню
-  $('.header__menu').on('click', function (event){
+  $('.header__menu, .fixed-sidebar__item.menu').on('click', function (event){
     event.preventDefault();
 		$(this).toggleClass('opened');
 		$('.popup').addClass('opened');
@@ -2853,7 +2853,20 @@ function openMenu() {
 		$('.search').addClass('opened');
 		$('.search').removeClass('fadeOut');
 		$('.mobmenu').addClass('fadeOut');
-	})
+	});
+
+	// Открыть фиксированное меню
+	$('.fixed-sidebar__icon').on('click', function(event){
+		event.preventDefault();
+		console.log(this)
+		if($(this).hasClass('fixed-sidebar__icon--active')){
+			$(this).removeClass('fixed-sidebar__icon--active')
+			$(this).parent().removeClass('fixed-sidebar--active')
+		}else{
+			$(this).addClass('fixed-sidebar__icon--active')
+			$(this).parent().addClass('fixed-sidebar--active')
+		}
+	});
 
 }
 
@@ -2863,6 +2876,7 @@ function mobmenu(){
 		$('.mobmenu__title').off('click').on('click', function(event){
 			event.preventDefault();
 			$(this).next().slideToggle();
+			$(this).parent().toggleClass('active');
 		});
 	}else{
 		$('.mobmenu__content').attr('style', '')
@@ -3252,8 +3266,9 @@ function swiperGallery(){
 	var swiperGalleryOne = new Swiper("#gallery .gallery__swiper-one", {
 		loop: true,
 		autoplay: {
-			deleay: 5000,
+			deleay: 2000,
 			pauseOnMouseEnter: true,
+			disableOnInteraction: false,
 		},
 		slidesPerView: 'auto',
 		spaceBetween: 16,
@@ -3285,8 +3300,9 @@ function swiperGallery(){
 	var swiperGalleryTwo = new Swiper("#gallery .gallery__swiper-two", {
 		loop: true,
 		autoplay: {
-			deleay: 6000,
+			deleay: 4000,
 			pauseOnMouseEnter: true,
+			disableOnInteraction: false,
 		},
 		slidesPerView: 'auto',
 		spaceBetween: 16,
@@ -3344,6 +3360,7 @@ function swiperSales() {
 		autoplay: false,
 		watchSlidesVisibility: true,
 		slidesPerView: 1,
+		spaceBetween: 16,
 		simulateTouch: true,
 		grabCursor: true,
 		navigation: {
@@ -3583,11 +3600,14 @@ function swiperCat(){
 				prevEl: id +' .products__nav-prev',
 			},
 			breakpoints: {
+				0: {
+					slidesPerView: 1,
+				},
 				320: {
-					slidesPerView: 1.1,
+					slidesPerView: 1.3,
 				},
 				480: {
-					slidesPerView: 1,
+					slidesPerView: 1.2,
 				},
 				640: {
 					slidesPerView: 1.1,

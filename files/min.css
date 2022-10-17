@@ -153,7 +153,21 @@ from {opacity: 1;}
 to {opacity: 0;-webkit-transform: translate3d(0, 100%, 0);transform: translate3d(0, 100%, 0);}
 }
 .fadeOutDown {-webkit-animation-name: fadeOutDown;animation-name: fadeOutDown;}
-  
+
+
+/* Анимация волны для кнопки с точками */
+@-webkit-keyframes moveUpDown {
+0% {transform: translateY(0);}
+50% {transform: translateY(-100%);}
+100% {transform: translateY(0%);}
+}
+@keyframes moveUpDown {
+0% {transform: translateY(0);}
+50% {transform: translateY(-100%);}
+100% {transform: translateY(0%);}
+}
+.moveUpDown {-webkit-animation-name: moveUpDown;animation-name: moveUpDown;}
+
 
 /******************************************************************************
 Air Datepicker v2.2.3 http://t1m0n.name/air-datepicker/docs/index-ru.html
