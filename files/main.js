@@ -1079,10 +1079,6 @@ function quickViewMod() {
 			var href = $(this).attr('href');
 			href += (false !== href.indexOf('?') ? '&' : '?') + 'only_body=1';
 			quickViewShowMod(href);
-			$(function(){
-				var observer = lozad();
-				observer.observe();
-			});
 			preload();
 			return false;
 		});
@@ -1104,7 +1100,6 @@ function quickViewShowMod(href, atempt) {
 				// Если больше 500 попыток, то уже прошло 25 секунд и похоже, что быстрый просмотр не подгрузится, отменяем информацию о том, что контент загружен
 				if(atempt > 500) {
 					delete document.quickviewPreload[href];
-					// TODO сделать вывод красивой таблички
 					alert('Не удалось загрузить страницу товара. Пожалуйста, повторите попытку позже.');
 					return true;
 				}
@@ -3138,7 +3133,6 @@ function indexCatalog(){
 					});
 					
           // Загрузка скриптов
-          lozad().observe();
           addTo();
           addCart();
           quantity();
@@ -3196,7 +3190,12 @@ function swiperShow(){
 		thumbs: {
 			autoScrollOffset: 0,
 			swiper: swiperPagination,
-		}
+		},
+		lazy: {
+			enabled: false,
+			loadPrevNext: true,
+			loadOnTransitionStart: true,
+		},
 	});
 }
 
@@ -3231,6 +3230,7 @@ function swiperMedia(){
 		autoplay: false,
 		spaceBetween: 16,
 		lazy: {
+			enabled: true,
 			loadPrevNext: true,
 			loadPrevNextAmount: '4',
 			loadOnTransitionStart: true,
@@ -3424,8 +3424,8 @@ function swiperNews() {
 		preloadImages: false,
 		lazy: {
 			enabled: true,
-			loadOnTransitionStart: true,
 			loadPrevNext: true,
+			loadOnTransitionStart: true,
 		},
 		navigation: {
 			nextEl: ".swiper-button-next",
@@ -3662,8 +3662,8 @@ function swiperImage(){
 			nested: true,
 			lazy: {
 				enabled: true,
-				loadOnTransitionStart: true,
 				loadPrevNext: true,
+				loadOnTransitionStart: true,
 			},
 			pagination: {
 				el: id +' .swiper-pagination',
@@ -3718,8 +3718,8 @@ function swiperSlider(id){
 		preloadImages: false,
 		lazy: {
 			enabled: true,
-			loadOnTransitionStart: true,
 			loadPrevNext: true,
+			loadOnTransitionStart: true,
 		},
 		navigation: {
 			nextEl: id + ' .swiper-navigate .swiper-button-next',
@@ -3820,12 +3820,6 @@ $(document).ready(function(){
     // Отправка данных формы по нажатию на Enter в случае если курсор находится в input полях (В некоторых браузерах при нажатии по enter срабатывает клик по первому submit полю, которое является кнопкой назад. Для этого написан этот фикс)
   }).find('input').bind('keypress', function(e){
     if(((e.which==10)||(e.which==13))) { try{$(this.form).submit();} catch(e){} return false; }
-  });
-
-	// Ленивая загрузка
-  $(function(){
-    var observer = lozad(); // lazy loads elements with default selector as '.lozad'
-    observer.observe();
   });
 
   // Маска ввода телефона

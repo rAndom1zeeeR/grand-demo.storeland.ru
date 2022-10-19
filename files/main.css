@@ -167,8 +167,8 @@ button:hover, [class*="button-"]:hover, .paymentFormSubmitLink:hover, .paymentFo
 /*** Кнопка. Выключенная ***/
 [class*="button-"].disabled {cursor: default;background-color: var(--color-lightgray);border-color: var(--color-lightgray);}
 /*** Кнопка. Нет в наличии ***/
-.button-empty {background: var(--color-lightgray);border-color: var(--color-lightgray);}
-.button-empty:hover {background: var(--color-gray);border-color: var(--color-gray);}
+.button-empty {background: var(--color-darkgray);border-color: var(--color-darkgray);}
+.button-empty:hover {background: var(--color-lightgray);border-color: var(--color-lightgray);}
 /*** Кнопка с иконкой ***/
 .button-icon {padding: 0 3rem 0 0;flex-grow: 1;z-index: 1;transition: all 0.5s ease-in-out;}
 .button-icon i {width: 3rem;height: 3rem;border-radius: 0 .5rem .5rem 0;position: absolute;top: 0;right: 0;display: flex;align-items: center;justify-content: center;}
@@ -180,6 +180,9 @@ button:hover, [class*="button-"]:hover, .paymentFormSubmitLink:hover, .paymentFo
 .button-icon.button-secondary i {background-color: #FFA384;}
 .button-icon.button-secondary:hover {background-color: #FFA384;}
 .button-icon.button-secondary:hover:after {background-color: #FFA384;}
+.button-icon.button-empty i {background-color: var(--color-lightgray);}
+.button-icon.button-empty:hover {background-color: var(--color-lightgray);}
+.button-icon.button-empty:hover:after {background-color: var(--color-lightgray);}
 
 
 /*** Кнопка с иконкой ***/
@@ -333,6 +336,7 @@ h6 {font-size: 0.875rem;}
 .fancybox-content {max-width: 50rem;padding: 2rem;background-color: var(--color-background);border-radius: .625rem;}
 .fancybox-content.modal {max-width: 34rem;}
 .modal .block__title {margin: 0;}
+.modal .subtitle {margin: 1rem 0;line-height: 1.25rem;}
 /* .fancybox-content .form__buttons {text-align: center;} */
 /* .modal__content input, .modal__content textarea {background-color: var(--color-background);} */
 @media all and (max-width: 479px) {
@@ -525,11 +529,16 @@ h6 {font-size: 0.875rem;}
 /**************************************/
 /*** Наверх ***/
 /**************************************/
-#toTop {left: 0;position: fixed;transition: all 0.3s ease;z-index: 9;text-align: center;background-color: rgba(255, 255, 255, 0.8);}
-@media all and (min-width: 1439px) {
+#toTop {width: 3.5rem;height: 3rem;color: var(--color-black);background-color: rgba(255, 255, 255, 0.8);left: 0;position: fixed;transition: all 0.3s ease;z-index: 9;text-align: center;}
+@media all and (min-width: 1440px) {
 	#toTop {color: var(--color-lightgray);padding-top: 2rem;width: 8rem;height: 100vh;top: 0;font-weight: bold;background-color: transparent;}
 	#toTop:hover {cursor: pointer;background-color: rgba(70, 177, 239, 0.1);color: var(--color-primary);}
 	#toTop i {display: inline-block;margin-right: .5rem;}	
+}
+@media all and (max-width: 1439px) {
+	#toTop {bottom: 1rem;line-height: 3rem;border-bottom-right-radius: .625rem;}
+	#toTop span {display: none;}
+	#toTop i {line-height: 3rem;}
 }
 
 
@@ -588,7 +597,7 @@ h6 {font-size: 0.875rem;}
 /**************************************/
 .product__ico {color: var(--color-white);z-index: 2;position: absolute;justify-content: center;width: 100%;}
 .product__ico label {display: none;}
-.product__ico span {width: 5rem;font-weight: bold;padding: .375rem .5rem;line-height: 1rem;text-align: center;text-transform: lowercase;}
+.product__ico span {width: 5rem;font-size: .875rem;font-weight: bold;padding: .375rem .5rem;line-height: 1rem;text-align: center;text-transform: lowercase;}
 .product__ico span:first-child {border-bottom-left-radius: .625rem;}
 .product__ico span:last-child {border-bottom-right-radius: .625rem;}
 .ico__sales {background: var(--color-third);}
@@ -752,7 +761,7 @@ h6 {font-size: 0.875rem;}
 }
 @media all and (max-width: 479px) {
 	.products__list .product__image {width: 100%;height: 18rem;}
-	.products__list .product__shop {width: 100%;}
+	.products__list .product__shop {width: 100%;margin-top: -2rem;}
 	.products__list .button-more {display: none;}
 	.products__list .product__ico {display: flex;}
 	.products__list .product__img img {border-radius: .625rem .625rem 0 0;}
@@ -1090,14 +1099,13 @@ h6 {font-size: 0.875rem;}
 .counter__item:last-child:after {display: none;}
 /* Товар. Цена */
 .productView__price .price__now {font-size: 1.5rem;}
-.productView__price .price__old {}
 /* Товар. Модификации */
 .productView__mod-property {margin-top: 1.5rem;}
 .productView__mod-label {margin-bottom: .5rem;color: var(--color-darkgray);display: block;}
-.productView__modifications {}
 .productView__mod-select select {background-color: var(--color-white);border: 0;}
 .productView__mod-select:after {color: var(--color-lightgray);}
 /* Товар. В корзину */
+.productView .form__fields {margin: 1rem 0 0 0;}
 .productView__addtoCart {margin-top: 1.5rem;}
 .productView__addtoCart .add-notify {display: none;}
 .productView__addtoCart .button-link {display: none;}
@@ -1112,7 +1120,9 @@ h6 {font-size: 0.875rem;}
 .productView__empty .add-cart {display: none;}
 .productView__empty .add-notify {display: inline-block;}
 .productView__empty .productView__qty {display: none;}
-.productView .form__fields {margin: 1rem 0 0 0;}
+.productView__empty .button-primary {display: none;}
+
+/* TODO сделать адаптивность карточки товара */
 @media all and (max-width: 1023px) {
 }
 @media all and (max-width: 479px) {
@@ -1927,8 +1937,13 @@ footer .contacts__block {margin-top: 1.5rem;}
 /*** Обратный звонок ***/
 /**************************************/
 #fancybox__callback {max-width: 30rem;}
-#fancybox__callback .subtitle {margin: 1rem 0;line-height: 1.25rem;}
 #fancybox__callback .form__fields {margin-bottom: 1.5rem;}
+
+
+/**************************************/
+/*** Уведомить ***/
+/**************************************/
+#fancybox__notify {max-width: 24rem;}
 
 
 /**************************************/
@@ -1945,6 +1960,8 @@ footer .contacts__block {margin-top: 1.5rem;}
 .fixed-sidebar__icon--active .dot {display: none;}
 .fixed-sidebar__icon--active:after {content: '\e90c';font-family: 'icomoon';font-size: 1.5rem;color: var(--color-white);transition: all 0.3s ease;}
 .fixed-sidebar__icon--active:hover:after {transform: rotate(180deg);}
+.fixed-sidebar__items {height: 0;transition: all 0.6s ease;}
+.fixed-sidebar--active .fixed-sidebar__items {height: 100%;}
 .fixed-sidebar__item {margin-bottom: .625rem;opacity: 0;transform: translateY(100%);transition: all 0.3s ease;cursor: pointer;display: flex;position: relative;}
 .fixed-sidebar__item:nth-child(2) {transition: all 0.4s ease;}
 .fixed-sidebar__item:nth-child(3) {transition: all 0.5s ease;}

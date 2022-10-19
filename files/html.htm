@@ -158,7 +158,7 @@
 			<div class="swiper">
 				<div class="swiper-wrapper">
 					<!-- Слайд 1 -->
-					<div class="slider__item swiper-slide flex lozad" data-background-image="{ASSETS_IMAGES_PATH}slide_1.jpg?design=THEMENAME">
+					<div class="slider__item swiper-slide flex" style="background-image: url({ASSETS_IMAGES_PATH}slide_1.jpg?design=THEMENAME)">
 						<div class="container">
 							<div class="slider__content">
 								<div class="slider__subtitle"><span>Забронируйте номер на сайте и получите дополнительную скидку</span></div>
@@ -202,7 +202,7 @@
 						</div>
 					</div>
 					<!-- Слайд 2 -->
-					<div class="slider__item swiper-slide flex lozad" data-background-image="{ASSETS_IMAGES_PATH}slide_2.jpg?design=THEMENAME">
+					<div class="slider__item swiper-slide flex" style="background-image: url({ASSETS_IMAGES_PATH}slide_2.jpg?design=THEMENAME)">
 						<div class="container">
 							<div class="slider__content">
 								<div class="slider__subtitle"><span>Забронируйте номер на сайте и получите дополнительную скидку</span></div>
@@ -246,7 +246,7 @@
 						</div>
 					</div>
 					<!-- Слайд 3 -->
-					<div class="slider__item swiper-slide flex lozad" data-background-image="{ASSETS_IMAGES_PATH}slide_3.jpg?design=THEMENAME">
+					<div class="slider__item swiper-slide flex" style="background-image: url({ASSETS_IMAGES_PATH}slide_3.jpg?design=THEMENAME)">
 						<div class="container">
 							<div class="slider__content">
 								<div class="slider__subtitle"><span>Забронируйте номер на сайте и получите дополнительную скидку</span></div>
@@ -290,7 +290,7 @@
 						</div>
 					</div>
 					<!-- Слайд 4 -->
-					<div class="slider__item swiper-slide flex lozad" data-background-image="{ASSETS_IMAGES_PATH}slide_4.jpg?design=THEMENAME">
+					<div class="slider__item swiper-slide flex" style="background-image: url({ASSETS_IMAGES_PATH}slide_4.jpg?design=THEMENAME)">
 						<div class="container">
 							<div class="slider__content">
 								<div class="slider__subtitle"><span>Забронируйте номер на сайте и получите дополнительную скидку</span></div>
@@ -1725,6 +1725,7 @@
 					<div class="subtitle">Наш отель ежегодно посещают около 5 000 человек и многие снова возвращаются к нам!</div>
 				</div>
 				<div class="row">
+					<!-- TODO сделать вывод отзывов на главной -->
 					<div class="">
 						
 					</div>
@@ -3570,26 +3571,36 @@
 
 			<!-- Обратный звонок в модальном окне -->
 			<div id="fancybox__feedback" class="modal" style="display:none">
-				<div class="modal__title block__title">
+				<div class="modal__title block__title block__title-separator">
 					<h2 class="title">Обратная связь</h2>
 				</div>
+				<div class="subtitle">Наш специалист поможет Вам разобраться с любыми вопросами</div>
 				<div class="modal__content">
 					<form method="post" action="{CALLBACK_URL}" class="form__callback" enctype="multipart/form-data">
 						<input type="hidden" name="hash" value="{HASH}" />
 						<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
 						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 						{ANTISPAM_CODE}
-						<div class="form__fields">
+						<div class="form__fields form__fields-icons">
+							<label class="form__label">Ваше имя</label>
 							<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
+							<i class="icon-person"></i>
 						</div>
-						<div class="form__fields">
+						<div class="form__fields form__fields-icons">
+							<label class="form__label">Ваш телефон</label>
 							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
+							<i class="icon-phone"></i>
 						</div>
-						<div class="form__fields">
+						<div class="form__fields form__fields-icons">
+							<label class="form__label">Ваше сообщение</label>
 							<textarea class="textarea" rows="2" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_COMMENT}]" placeholder="Комментарий" >{FORM_CALLBACK_COMMENT}</textarea>
+							<i class="icon-chat"></i>
 						</div>
 						<div class="form__buttons">
-							<button class="button-primary form__button" type="submit" title="Отправить"><span>Отправить</span></button>
+							<button class="form__button button-secondary button-icon" type="submit" title="Отправить">
+								<span>Отправить</span>
+								<i class="icon-chevron_right"></i>
+							</button>
 							<div class="form__pp">
 								<span>Нажимая на кнопку &laquo;Отправить&raquo;, Вы соглашаетесь с</span>
 								<span data-fancybox data-src="#fancybox__pp" href="javascript:;">правилами обработки данных</span>
@@ -3601,9 +3612,10 @@
 
 			<!-- Уведомить о поступлении в модальном окне -->
 			<div id="fancybox__notify" class="modal" style="display:none">
-				<div class="modal__title block__title">
+				<div class="modal__title block__title block__title-separator">
 					<h2 class="title">Уведомить</h2>
 				</div>
+				<div class="subtitle">Наш специалист поможет Вам разобраться с любыми вопросами</div>
 				<div class="modal__content">
 					<form method="post" action="{CALLBACK_URL}" class="form__callback" enctype="multipart/form-data">
 						<input type="hidden" name="hash" value="{HASH}" />
@@ -3613,18 +3625,27 @@
 						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 						{ANTISPAM_CODE}
 						<!-- Для использования почты для уведомлений необходимо удалить блок с телефоном -->
-						<div class="form__fields">
+						<div class="form__fields form__fields-icons">
+							<label class="form__label">Ваше имя</label>
 							<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
+							<i class="icon-person"></i>
 						</div>
-						<div class="form__fields">
-							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="+7 (987) 654-3210" autocomplete="off" required />
+						<div class="form__fields form__fields-icons">
+							<label class="form__label">Ваш телефон</label>
+							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
+							<i class="icon-phone"></i>
 						</div>
 						<!-- Для использования почты для уведомлений необходимо удалить ниже style="display: none;" -->
 						<div class="form__fields" style="display: none;">
+							<label class="form__label">Ваша почта</label>
 							<input class="form__input form__email" type="email" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_EMAIL}]" value="{FORM_CALLBACK_EMAIL}" placeholder="email@email.ru *" autocomplete="off" />
+							<i class="icon-mail"></i>
 						</div>
 						<div class="form__buttons">
-							<button class="button-primary form__button" type="submit" title="Уведомить"><span>Уведомить</span></button>
+							<button class="form__button button-secondary button-icon" type="submit" title="Уведомить">
+								<span>Уведомить</span>
+								<i class="icon-chevron_right"></i>
+							</button>
 							<div class="form__pp">
 								<span>Нажимая на кнопку &laquo;Уведомить&raquo;, Вы соглашаетесь с</span>
 								<span data-fancybox data-src="#fancybox__pp" href="javascript:;">правилами обработки данных</span>

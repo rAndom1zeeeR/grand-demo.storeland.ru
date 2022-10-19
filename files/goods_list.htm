@@ -34,6 +34,8 @@
 		</div>
 	</div>
 	{% ENDIF %}
+
+	<!-- TODO сделать вывод подкатегорий -->
 	
 	<!-- Если нет товаров, выводим сообщение пользователю -->
 	{% IF nested_categories_list_empty && goods_empty %}
@@ -113,7 +115,7 @@
 	</div>
 	<!-- END Верхний блок, изменяющий отображение данных выдачи товаров -->
 
-	<div class="flex-start">		
+	<div class="flex-start">
 		{% IF SHOW_GOODS_PRICE_FILTERS || SHOW_GOODS_FILTERS %}
 		<!-- Если в тарифном плане подключен модуль фильтров по товарам -->
 		<div id="filters">

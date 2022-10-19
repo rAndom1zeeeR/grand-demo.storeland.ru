@@ -49,7 +49,7 @@
 				
 				<!-- Главное изображение -->
 				<a class="productView__image flex-center" href="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=marketplace{% ELSE %}{GOODS_IMAGE_LARGE}{% ENDIF %}" data-fancybox="images">
-					<img class="lozad" data-src="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=marketplace{% ELSE %}{GOODS_IMAGE_MEDIUM}{% ENDIF %}" title="{GOODS_NAME}" alt="{GOODS_NAME}" itemprop="image" />
+					<img src="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=marketplace{% ELSE %}{GOODS_IMAGE_MEDIUM}{% ENDIF %}" title="{GOODS_NAME}" alt="{GOODS_NAME}" itemprop="image" />
 				</a>
 
 				<!-- Дополнительные изображения -->
@@ -582,7 +582,7 @@
 								<i class="icon-chevron_right"></i>
 							</button>
 							<!-- Уведомить -->
-							<a class="add-notify button-empty" 
+							<a class="add-notify button-empty button-icon" 
 								title="Уведомить"
 								data-tooltip="Уведомить"
 								rel="nofollow"
@@ -592,8 +592,8 @@
 								data-name="{GOODS_NAME}"
 								data-art="{GOODS_MOD_ART_NUMBER}"
 							>
-								<i class="icon-notification"></i>
 								<span>Уведомить</span>
+								<i class="icon-notification"></i>
 							</a>
 						</div>
 
