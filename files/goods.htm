@@ -612,5 +612,55 @@
 
 	</div>
 
+	<!-- Фиксация цены и бронировать -->
+	<div class="productView__fixed flex">
+		<!-- Цена товара -->
+		<div class="productView__fixed-price {CURRENCY_CHAR_CODE} {% IF GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT>GOODS_MOD_PRICE_NOW %}has-price-old{% ELSEIF GOODS_MOD_PRICE_OLD>GOODS_MOD_PRICE_NOW %}has-price-old{% ENDIF %}" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+			<!-- информация для поисковика о наличии товара -->
+			<meta itemprop="availability" content="{% IF GOODS_MOD_REST_VALUE>0 %}http://schema.org/InStock{% ELSE %}http://schema.org/OutOfStock{% ENDIF %}">
+			<!-- информация для поисковика о валюте товара -->
+			<meta itemprop="priceCurrency" content="{CURRENCY_CHAR_CODE}" />
+			<link itemprop="url" href="{GOODS_URL}" />	
+			{% IF GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT>GOODS_MOD_PRICE_NOW %}
+			<span class="price__old {CURRENCY_CHAR_CODE}" content="{GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT}" data-price-old="{GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT}">{GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
+			{% ELSEIF GOODS_MOD_PRICE_OLD>GOODS_MOD_PRICE_NOW %}
+			<span class="price__old {CURRENCY_CHAR_CODE}" content="{GOODS_MOD_PRICE_OLD}" data-price-old="{GOODS_MOD_PRICE_OLD}">{GOODS_MOD_PRICE_OLD | money_format}</span>
+			{% ENDIF %}
+			<span class="price__now {CURRENCY_CHAR_CODE}" itemprop="price" content="{GOODS_MOD_PRICE_NOW}" data-price="{GOODS_MOD_PRICE_NOW}">{GOODS_MOD_PRICE_NOW | money_format}</span>
+		</div>
+
+		<!-- Добавление товара в корзину -->
+		<div class="productView__fixed-addtoCart">
+			<!-- Забронировать -->
+			<a class="button-primary button-icon" 
+				title="Забронировать"
+				data-tooltip="Забронировать"
+				data-fancybox
+				data-src="#fancybox__book"
+				href="javascript:;"
+				data-name="{GOODS_NAME}"
+				data-art="{GOODS_MOD_ART_NUMBER}"
+			>
+				<span>Забронировать</span>
+				<i class="icon-chevron_right"></i>
+			</a>
+			<!-- Уведомить -->
+			<a class="add-notify button-empty button-icon" 
+				title="Уведомить"
+				data-tooltip="Уведомить"
+				rel="nofollow"
+				data-fancybox
+				data-src="#fancybox__notify"
+				href="javascript:;"
+				data-name="{GOODS_NAME}"
+				data-art="{GOODS_MOD_ART_NUMBER}"
+			>
+				<span>Уведомить</span>
+				<i class="icon-notification"></i>
+			</a>
+		</div>
+
+	</div>
+
 </div>
 <!-- /END Форма карточки товара -->

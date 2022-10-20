@@ -2728,6 +2728,14 @@ function catalog() {
 		// }).show();
 	});
 
+	// Кол-во активных фильтров
+	if($('.filter__item.checked').length > 0){
+		$('.filters__count').show().text($('.filter__item.checked').length)
+	}else{
+		$('.filters__count').hide()
+	}
+	
+
 	// Фильтр по ценам
 	function priceFilter() {
 		var
@@ -2824,7 +2832,7 @@ function openMenu() {
     event.preventDefault();
     var value = $(this).data('open');
     if ($('[data-content="'+ value +'"]').hasClass('opened')){
-			$('[data-open]').removeClass('opened active')
+			$('[data-open]').removeClass('opened active').parent().removeClass('opened')
 			$('[data-content]').removeClass('opened')
     }else{
       $(this).addClass('opened active').parent().addClass('opened');
@@ -3115,8 +3123,8 @@ function indexCatalog(){
           var parentContainer = container.find('.products__list .swiper-wrapper');
           var $data = $(data);
           var $newProducts = $data.find('.product__item').parent().html();
-					var $desc = $data.filter('.htmlDataBlock');
-					var name = $data.find('.product__item .product__name');
+					var $desc = $(data).find('.products__description');
+					var name = $(data).find('.product__name');
 					name.each(function(){
 						container.find('.products__nav-names .swiper-wrapper').append($(this).removeClass('product__name product__margin').addClass('swiper-slide products__nav-name'));
 					})
@@ -3126,11 +3134,6 @@ function indexCatalog(){
             parentContainer.append($newProducts);
 						container.find('.block__subtitle').html($desc)
           }
-
-					// Добавляем класс для слайдера
-					$('#pdt__cat .product__item').each(function(){
-						$(this).addClass('swiper-slide')
-					});
 					
           // Загрузка скриптов
           addTo();
@@ -3185,6 +3188,8 @@ function swiperShow(){
 		hashNavigation: false,
 		autoplay: {
 			delay: 5000,
+			pauseOnMouseEnter: true,
+			disableOnInteraction: false,
 		},
 		speed: 400,
 		thumbs: {
@@ -3363,9 +3368,10 @@ function swiperSales() {
 		spaceBetween: 16,
 		simulateTouch: true,
 		grabCursor: true,
+		nested: true,
 		navigation: {
-			nextEl: id + ' .swiper-button-next',
-			prevEl: id + ' .swiper-button-prev',
+			nextEl: id + ' .swiper-navigate .swiper-button-next',
+			prevEl: id + ' .swiper-navigate .swiper-button-prev',
 		},
 		pagination: {
 			el: id + ' .swiper-progressbar',
@@ -3415,6 +3421,7 @@ function swiperNews() {
 		autoplay: {
 			deleay: 6000,
 			pauseOnMouseEnter: true,
+			disableOnInteraction: false,
 		},
 		watchSlidesVisibility: true,
 		simulateTouch: true,
@@ -3554,6 +3561,7 @@ function swiperServices() {
 function swiperCat(){
 	// Включаем функцию для каждой категории
 	$('.products__container[data-id]').each(function(){
+		$(this).find('.product__item').addClass('swiper-slide')
 		var id = $(this).attr('data-id');
 		swiperCatSlider('.pdt__cat-' + id,'swiper' + id,'swiperDots' + id)
 	})
@@ -3591,6 +3599,7 @@ function swiperCat(){
 			simulateTouch: true,
 			grabCursor: true,
 			slideToClickedSlide: true,
+			slideClass: 'product__item',
 			slidesPerView: 1.1,
 			spaceBetween: 16,
 			preventClicks: true,
@@ -3740,13 +3749,13 @@ function swiperSlider(id){
 				slidesPerView: '2',
 			},
 			640: {
-				slidesPerView: '2',
+				slidesPerView: '3',
 			},
 			768: {
-				slidesPerView: '2',
+				slidesPerView: '3',
 			},
 			1024: {
-				slidesPerView: '3',
+				slidesPerView: '4',
 			},
 			1200: {
 				slidesPerView: '4',
@@ -3784,6 +3793,7 @@ $(document).ready(function(){
 	swiperImage()
 	mobmenu()
   mainnav('header .mainnav', '1', 991);
+	priceDiff('.product__item', 'percent');
 	setTimeout(function () {
 		swiperCat();
 		priceDiff('.product__item', 'percent');

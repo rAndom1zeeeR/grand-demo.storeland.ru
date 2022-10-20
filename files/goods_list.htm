@@ -1,10 +1,32 @@
 <!-- В корне каталога товаров отобразим все корневые категории если они есть на сайте -->
 <div class="products {% IF GOODS_VIEW_TYPE=2 %}list{% ELSE %}grid{% ENDIF %}">
+	
+	<!-- Вывод всех видов описания категории -->
+	{% IF CATEGORY_DESCRIPTION || CATEGORY_SEO_DESCRIPTION_SHORT || CATEGORY_SEO_DESCRIPTION_LARGE %}
+	<div class="products__description">
+		<div class="htmlDataBlock">
+			<!-- Описание категории -->
+			{% IF CATEGORY_DESCRIPTION %}
+			<div>{CATEGORY_DESCRIPTION}</div>
+			{% ENDIF %}
+			<!-- Короткое SEO описание категории -->
+			{% IF CATEGORY_SEO_DESCRIPTION_SHORT %}
+			<div>{CATEGORY_SEO_DESCRIPTION_SHORT}</div>
+			{% ENDIF %}
+			<!-- Полное SEO описание категории -->
+			{% IF CATEGORY_SEO_DESCRIPTION_LARGE %}
+			<div>{CATEGORY_SEO_DESCRIPTION_LARGE}</div>
+			{% ENDIF %}
+		</div>
+	</div>
+	{% ENDIF %}
+	<!-- /END Вывод всех видов описания категории -->
+
 	<!-- Вывод категорий -->
 	{% IFNOT nested_categories_list_empty %}
 	<div class="categories {% IF IS_FULL_CATALOG || goods_empty %}categories__full{% ENDIF %}">
 		<div class="row">
-			<div class="categories__list flex {% IF index_page %}index{% ENDIF %}">
+			<div class="categories__list flex-stretch {% IF index_page %}index{% ENDIF %}">
 				{% FOR nested_categories_list %}
 				<div class="categories__item" data-id="{nested_categories_list.ID}" {% IF nested_categories_list.LEVEL> 0 %}style="display: none;"{% ENDIF %}>
 					<div class="categories__inner flex">
@@ -34,8 +56,6 @@
 		</div>
 	</div>
 	{% ENDIF %}
-
-	<!-- TODO сделать вывод подкатегорий -->
 	
 	<!-- Если нет товаров, выводим сообщение пользователю -->
 	{% IF nested_categories_list_empty && goods_empty %}
@@ -56,6 +76,7 @@
 		<div class="filters__icon flex">
 			<i class="icon-filter"></i>
 			<span>Подбор номера</span>
+			<div class="filters__count"></div>
 			<div class="filters__icon-open"></div>
 		</div>
 		<form class="toolbar__form flex" action="">
@@ -817,22 +838,3 @@
 	{% ENDIF IS_FULL_CATALOG %}
 	<!-- //END Если нет товаров -->
 </div>
-
-<!-- Вывод всех видов описания категории -->
-{% IF CATEGORY_DESCRIPTION || CATEGORY_SEO_DESCRIPTION_SHORT || CATEGORY_SEO_DESCRIPTION_LARGE %}
-<div class="htmlDataBlock">
-	<!-- Описание категории -->
-	{% IF CATEGORY_DESCRIPTION %}
-	<div>{CATEGORY_DESCRIPTION}</div>
-	{% ENDIF %}
-	<!-- Короткое SEO описание категории -->
-	{% IF CATEGORY_SEO_DESCRIPTION_SHORT %}
-	<div>{CATEGORY_SEO_DESCRIPTION_SHORT}</div>
-	{% ENDIF %}
-	<!-- Полное SEO описание категории -->
-	{% IF CATEGORY_SEO_DESCRIPTION_LARGE %}
-	<div>{CATEGORY_SEO_DESCRIPTION_LARGE}</div>
-	{% ENDIF %}
-</div>
-{% ENDIF %}
-<!-- /END Вывод всех видов описания категории -->
