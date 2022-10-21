@@ -218,12 +218,12 @@
 					{% IF GOODS_OPINION_RATING_VALUE_ROUND > 0 %}
 					<div class="block__title block__title-separator">
 						<h2 class="title"><span>Оценка гостей</span></h2>
-						<div class="productView__ratings flex">
+						<div class="productView__ratings flex {% IF GOODS_OPINION_RATING_VALUE_ROUND > 7 %}good{% ELSEIF GOODS_OPINION_RATING_VALUE_ROUND < 6 %}bad{% ELSE %}normal{% ENDIF %}">
 							<div class="productView__ratings-round">
-								<div class="productView__ratings-label">{% IF GOODS_OPINION_RATING_VALUE_ROUND > 8 %}Отлично{% ELSEIF GOODS_OPINION_RATING_VALUE_ROUND > 4 %}Хорошо{% ELSE %}Плохо{% ENDIF %}</div>
+								<div class="productView__ratings-label">{% IF GOODS_OPINION_RATING_VALUE_ROUND > 7 %}Отлично{% ELSEIF GOODS_OPINION_RATING_VALUE_ROUND < 6 %}Плохо{% ELSE %}Хорошо{% ENDIF %}</div>
 								<div class="productView__ratings-count">{GOODS_OPINION_RATING_CNT_ALL} отзыв{GOODS_OPINION_RATING_CNT_ALL | gen_word_end("","а","ов")}</div>
 							</div>
-							<div class="opinion__ratings flex-center">
+							<div class="opinion__ratings flex-center {% IF GOODS_OPINION_RATING_VALUE_ROUND > 7 %}good{% ELSEIF GOODS_OPINION_RATING_VALUE_ROUND < 6 %}bad{% ELSE %}normal{% ENDIF %}">
 								<i class="icon-star"></i>
 								<span>{GOODS_OPINION_RATING_VALUE_ROUND | divide("2")}</span>
 							</div>
@@ -244,14 +244,14 @@
 						<!-- Список отзывов о товарах -->
 						<div class="opinion__items" itemprop="review" itemscope itemtype="https://schema.org/Review">
 							{% FOR opinion_list %}
-							<div class="opinion__item flex-start {% IF opinion_list.GENERALLY_IS_GOOD %}good{% ELSE %}bad{% ENDIF %}" data-rating='{opinion_list.RATING | divide("2")}'>
+							<div class="opinion__item flex-start {% IF opinion_list.RATING > 7 %}good{% ELSEIF opinion_list.RATING < 6 %}good{% ELSE %}normal{% ENDIF %}" data-rating='{opinion_list.RATING | divide("2")}'>
 								<div class="opinion__left">
 									<div class="opinion__avatar flex-center">
 										<span></span>
 									</div>
 
 									{% IF opinion_list.RATING %}
-									<div class="opinion__ratings flex-center {% IF opinion_list.RATING > 5 %}good{% ELSE %}bad{% ENDIF %}">
+									<div class="opinion__ratings flex-center {% IF opinion_list.RATING > 7 %}good{% ELSEIF opinion_list.RATING < 6 %}bad{% ELSE %}normal{% ENDIF %}">
 										<i class="icon-star"></i>
 										<span>{opinion_list.RATING | divided('2')}</span>
 									</div>
