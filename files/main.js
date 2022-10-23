@@ -1841,7 +1841,7 @@ function pageGoods() {
 		var descHeight = item.height();
 
 		// Если большое описание
-		if (descHeight > 100) {
+		if (descHeight > 120) {
 			item.addClass('mask');
 			buttons.show();
 		}else{
@@ -2733,8 +2733,7 @@ function catalog() {
 		$('.filters__count').show().text($('.filter__item.checked').length)
 	}else{
 		$('.filters__count').hide()
-	}
-	
+	}	
 
 	// Фильтр по ценам
 	function priceFilter() {
@@ -3940,3 +3939,132 @@ $(window).resize(function(){
   }
   mainnav('header .mainnav', '1', 991);
 });
+
+
+
+// Отзывы на главной
+function indexOpinion(){
+	var id = '#opinions'
+	var url = $(id).attr('data-url');
+	$.ajax({
+		url: url + '?only_body=1',
+		cache: false,
+		dataType: 'html',
+		success:function(data){
+			var item = $(data).find('.opinion__item');
+			$('.opinions__items').append(item.addClass('swiper-slide').removeClass('flex-start'))
+			swiperOpinion('#opinions');
+			moreOpinion();
+		},
+		error:function(){
+			console.log('Страница с отзывами не найдена', url)
+			$(id).find('.subtitle').text('Страница с отзывами не найдена');
+			$(id).find('.swiper').hide();
+			$(id).addClass('disabled');
+
+		}
+	});
+
+	// Слайдер
+	function swiperOpinion(id){
+		// Обновление данных
+		function updateMedia(t){
+			var newCount = t.snapGrid.length;
+			var newIndex = t.realIndex + 1;
+			var total = $(id).find('.swiper-pagination-total');
+			var current = $(id).find('.swiper-pagination-current');
+	
+			if (newCount > 9){
+				total.text(newCount);
+			}else{
+				total.text('0' + newCount);
+			}
+	
+			if (newIndex > 9){
+				current.text(newIndex);
+			}else{
+				current.text('0' + newIndex);
+			}
+	
+			// Скрываем навигацию если слайдер заблокирован
+			$(id).find('.swiper-pagination-lock').parent().addClass('swiper-pagination-lock')
+		}
+	
+		// Слайдер товаров
+		var swiper = new Swiper(id + ' .swiper', {
+			loop: false,
+			autoplay: false,
+			watchSlidesVisibility: true,
+			simulateTouch: true,
+			grabCursor: true,
+			slidesPerView: '3',
+			spaceBetween: 16,
+			nested: true,
+			preloadImages: false,
+			lazy: {
+				enabled: true,
+				loadPrevNext: true,
+				loadOnTransitionStart: true,
+			},
+			navigation: {
+				nextEl: id + ' .swiper-navigate .swiper-button-next',
+				prevEl: id + ' .swiper-navigate .swiper-button-prev',
+			},
+			pagination: {
+				el: id + ' .swiper-navigate .swiper-progressbar',
+				type: 'progressbar',
+			},
+			breakpoints: {
+				0: {
+					slidesPerView: '1',
+				},
+				320: {
+					slidesPerView: '1',
+				},
+				480: {
+					slidesPerView: '2',
+				},
+				640: {
+					slidesPerView: '2',
+				},
+				768: {
+					slidesPerView: '3',
+				},
+				1024: {
+					slidesPerView: '3',
+				},
+				1200: {
+					slidesPerView: '3',
+				}
+			},
+			on: {
+				init: function(){
+					updateMedia(this)
+					console.log('this', this)
+				},
+				slideChangeTransitionStart: function(){
+					updateMedia(this)
+				},
+				slideChange: function(){
+					updateMedia(this)
+				},
+			}
+		});
+	}
+
+	// Читать полностью
+	function moreOpinion(){
+		var content = $(id).find('.opinion__text');
+		content.each(function(){
+			var height = $(this).height();
+			console.log('height', height)
+			if(height >= 120){
+				$(this).parent().append('<div class="opinion__buttons"><a class="button-link button-more" href="'+ url +'"><span>Читать полностью</span></a></div>')
+			}
+		});
+	}
+
+
+
+}
+

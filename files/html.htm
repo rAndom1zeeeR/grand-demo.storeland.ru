@@ -1772,20 +1772,32 @@
 		</section>
 
 		<!-- Отзывы -->
-		<section id="opinions">
+		<section id="opinions" data-url="/goods/Semejnaya-villa">
 			<div class="container">
 				<div class="block__title">
 					<h2 class="title"><span>Отзывы</span></h2>
 					<div class="subtitle">Наш отель ежегодно посещают около 5 000 человек и многие снова возвращаются к нам!</div>
 				</div>
-				<div class="row">
-					<!-- TODO сделать вывод отзывов на главной -->
-					<div class="">
-						
+				<!-- Слайдер отзывов на главной -->
+				<div class="swiper">
+					<!-- Вывод отзывов -->
+					<div class="swiper-wrapper opinions__items"></div>
+					
+					<!-- Навигация -->
+					<div class="swiper-navigate flex">
+						<div class="swiper-navigation">
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-button-next"></div>
+						</div>
+						<div class="swiper-progressbar"></div>
+						<div class="swiper-fraction flex">
+							<div class="swiper-pagination-current">00</div>							
+							<div class="swiper-pagination-separator">/</div>
+							<div class="swiper-pagination-total">10</div>
+						</div>
 					</div>
-				</div>
 
-				<!-- Навигация -->
+				</div>
 
 			</div>
 		</section>
@@ -3837,17 +3849,18 @@
 	{% IF index_page %}
 	<script async type="text/javascript">
 		$(document).ready(function () {
+			monthNames();
+			counterDate();
 			pdtVisible('#pdt__sale');
 			swiperList('#pdt__best')
 			swiperList('#pdt__new')
 			swiperShow();
-			monthNames();
-			// indexCatalog();
-			counterDate();
 			swiperMedia();
 			swiperGallery();
 			swiperServices();
 			swiperSales();
+			// indexCatalog();
+			indexOpinion()
 		});
 	</script>
 

@@ -152,8 +152,8 @@
 					<!-- Если есть возможность фильтрации товаров по ценам -->
 					{% IF SHOW_GOODS_PRICE_FILTERS %}
 					<div class="filter__list filters-price collapsible">
-						<a class="collapsible__click flex" title="Показать фильтры Цены" href="javascript:;">
-							<span class="filter__name">Цена</span>
+						<a class="filter__name collapsible__click flex" title="Показать фильтры Цены" href="javascript:;">
+							<span>Цена</span>
 							<i class="icon-chevron_up"></i>
 						</a>
 						<a class="filter__clear" title="Очистить фильтры" href="javascript:;">
@@ -192,8 +192,8 @@
 					<!-- Фильтры по характеристикам товаров (Например: Производитель, разрешение экрана, заряд аккомулятора) {% FOR values %}{% IF filter_attr_list.values.CHECKED %}active {% ENDIF %}{% ENDFOR %} -->
 					{% FOR filter_attr_list %}
 					<div class="filter__list collapsible {% FOR values %}{% IF filter_attr_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}">
-						<a class="collapsible__click flex" title="Показать фильтры {filter_attr_list.NAME}" href="javascript:;">
-							<span class="filter__name">{filter_attr_list.NAME}</span>
+						<a class="filter__name collapsible__click flex" title="Показать фильтры {filter_attr_list.NAME}" href="javascript:;">
+							<span>{filter_attr_list.NAME}</span>
 							<i class="icon-chevron_up"></i>
 						</a>
 						<a class="filter__clear" title="Очистить фильтры" href="javascript:;">
@@ -219,8 +219,8 @@
 					<!-- Фильтры по свойствам товарных модификаций (Например: Цвет, размер, модификация) {% FOR values %}{% IF filter_prop_list.values.CHECKED %}active {% ENDIF %}{% ENDFOR %} -->
 					{% FOR filter_prop_list %}
 					<div class="filter__list collapsible {% FOR values %}{% IF filter_prop_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}">
-						<a class="collapsible__click flex" title="Показать фильтры {filter_prop_list.NAME}" href="javascript:;">
-							<span class="filter__name">{filter_prop_list.NAME}</span>
+						<a class="filter__name collapsible__click flex" title="Показать фильтры {filter_prop_list.NAME}" href="javascript:;">
+							<span>{filter_prop_list.NAME}</span>
 							<i class="icon-chevron_up"></i>
 						</a>
 						<a class="filter__clear" title="Очистить фильтры" href="javascript:;">
@@ -243,10 +243,12 @@
 						</div>
 					</div>
 					{% ENDFOR %}
+					<div class="filters__buttons">
+						<input type="hidden" value="{GOODS_PAGES_RESULTS}" id="goods-filters-results">
+						<button class="button-primary" type="submit">Показать</button>
+						<!-- <a href="{PAGE_CANONICAL}" class="button-empty goodsFilterClear" title="Очистить фильтры"><span>Сбросить фильтры</span></a> -->
+					</div>
 				</form>
-				<div class="filters__buttons">
-					<a href="{PAGE_CANONICAL}" class="button-empty goodsFilterClear" title="Очистить фильтры"><span>Сбросить фильтры</span></a>
-				</div>
 			</div>
 		</div>
 		{% ENDIF filters %}

@@ -101,7 +101,7 @@ p {margin: 0 0 1rem 0;line-height: 1.5;}
 input, select, textarea {width: 100%;height: 3rem;padding: 0 1rem;color: var(--color-black);background-color: transparent;border-color: var(--color-black);border-width: .125rem;border-style: solid;border-radius: .625rem;outline: 0;font-size: 1rem;font-weight: 400;font-family: 'Exo', sans-serif;-webkit-appearance: none;-moz-appearance: none;appearance: none;}
 input:focus, select:focus, textarea:focus {border-color: var(--color-primary);}
 input.focus, select.focus, textarea.focus {border-color: var(--color-primary);}
-textarea {height: auto;padding-top: 1rem;resize: vertical;}
+textarea {height: auto;padding-top: 1rem;padding-bottom: 1rem;resize: vertical;}
 select {cursor: pointer;}
 input.error, textarea.error {border-color: var(--color-red);}
 input.error + i, textarea.error + i {color: var(--color-red);}
@@ -1028,12 +1028,13 @@ h6 {font-size: 0.875rem;}
 /*** Сайдбар. Фильтры ***/
 .filter__items {max-height: 9.25rem;overflow-y: auto;padding-right: .5rem;}
 .filter__items::-webkit-scrollbar {width: .25rem;height: 0;border-radius: .625rem;}
-.filter__name {padding-right: 1rem;font-size: 1.125rem;font-weight: bold;}
-.filter__clear {display: none;color: var(--color-lightgray);font-weight: bold;}
+.filter__name {font-size: 1.125rem;font-weight: bold;}
+.filter__name i {margin-left: 1rem;}
+.filter__clear {display: none;color: var(--color-lightgray);font-weight: bold;font-size: .875rem;}
 .filter__clear:hover {cursor: pointer;}
-.filter__clear i {font-size: .75rem;display: inline-block;margin-right: .25rem;}
+.filter__clear i {display: inline-block;margin-right: .25rem;display: none;}
 .filter__list {position: relative;}
-.filter__list.has-filters .filter__clear {display: inline-block;position: absolute;right: 1rem;top: 0;}
+.filter__list.has-filters .filter__clear {display: inline-block;position: absolute;right: 0;top: .25rem;}
 .filter__list + .filter__list {margin-top: 1.5rem;}
 .filter__item + .filter__item {margin-top: .75rem;}
 .filter__item.checked {color: var(--color-primary);font-weight: bold;}
@@ -1042,7 +1043,7 @@ h6 {font-size: 0.875rem;}
 .filter__item label {line-height: 1.25rem;width: calc(100% - 1.75rem);flex-grow: 1;cursor: pointer;display: flex;flex-wrap: wrap;justify-content: space-between;}
 .filter__item.disabled label {cursor: default;}
 .filter__nb {font-size: .875rem;}
-.filter__input {opacity: 0;width: auto;height: auto;border: 0;margin: 0;padding: 0;transition: all 0.3s ease;}
+.filter__input {opacity: 0;width: auto;height: auto;border: 0;margin: 0;padding: 0;transition: all 0.3s ease;line-height: 1;}
 .filter__input:checked {opacity: 1;margin: 0 .75rem 0 0;color: var(--color-primary);}
 .filter__input:before {content: '';font-family: 'icomoon';transition: all 0.3s ease;}
 .filter__input:checked:before {content: '\e907';}
@@ -1274,6 +1275,7 @@ h6 {font-size: 0.875rem;}
 .opinion__item.hide {display: none;}
 .opinion__text {margin-top: 1rem;}
 .opinion__text label {margin-bottom: .5rem;display: none;}
+.opinion__text p:last-child {margin-bottom: 0;}
 .opinion__date {color: var(--color-darkgray);}
 .opinion__name {font-weight: bold;}
 .opinion__ratings {background-color: var(--color-secondary);color: var(--color-white);padding: .25rem 1.5rem;border-radius: .125rem;position: relative;}
@@ -1288,7 +1290,22 @@ h6 {font-size: 0.875rem;}
 .opinion__delete i {display: none;}
 .opinion__avatar {margin-bottom: 1rem;width: 6rem;height: 6rem;font-size: 4rem;color: var(--color-primary);background-color: var(--color-background);border-radius: 100%;font-family: 'Cormorant', serif;font-weight: bold;}
 .opinion__right {width: calc(100% - 6rem);padding-left: 1.5rem;}
+.opinion__right .ratings {display: none;}
 .opinion__left {width: 6rem;}
+
+/* Отзыв на главной */
+.opinions__items {height: 20.75rem;}
+.opinions__items .opinion__item {margin: 0;height: 100%;}
+.opinions__items .opinion__item:nth-child(n+4) {display: block;}
+.opinions__items .opinion__left {display: none;}
+.opinions__items .opinion__date {display: none;}
+.opinions__items .opinion__delete {display: none;}
+.opinions__items .opinion__right {width: 100%;height: 100%;padding: 1rem;background-color: var(--color-white);border-radius: .625rem;text-align: center;}
+.opinions__items .opinion__right:before {content: '\e92d';font-family: 'icomoon';color: var(--color-slategray);font-size: 4rem;margin-bottom: 1rem;display: block;}
+.opinions__items .opinion__right-inner {justify-content: center;}
+.opinions__items .ratings {display: block;margin: 1rem auto;width: 7.5rem;}
+.opinions__items .opinion__text {max-height: 7.5rem;overflow: hidden;}
+.opinions__items .opinion__buttons {margin-top: .5rem;}
 
 /* Товар. Рейтинг */
 .productView__opinion .block__title {margin-bottom: 1.5rem;}

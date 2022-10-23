@@ -261,7 +261,7 @@
 
 								<div class="opinion__right">
 
-									<div class="flex justify-between">
+									<div class="opinion__right-inner flex justify-between">
 
 										{% IF opinion_list.NAME %}
 										<div class="opinion__name" itemprop="author" itemscope itemtype="https://schema.org/Person">
@@ -274,6 +274,14 @@
 											<span>{opinion_list.DATE | date('d.m.Y')}</span>
 										</div>
 										<meta itemprop="datePublished" content="{opinion_list.DATE | date('d.m.Y')}">
+										{% ENDIF %}
+									</div>
+
+									<div class="ratings">
+										{% IF opinion_list.RATING %}
+										<div class="rating" style="width:{opinion_list.RATING}0%" alt="{opinion_list.RATING}" title="Рейтинг товара"></div>
+										{% ELSE %}
+										<div class="rating" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
 										{% ENDIF %}
 									</div>
 									
