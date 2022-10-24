@@ -140,7 +140,7 @@
 		{% IF SHOW_GOODS_PRICE_FILTERS || SHOW_GOODS_FILTERS %}
 		<!-- Если в тарифном плане подключен модуль фильтров по товарам -->
 		<div id="filters">
-			<div class="filters__icon flex-center">
+			<div class="filters__icon flex-center" onclick="closeAll()">
 				<i class="icon-filter"></i>
 				<span>Подбор номера</span>
 				<div class="filters__icon-close">
@@ -152,14 +152,16 @@
 					<!-- Если есть возможность фильтрации товаров по ценам -->
 					{% IF SHOW_GOODS_PRICE_FILTERS %}
 					<div class="filter__list filters-price collapsible">
-						<a class="filter__name collapsible__click flex" title="Показать фильтры Цены" href="javascript:;">
-							<span>Цена</span>
-							<i class="icon-chevron_up"></i>
-						</a>
-						<a class="filter__clear" title="Очистить фильтры" href="javascript:;">
-							<i class="icon-close"></i>
-							<span>Сбросить</span>
-						</a>
+						<div class="collapsible__title flex">
+							<a class="filter__name collapsible__click flex" title="Показать фильтры Цены" href="javascript:;">
+								<i class="icon-chevron_down"></i>
+								<span>Цена</span>
+							</a>
+							<a class="filter__clear" title="Очистить фильтры" href="javascript:;">
+								<i class="icon-close"></i>
+								<span>Сбросить</span>
+							</a>
+						</div>
 						<div class="filter__items collapsible__content">
 							<div class="priceSlider">
 								<input type="hidden" name="form[filter][available_price][min]" value="{GOODS_FILTER_MIN_AVAILABLE_PRICE}" />
@@ -176,14 +178,11 @@
 									<input id="goods-filter-max-price" class="inputText" type="text" name="form[filter][price][max]" value="{% IF GOODS_FILTER_MAX_PRICE %}{GOODS_FILTER_MAX_PRICE}{% ELSE %}{GOODS_FILTER_MAX_AVAILABLE_PRICE}{% ENDIF %}" min="1" onkeypress="return keyPress(this, event);" onpaste="return false;" />
 								</div>
 								<!-- Кнопки Фильтров -->
-								<div class="goodsFilterPriceSubmit flex justify-between">
-									<button class="button-primary button-small" type="submit" title="Показать">
+								<div class="goodsFilterPriceSubmit flex-center">
+									<button class="button-link button-more flex" type="submit" title="Показать">
+										<i class="icon-check"></i>
 										<span>Применить</span>
 									</button>
-									<a class="button-rotate button-link" href="{PAGE_CANONICAL}" title="Очистить фильтры">
-										<i class="icon-close"></i>
-										<span>Очистить</span>
-									</a>
 								</div>
 							</div>
 						</div>
@@ -192,14 +191,16 @@
 					<!-- Фильтры по характеристикам товаров (Например: Производитель, разрешение экрана, заряд аккомулятора) {% FOR values %}{% IF filter_attr_list.values.CHECKED %}active {% ENDIF %}{% ENDFOR %} -->
 					{% FOR filter_attr_list %}
 					<div class="filter__list collapsible {% FOR values %}{% IF filter_attr_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}">
-						<a class="filter__name collapsible__click flex" title="Показать фильтры {filter_attr_list.NAME}" href="javascript:;">
-							<span>{filter_attr_list.NAME}</span>
-							<i class="icon-chevron_up"></i>
-						</a>
-						<a class="filter__clear" title="Очистить фильтры" href="javascript:;">
-							<i class="icon-close"></i>
-							<span>Сбросить</span>
-						</a>
+						<div class="collapsible__title flex">
+							<a class="filter__name collapsible__click flex" title="Показать фильтры {filter_attr_list.NAME}" href="javascript:;">
+								<i class="icon-chevron_down"></i>
+								<span>{filter_attr_list.NAME}</span>
+							</a>
+							<a class="filter__clear" title="Очистить фильтры" href="javascript:;">
+								<i class="icon-close"></i>
+								<span>Сбросить</span>
+							</a>
+						</div>
 						<div class="collapsible__content">
 							<input class="filter__search" type="text" placeholder="Я ищу">
 							<div class="filter__items">
@@ -219,14 +220,16 @@
 					<!-- Фильтры по свойствам товарных модификаций (Например: Цвет, размер, модификация) {% FOR values %}{% IF filter_prop_list.values.CHECKED %}active {% ENDIF %}{% ENDFOR %} -->
 					{% FOR filter_prop_list %}
 					<div class="filter__list collapsible {% FOR values %}{% IF filter_prop_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}">
-						<a class="filter__name collapsible__click flex" title="Показать фильтры {filter_prop_list.NAME}" href="javascript:;">
-							<span>{filter_prop_list.NAME}</span>
-							<i class="icon-chevron_up"></i>
-						</a>
-						<a class="filter__clear" title="Очистить фильтры" href="javascript:;">
-							<i class="icon-close"></i>
-							<span>Сбросить</span>
-						</a>
+						<div class="collapsible__title flex">
+							<a class="filter__name collapsible__click flex" title="Показать фильтры {filter_prop_list.NAME}" href="javascript:;">
+								<i class="icon-chevron_down"></i>
+								<span>{filter_prop_list.NAME}</span>
+							</a>
+							<a class="filter__clear" title="Очистить фильтры" href="javascript:;">
+								<i class="icon-close"></i>
+								<span>Сбросить</span>
+							</a>
+						</div>
 						<div class="collapsible__content">
 							<input class="filter__search" type="text" placeholder="Я ищу">
 							<div class="filter__items">
@@ -244,9 +247,7 @@
 					</div>
 					{% ENDFOR %}
 					<div class="filters__buttons">
-						<input type="hidden" value="{GOODS_PAGES_RESULTS}" id="goods-filters-results">
-						<button class="button-primary" type="submit">Показать</button>
-						<!-- <a href="{PAGE_CANONICAL}" class="button-empty goodsFilterClear" title="Очистить фильтры"><span>Сбросить фильтры</span></a> -->
+						<a class="button-empty" href="{PAGE_CANONICAL}" title="Очистить фильтры"><span>Сбросить фильтры</span></a>
 					</div>
 				</form>
 			</div>

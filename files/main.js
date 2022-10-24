@@ -2663,15 +2663,15 @@ function counterDate() {
 ///////////////////////////////////////
 function catalog() {
 	// Фильтры по товарам. При нажании на какую либо характеристику или свойство товара происходит фильтрация товаров
-	$('.filter__item input').on('click', function(){
-		$(this)[0].form.submit();
-	});
+	// $('.filter__item input').on('click', function(){
+	// 	$(this)[0].form.submit();
+	// });
 
 	// Открытие/Скрытие фильтров в сайдбаре
 	$('.collapsible__click').on('click', function(event){
 		event.preventDefault();
 		var item = $(this).closest('.collapsible');
-		var content = $(this).parent().find('.collapsible__content');
+		var content = $(this).parent().parent().find('.collapsible__content');
 		if (item.hasClass('active')) {
 			content.slideDown(600);
 			item.removeClass('active');
@@ -2682,27 +2682,26 @@ function catalog() {
 	});
 
 	// Сборосить категорию фильтра
-	$('.filter__clear').on('click', function(event){
+	$('.filter__clear').off('click').on('click', function(event){
 		event.preventDefault();
 		var parent = $(this).closest('.filter__list');
 		var checkboxes = parent.find('[type="checkbox"]')
 		checkboxes.prop('checked', false).attr('checked', false);
-		$('.form__filters')[0].submit();
+		// $('.form__filters')[0].submit();
+		onFiltersChange()
 	});
 	
 	// Фильтры открыть
-	$('.filters__icon').on('click', function (event) {
+	$('.toolbar .filters__icon').off('click').on('click', function (event) {
 		event.preventDefault();
-		if($('#filters').hasClass('opened')){
-			$(this).removeClass('opened');
+		if($(this).hasClass('opened')){
+			$(this).removeClass('opened')
 			$('#filters').removeClass('opened');
 			$('.products').removeClass('opened');
-			$('.filters__icon').removeClass('opened');
 		}else{
-			$(this).addClass('opened');
+			$(this).addClass('opened')
 			$('#filters').addClass('opened');
 			$('.products').addClass('opened');
-			$('.filters__icon').addClass('opened');
 		}
 	});
 
@@ -2719,13 +2718,6 @@ function catalog() {
 			var t = $(this);
 			return resultArray.some(function(el){ return el === t.index() })
 		}).show();
-		// Стрелочные функции не работают в ИЕ
-		// Создаем массив результатов поиска
-		// var resultArray = itemsArray.map((item, i) => item.indexOf(str) >= 0 ? i : -1).filter(item => item >= 0);
-		// Фильтруем результаты поиска
-		// $items.hide().filter(function () {
-		// 	return resultArray.some(el => el === $(this).index())
-		// }).show();
 	});
 
 	// Кол-во активных фильтров
@@ -2791,8 +2783,38 @@ function catalog() {
 		// }
 	
 	}
-
+	
+	// Запуск функций
 	priceFilter();
+
+	// Ajax обновление фильтров
+	function onFiltersChange(){
+    // Получаем данные формы, которые будем отправлять на сервер
+    var formData = $('.form__filters').serializeArray();
+    // Сообщаем серверу, что мы пришли через ajax запрос
+    formData.push({name: 'ajax_q', value: 1});
+    formData.push({name: 'only_body', value: 1});
+    // Аяксом добавляем товар в корзину и вызываем форму быстрого заказа товара
+    $.ajax({
+      type: "POST",
+      cache: false,
+      data: formData,
+			ifModified: true,
+      success: function(data) {
+        $('.products__container').html($(data).find('.products__container').html())
+				$('.products__container').append($(data).find('.notice'))
+        $('#filters').html($(data).find('#filters').html())
+				swiperImage()
+				catalog()
+				console.log('formData', formData)
+      }
+    })
+  }
+
+	// Функция обновления фильтров при изменении
+	$('.filter__input').off('click').on('click', function(){
+		onFiltersChange()
+	})
 
 }
 
@@ -4040,7 +4062,6 @@ function indexOpinion(){
 			on: {
 				init: function(){
 					updateMedia(this)
-					console.log('this', this)
 				},
 				slideChangeTransitionStart: function(){
 					updateMedia(this)
@@ -4057,7 +4078,6 @@ function indexOpinion(){
 		var content = $(id).find('.opinion__text');
 		content.each(function(){
 			var height = $(this).height();
-			console.log('height', height)
 			if(height >= 120){
 				$(this).parent().append('<div class="opinion__buttons"><a class="button-link button-more" href="'+ url +'"><span>Читать полностью</span></a></div>')
 			}
