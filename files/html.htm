@@ -1860,62 +1860,7 @@
 				</div>
 				<div class="swiper">
 					<!-- Первая линия -->
-					<div class="gallery__items gallery__swiper-one">
-						<div class="swiper-wrapper">
-							<div class="gallery__item swiper-slide">
-								<a class="gallery__image" href="{ASSETS_IMAGES_PATH}gallery_1.jpg?design=THEMENAME" data-fancybox="images">
-									<img src="{ASSETS_IMAGES_PATH}gallery_1.jpg?design=THEMENAME">
-								</a>
-							</div>
-							<div class="gallery__item swiper-slide">
-								<a class="gallery__image" href="{ASSETS_IMAGES_PATH}gallery_2.jpg?design=THEMENAME" data-fancybox="images">
-									<img src="{ASSETS_IMAGES_PATH}gallery_2.jpg?design=THEMENAME">
-								</a>
-							</div>
-							<div class="gallery__item swiper-slide">
-								<a class="gallery__image" href="{ASSETS_IMAGES_PATH}gallery_3.jpg?design=THEMENAME" data-fancybox="images">
-									<img src="{ASSETS_IMAGES_PATH}gallery_3.jpg?design=THEMENAME">
-								</a>
-							</div>
-							<div class="gallery__item swiper-slide">
-								<a class="gallery__image" href="{ASSETS_IMAGES_PATH}gallery_4.jpg?design=THEMENAME" data-fancybox="images">
-									<img src="{ASSETS_IMAGES_PATH}gallery_4.jpg?design=THEMENAME">
-								</a>
-							</div>
-							<div class="gallery__item swiper-slide">
-								<a class="gallery__image" href="{ASSETS_IMAGES_PATH}gallery_5.jpg?design=THEMENAME" data-fancybox="images">
-									<img src="{ASSETS_IMAGES_PATH}gallery_5.jpg?design=THEMENAME">
-								</a>
-							</div>
-							<div class="gallery__item swiper-slide">
-								<a class="gallery__image" href="{ASSETS_IMAGES_PATH}gallery_6.jpg?design=THEMENAME" data-fancybox="images">
-									<img src="{ASSETS_IMAGES_PATH}gallery_6.jpg?design=THEMENAME">
-								</a>
-							</div>
-							<div class="gallery__item swiper-slide">
-								<a class="gallery__image" href="{ASSETS_IMAGES_PATH}gallery_7.jpg?design=THEMENAME" data-fancybox="images">
-									<img src="{ASSETS_IMAGES_PATH}gallery_8.jpg?design=THEMENAME">
-								</a>
-							</div>
-							<div class="gallery__item swiper-slide">
-								<a class="gallery__image" href="{ASSETS_IMAGES_PATH}gallery_9.jpg?design=THEMENAME" data-fancybox="images">
-									<img src="{ASSETS_IMAGES_PATH}gallery_9.jpg?design=THEMENAME">
-								</a>
-							</div>
-							<div class="gallery__item swiper-slide">
-								<a class="gallery__image" href="{ASSETS_IMAGES_PATH}gallery_10.jpg?design=THEMENAME" data-fancybox="images">
-									<img src="{ASSETS_IMAGES_PATH}gallery_10.jpg?design=THEMENAME">
-								</a>
-							</div>
-							<div class="gallery__item swiper-slide">
-								<a class="gallery__image" href="{ASSETS_IMAGES_PATH}gallery_11.jpg?design=THEMENAME" data-fancybox="images">
-									<img src="{ASSETS_IMAGES_PATH}gallery_11.jpg?design=THEMENAME">
-								</a>
-							</div>
-						</div>
-					</div>
-					<!-- Вторая линия -->
-					<div class="gallery__items gallery__swiper-two" dir="rtl">
+					<div class="gallery__items gallery__swiper">
 						<div class="swiper-wrapper">
 							<div class="gallery__item swiper-slide">
 								<a class="gallery__image" href="{ASSETS_IMAGES_PATH}gallery_1.jpg?design=THEMENAME" data-fancybox="images">
@@ -3536,32 +3481,6 @@
 						<input type="hidden" name="form[goods_mod_id]" value="" id="fancy-book-goods-mod"/>
 						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 						{ANTISPAM_CODE}
-						<div class="form__fields flex">
-							<div class="form__field form__fields-icons selectBox">
-								<label class="form__label">Категория номера</label>
-								<select class="form__select form__room" name="form[Номер]" value="" required>
-									<option>Одноместный</option>
-									<option>Двухместный</option>
-									<option>Трехместный</option>
-									<option>Четырехместный</option>
-									<option>Апартамент</option>
-								</select>
-								<i class="icon-room"></i>
-							</div>
-							<div class="form__field form__fields-icons">
-								<label class="form__label">Даты заезда и выезда</label>
-								<input class="form__input form__date" type="text" name="form[Дата]" value="" maxlength="10" minlength="10" autocomplete="off" placeholder="17.11.2022 - 10.12.2022" required />
-								<i class="icon-calendar"></i>
-							</div>
-						</div>
-
-						<div class="form__fields flex">
-							<div class="form__field form__fields-icons">
-								<label class="form__label"><span>Количество гостей</span></label>
-								<input class="form__input form__guests" type="text" name="form[Гостей]" value="" placeholder="4 гостей" autocomplete="off" required />
-								<i class="icon-person"></i>
-							</div>
-						</div>
 
 						<div class="form__fields flex">
 							<div class="form__field form__fields-icons">
@@ -3573,6 +3492,27 @@
 								<label class="form__label">Ваш телефон</label>
 								<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
 								<i class="icon-phone"></i>
+							</div>
+						</div>
+
+						<div class="form__fields flex">							
+							<div class="form__field form__fields-icons">
+								<label class="form__label"><span>Количество гостей</span></label>
+								<input class="form__input form__guests" type="text" name="form[Гостей]" value="" placeholder="Укажите количество человек" autocomplete="off" required />
+								<i class="icon-person"></i>
+							</div>
+							<div class="form__field form__fields-icons">
+								<label class="form__label">Даты заезда и выезда</label>
+								<input class="form__input form__date" type="text" name="form[Дата]" value="" maxlength="10" minlength="10" autocomplete="off" placeholder="17.11.2022 - 10.12.2022" required />
+								<i class="icon-calendar"></i>
+							</div>
+						</div>
+
+						<div class="form__fields flex">							
+							<div class="form__field form__fields-icons">
+								<label class="form__label"><span>Комментарий</span></label>
+								<textarea class="form__input form__comment" row="2" type="text" name="form[Комментарий]" value="" placeholder="Ваши пожаления" autocomplete="off"></textarea>
+								<i class="icon-chat"></i>
 							</div>
 						</div>
 
@@ -3849,7 +3789,6 @@
 			swiperGallery();
 			swiperServices();
 			swiperSales();
-			// indexCatalog();
 			indexOpinion()
 		});
 	</script>

@@ -243,7 +243,7 @@ h6 {font-size: 0.875rem;}
 .form__fields-icons textarea {padding-left: 3.75rem;background-color: var(--color-white);border: 0;}
 .form__fields-icons select {padding-left: 3.75rem;background-color: var(--color-white);border: 0;}
 .form__fields-icons i {position: absolute;bottom: .75rem;left: 1rem;color: var(--color-lightgray);font-size: 1.5rem;}
-.form__fields-icons textarea + i {top: .75rem;bottom: auto;}
+.form__fields-icons textarea + i {top: 2.5rem;bottom: auto;}
 .form__fields-icons input:focus + i {color: var(--color-primary);}
 .form__fields-icons textarea:focus + i {color: var(--color-primary);}
 .form__fields-icons select:focus + i {color: var(--color-primary);}
@@ -1009,10 +1009,10 @@ h6 {font-size: 0.875rem;}
 	#filters .filters__icon {display: none;}
 }
 @media all and (max-width: 1023px) {
-	#filters {transform: translateX(-100%);position: fixed;left: 0;width: 100%;height: 100%;padding: 1rem;z-index: 8;transition: all 0.3s ease-in-out;}
+	#filters {transform: translateX(-100%);position: fixed;left: 0;width: 100%;height: 100%;padding: 0 1rem 1rem 1rem;z-index: 8;transition: all 0.3s ease-in-out;}
 	#filters.opened {transform: translateX(0);opacity: 1;}
-	.filters__icon {width: calc(50% - .5rem);}
 	#filters.opened .filters__icon {width: 100%;border-bottom: 1px solid var(--color-slategray);margin-bottom: 2rem;}
+	.filters__icon {width: calc(50% - .5rem);}
 	.filters__icon-close {position: absolute;right: 0;color: var(--color-lightgray);}
 	.filters__icon-close i {font-size: 1.25rem;}
 	.filters__content {max-height: calc(100vh - 8rem);overflow-y: auto;padding-right: .25rem;}
@@ -1136,8 +1136,8 @@ h6 {font-size: 0.875rem;}
 .productView .form__fields {margin: 1rem 0 0 0;}
 .productView__addtoCart {margin-top: 1.5rem;}
 .productViewBlock .add-notify {display: none;}
-.productViewBlock .button-link {display: none;}
 .productViewBlock .button-primary {width: 100%;}
+.productView__addtoCart .button-link {display: none;}
 /* Товар. В избранное, сравнение */
 .productView__links {width: 100%;}
 .productView__links a + a {margin-left: 2rem;}
