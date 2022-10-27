@@ -89,7 +89,7 @@
 			<div class="sort-by selectBox flex">
 				<label>Сортировать:</label>
 				<!-- Сортировка выпадающим списком	-->
-				<select class="select" name="goods_search_field_id" title="Название сортировки" onchange="this.form.submit();">
+				<select class="select" name="goods_search_field_id" title="Название сортировки">
 					{% FOR goods_order_fields %}
 						{% IF goods_order_fields.ID = 1 || goods_order_fields.ID = 2 || goods_order_fields.ID = 5 || goods_order_fields.ID = 11 || goods_order_fields.ID = 13 %}
 						<option value="{goods_order_fields.ID}" {% IF goods_order_fields.SELECTED %}selected="selected"{% ENDIF %}>
@@ -113,7 +113,7 @@
 			<!-- Показывать по: (Шаг для выбора пользователем лимита выдачи товаров на страницу от 1 до 100) -->
 			<div class="show-by selectBox flex">
 				<label>Показать:</label>
-				<select class="select" name="per_page" title="Лимит товаров на странице" onchange="this.form.submit();">
+				<select class="select" name="per_page" title="Лимит товаров на странице">
 					{% FOR goods_per_page_list %}
 						<option value="{goods_per_page_list.LIMIT}" {% IF goods_per_page_list.SELECTED %}selected="selected"{% ENDIF %}>{goods_per_page_list.LIMIT}</option>
 					{% ENDFOR %}
@@ -126,9 +126,11 @@
 				{% IF GOODS_VIEW_TYPE=1 %}
 				<div class="view__icon active" title="Таблица"><i class="icon-view_grid"></i></div>
 				<a class="view__icon" href="?goods_view_type=2" title="Список"><i class="icon-view_list"></i></a>
+				<input type="hidden" name="view_type" value="1"/>
 				{% ELSEIF GOODS_VIEW_TYPE=2 %}
 				<a class="view__icon" href="?goods_view_type=1" title="Таблица"><i class="icon-view_grid"></i></a>
 				<div class="view__icon active" title="Список"><i class="icon-view_list"></i></div>
+				<input type="hidden" name="view_type" value="2"/>
 				{% ENDIF %}
 			</div>
 			<!-- /END Вид Таблица/Список -->
@@ -179,10 +181,10 @@
 								</div>
 								<!-- Кнопки Фильтров -->
 								<div class="goodsFilterPriceSubmit flex-center">
-									<button class="button-link button-more flex" type="submit" title="Показать">
+									<a class="button-link button-more flex" href="javascript:;" title="Применить">
 										<i class="icon-check"></i>
 										<span>Применить</span>
-									</button>
+									</a>
 								</div>
 							</div>
 						</div>

@@ -35,7 +35,7 @@
 			<div class="sort-by selectBox flex">
 				<label>Сортировать по:</label>
 				<!-- Сортировка выпадающим списком	-->
-				<select class="select" name="goods_search_field_id" title="Название сортировки" onchange="this.form.submit();">
+				<select class="select" name="goods_search_field_id" title="Название сортировки">
 					{% FOR goods_order_fields %}
 						{% IF goods_order_fields.ID = 1 || goods_order_fields.ID = 2 || goods_order_fields.ID = 5 || goods_order_fields.ID = 11 || goods_order_fields.ID = 13 %}
 						<option value="{goods_order_fields.ID}" {% IF goods_order_fields.SELECTED %}selected="selected"{% ENDIF %}>
@@ -59,7 +59,7 @@
 			<!-- Показывать по: (Шаг для выбора пользователем лимита выдачи товаров на страницу от 1 до 100) -->
 			<div class="show-by selectBox flex">
 				<label>Показать по:</label>
-				<select class="select" name="per_page" title="Лимит товаров на странице" onchange="this.form.submit();">
+				<select class="select" name="per_page" title="Лимит товаров на странице">
 					{% FOR goods_per_page_list %}
 						<option value="{goods_per_page_list.LIMIT}" {% IF goods_per_page_list.SELECTED %}selected="selected"{% ENDIF %}>{goods_per_page_list.LIMIT}</option>
 					{% ENDFOR %}

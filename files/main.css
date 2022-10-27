@@ -333,6 +333,7 @@ h6 {font-size: 0.875rem;}
 /**************************************/
 /*** Модальные окна ***/
 /**************************************/
+.fancybox-slide::-webkit-scrollbar {width: .25rem;}
 .fancybox-content {max-width: 50rem;padding: 2rem;background-color: var(--color-background);border-radius: .625rem;}
 .fancybox-content.modal {max-width: 34rem;}
 .modal .block__title {margin: 0;padding-right: 1rem;}
@@ -913,7 +914,7 @@ h6 {font-size: 0.875rem;}
 .categories__content {width: 50%;padding: 1rem;}
 .categories__name {max-height: 5rem;line-height: 1.25;font-size: 1.5rem;font-weight: bold;font-family: 'Cormorant', serif;text-transform: uppercase;overflow: hidden;position: relative;}
 .categories__count {margin-top: .5rem;color: var(--color-darkgray);}
-.categories__desc {margin-top: .5rem;max-height: 12rem;overflow: hidden;}
+.categories__desc {margin-top: .5rem;max-height: 12rem;overflow: hidden;display: none;}
 .categories__buttons {display: none;}
 .products__description {margin-bottom: 2rem;}
 
@@ -924,6 +925,7 @@ h6 {font-size: 0.875rem;}
 .categories__full .categories__name {margin-bottom: 1rem;padding: 0 0 0 3rem;}
 .categories__full .categories__name:before {content: '';background-color: var(--color-primary);width: 2rem;height: .125rem;top: 1.125rem;left: 0;position: absolute;display: block;}
 .categories__full .categories__buttons {margin-top: .5rem;display: block;}
+.categories__full .categories__desc {display: block;}
 @media all and (min-width: 768px) {
 	.categories__full .categories__item:nth-child(2n) .categories__image {order: 2;}
 	.categories__full .categories__item:nth-child(2n) img {border-radius: 0 .625rem .625rem 0;}
@@ -1001,7 +1003,7 @@ h6 {font-size: 0.875rem;}
 .filters__icon-open:before {content: '\e908';font-family: 'icomoon';}
 .filters__icon.opened .filters__icon-open:before {content: '\e90b';}
 .filters__icon.opened {border-bottom-left-radius: 0;border-bottom-right-radius: 0;}
-.filters__count {margin-left: .5rem;width: 1.5rem;height: 1.5rem;line-height: 1.5rem;background: var(--color-background);border-radius: 100%;color: var(--color-primary);font-size: .875rem;font-weight: bold;display: inline-block;text-align: center;}
+.filters__count {display: none;margin-left: .5rem;width: 1.5rem;height: 1.5rem;line-height: 1.5rem;background: var(--color-background);border-radius: 100%;color: var(--color-primary);font-size: .875rem;font-weight: bold;display: inline-block;text-align: center;}
 
 /*** Фильтры. Адаптивность ***/
 @media all and (min-width: 1024px) {
@@ -1066,7 +1068,7 @@ h6 {font-size: 0.875rem;}
 .goodsFilterPriceRangePointers input {width: calc(50% - 1rem);height: 3rem;padding: 0 1.25rem;color: var(--color-darkgray);background-color: var(--color-background);border: 0;border-radius: .625rem;}
 .goodsFilterPriceRangePointers span {color: var(--color-gray);display: none;}
 .goodsFilterPriceSubmit {display: none;margin-top: 1rem;padding-bottom: .25rem;}
-.has-filters .goodsFilterPriceSubmit {display: none;}
+.has-filters .goodsFilterPriceSubmit {display: flex;}
 .goodsFilterPriceSubmit i {font-size: .875rem;display: inline-block;margin-right: .25rem;}
 
 
@@ -1726,7 +1728,6 @@ h6 {font-size: 0.875rem;}
 }
 
 
-
 /**************************************/
 /*** Слайдшоу ***/
 /**************************************/
@@ -1891,7 +1892,6 @@ footer .contacts__block {margin-top: 1.5rem;}
 .copyright {color: var(--color-darkgray);flex-grow: 1;line-height: 1.5;}
 .copyright a {padding: 0;}
 /*** Подвалю. Подписка ***/
-.subscribe__title {}
 .subscribe .form__callback {position: relative;}
 .subscribe .form__button {width: 100%;height: 3rem;}
 .subscribe .form__pp {text-align: center;}
@@ -1953,6 +1953,7 @@ footer .contacts__block {margin-top: 1.5rem;}
 @media all and (max-width: 479px) {
 	.services__name {padding: 0;}
 }
+
 
 /**************************************/
 /*** Особенности ***/
@@ -2062,6 +2063,8 @@ footer .contacts__block {margin-top: 1.5rem;}
 .book #fancybox__book.success .modal__title-icon {display: none;}
 #fancybox__book .modal__title-icon img {border-radius: .625rem;}
 #fancybox__book .block__title {margin: 0;}
+#fancybox__book .block__title .subtitle {display: none;}
+.book #fancybox__book .block__title .subtitle {display: block;}
 @media all and (max-width: 639px) {
 	#fancybox__book .form__field {width: 100%;margin: 0;}
 	#fancybox__book .form__field + .form__field {margin: 1rem 0 0 0;}
@@ -2116,6 +2119,8 @@ footer .contacts__block {margin-top: 1.5rem;}
 .fixed-sidebar__item.whatsapp .fixed-sidebar__item-icon {background-color: #22D365;}
 .fixed-sidebar__item.telegram .fixed-sidebar__item-icon {background-color: #2CA4E0;}
 .fixed-sidebar__item.phone .fixed-sidebar__item-icon {background-color: var(--color-secondary);}
+
+
 
 
 /**************************************/

@@ -2682,8 +2682,13 @@ function catalog() {
 		var parent = $(this).closest('.filter__list');
 		var checkboxes = parent.find('[type="checkbox"]')
 		checkboxes.prop('checked', false).attr('checked', false);
+		// Сбросить фильтр цены
+		if($(this).parent().parent().hasClass('filters-price')){
+			$('#goods-filter-min-price').val($('.goodsFilterPriceRangePointers .min').text())
+			$('#goods-filter-max-price').val($('.goodsFilterPriceRangePointers .max').text())
+		}
+		changeFilter()
 		// $('.form__filters')[0].submit();
-		changeFilters()
 	});
 	
 	// Фильтры открыть
@@ -2701,26 +2706,21 @@ function catalog() {
 	});
 
 	// Фильтры поиск
-	$('.filter__search').on('input', function() {
-		var $items = $(this).next('.filter__items').children()
-		var $checkboxes = $items.find('label');
-		var itemsArray = $checkboxes.map(function () {return $(this).data('name').toLowerCase()}).toArray();
-		var str = $(this).val();
-		// Создаем массив результатов поиска
-		var resultArray = itemsArray.map(function(item, i){ if(item.indexOf(str) >= 0){ return i }else{ return -1; } }).filter(function(item){ return item >= 0; });
-		// Фильтруем результаты поиска
-		$items.hide().filter(function(item) {
-			var t = $(this);
-			return resultArray.some(function(el){ return el === t.index() })
-		}).show();
-	});
-
-	// Кол-во активных фильтров
-	if($('.filter__item.checked').length > 0){
-		$('.filters__count').show().text($('.filter__item.checked').length)
-	}else{
-		$('.filters__count').hide()
-	}	
+	function searchFilter(){
+		$('.filter__search').on('input', function() {
+			var $items = $(this).next('.filter__items').children()
+			var $checkboxes = $items.find('label');
+			var itemsArray = $checkboxes.map(function () {return $(this).data('name').toLowerCase()}).toArray();
+			var str = $(this).val();
+			// Создаем массив результатов поиска
+			var resultArray = itemsArray.map(function(item, i){ if(item.indexOf(str) >= 0){ return i }else{ return -1; } }).filter(function(item){ return item >= 0; });
+			// Фильтруем результаты поиска
+			$items.hide().filter(function(item) {
+				var t = $(this);
+				return resultArray.some(function(el){ return el === t.index() })
+			}).show();
+		});
+	}
 
 	// Фильтр по ценам
 	function priceFilter() {
@@ -2765,19 +2765,58 @@ function catalog() {
 			priceSliderBlock.slider("values", 1, newVal);
 			priceSubmitButtonBlock.css('display', 'flex');
 		});
+
+		// Активный фильтр цены
+		if (priceInputMin.val() > priceFilterMinAvailable || priceInputMax.val() < priceFilterMaxAvailable) {
+			$('.filters-price').addClass('has-filters');
+		}else{
+			$('.filters-price').removeClass('has-filters');
+		}
 	
 	}
+
+	var origin = document.location.origin;
+	var pathname = document.location.pathname;
 	
-	// Запуск функций
-	priceFilter();
+
+	// Функция проверки адресной строки
+	function checkUrl(){
+		var search = document.location.search;
+
+		if(search == ''){
+			return '?'
+		}else{
+			if(search.includes("goods_view_type")){
+				return '?'
+			}
+			if(search.includes("goods_search_field_id")){
+				return '?'
+			}
+			return search + '&'
+		}
+	}
+
+	// Обновление данных
+	function updateData(data){
+		$('.products__container').html($(data).find('.products__container').html())
+		$('.toolbar__form').html($(data).find('.toolbar__form').html())
+		$('#filters').html($(data).find('#filters').html())
+		catalog()
+		swiperImage()
+		changeView()
+		changeSort()
+		addCart()
+	}
 
 	// Ajax обновление фильтров
-	function changeFilters(){
+	function changeFilter(){
     // Получаем данные формы, которые будем отправлять на сервер
     var formData = $('.form__filters').serializeArray();
     // Сообщаем серверу, что мы пришли через ajax запрос
     formData.push({name: 'ajax_q', value: 1});
     formData.push({name: 'only_body', value: 1});
+		// Определяем url в адресной строке
+		// var href = checkUrl() + formData[0].name +'='+ formData[0].value;
     // Аяксом добавляем товар в корзину и вызываем форму быстрого заказа товара
     $.ajax({
       type: "POST",
@@ -2785,19 +2824,34 @@ function catalog() {
       data: formData,
 			ifModified: true,
       success: function(data) {
-        $('.products__container').html($(data).find('.products__container').html())
-				$('.products__container').append($(data).find('.notice'))
-        $('#filters').html($(data).find('#filters').html())
-				swiperImage()
-				catalog()
+        updateData(data)
       }
     })
   }
-
-	// Фильтры по товарам. При нажании на какую либо характеристику или свойство товара происходит фильтрация товаров
-	$('.filter__input').off('click').on('click', function(){
-		changeFilters()
-	})
+	
+	// Ajax обновление сортировки
+	function changeSort(){
+		$('.toolbar__form select').on('change', function(event){
+			event.preventDefault();
+			// Получаем данные формы, которые будем отправлять на сервер
+			var formData = $('.toolbar__form').serializeArray();
+			// Сообщаем серверу, что мы пришли через ajax запрос
+			formData.push({name: 'ajax_q', value: 1});
+			formData.push({name: 'only_body', value: 1});
+			// Определяем url в адресной строке
+			// var href = checkUrl() + formData[0].name +'='+ formData[0].value;
+			// Обновляем аяксом контент
+			$.ajax({
+				type: "POST",
+				cache: false,
+				data: formData,
+				ifModified: true,
+				success:function(data){
+					updateData(data)
+				}
+			});
+		});
+	}
 
 	// Ajax обновление вида товаров
 	function changeView(){
@@ -2806,27 +2860,41 @@ function catalog() {
 			// Если нет ссылки
 			if($(this).attr('href') == undefined) return false;
 			// Определяем url в адресной строке
-			var origin = document.location.origin;
-			var pathname = document.location.pathname;
-			var href = $(this).attr('href');
+			var href = checkUrl() + $(this).attr('href').slice(1);
 			// Обновляем аяксом контент
 			$.ajax({
 				url: origin + pathname + href,
 				cache: false,
 				success:function(data){
-					$('.products__container').html($(data).find('.products__container').html())
-					$('.toolbar__form').html($(data).find('.toolbar__form').html())
-					swiperImage()
-					changeView()
+					updateData(data)
 				}
 			});
 
 		});
-	}	
-	
+	}
+
+	// Кол-во активных фильтров
+	if($('.filter__item.checked').length > 0){
+		$('.filters__count').show().text($('.filter__item.checked').length)
+	}else{
+		$('.filters__count').hide()
+	}
+
+	// Фильтры по товарам. При нажании на какую либо характеристику или свойство товара происходит фильтрация товаров
+	$('.filter__input').off('click').on('click', function(){
+		changeFilter()
+	})
+
+	// Фильтры по товарам. 
+	$('.goodsFilterPriceSubmit .button-link').on('click', function(){
+		changeFilter()
+	})
+
 	// Запуск функций
+	priceFilter();
 	changeView();
-	
+	changeSort();
+
 }
 
 
