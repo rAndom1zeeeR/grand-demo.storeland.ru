@@ -3799,94 +3799,6 @@ function swiperSlider(id){
 
 }
 
-
-///////////////////////////////////////
-// Загрузка основных функций шаблона
-///////////////////////////////////////
-$(document).ready(function(){
-	userAgent();
-	showPass();
-	openMenu();
-	addTo();
-	addCart();
-	// quickViewMod();
-	toTop();
-	cartSaleSum();
-	swiperNews();
-	swiperImage();
-	mobmenu()
-  mainnav('header .mainnav', '1', 991);
-	priceDiff('.product__item', 'percent');
-	setTimeout(function () {
-		priceDiff('.product__item', 'percent');
-	}, 2000);
-	// Удаление классов загрузки для элементов страницы
-	$('.loading').addClass('loaded');
-	$('div, section, ul').removeClass('loading');
-
-	// Добавление товара в корзину
-	// $('.add-cart').on('click', function() {
-	// 	var form = $(this).closest('form');
-	// 	if ($(this).hasClass('quick')) {
-	// 		form.attr('rel', 'quick');
-	// 	} else {
-	// 		var rel = form.attr('rel');
-	// 		if (rel) {
-	// 			form.attr('rel', rel.replace('quick', ''));
-	// 		}
-	// 	}
-	// 	form.trigger('submit');
-	// 	return false;
-	// });
-
-	// Уведомить при отсутствии товара
-	$('.add-notify').on('click', function(){
-		var formBlock = $(this).closest('.product__form');
-    var goodsMod = formBlock.find('[name="form[goods_mod_id]"]').val();
-    $('#fancy-notify-goods-mod').val(goodsMod)
-	});
-
-	// Отправка формы по Ctrl+Enter
-  $('form').bind('keypress', function(e){
-    if((e.ctrlKey) && ((e.which==10)||(e.which==13))) {$(this).submit();}
-    // Отправка данных формы по нажатию на Enter в случае если курсор находится в input полях (В некоторых браузерах при нажатии по enter срабатывает клик по первому submit полю, которое является кнопкой назад. Для этого написан этот фикс)
-  }).find('input').bind('keypress', function(e){
-    if(((e.which==10)||(e.which==13))) { try{$(this.form).submit();} catch(e){} return false; }
-  });
-
-  // Маска ввода телефона
-  $(".form__phone").mask("+7 (999) 999-9999");
-
-  // Возврашаем пользователя на страницу с которой был сделан обратный звонок
-  $('.callbackredirect').val(document.location.href);
-	
-	// Выбор даты доставки. Документация к плагину //t1m0n.name/air-datepicker/docs/index-ru.html
-	$(".form__date").datepicker({
-		// Если true, то при активации даты, календарь закроется.
-		autoClose: true,
-		// Можно выбрать только даты, идущие за сегодняшним днем, включая сегодня
-		minDate: new Date(),
-		// Выбор даты от и до
-		range: true,
-		toggleSelected: false,
-		multipleDatesSeparator: ' - '
-	});
-
-});
- 
-// Запуск функций при изменении экрана
-$(window).resize(function(){
-	mobmenu()
-  if(getClientWidth() > 481 && window.outerHeight < 630){
-    $('body').addClass('landscape');
-  }else{
-    $('body').removeClass('landscape');
-  }
-  mainnav('header .mainnav', '1', 991);
-});
-
-
-
 // Отзывы на главной
 function indexOpinion(){
 	var id = '#opinions'
@@ -4008,4 +3920,194 @@ function indexOpinion(){
 	}
 
 }
+
+// Слайдер Мы в Цифрах
+function swiperNumbers(){
+	var id = '#numbers'
+
+	// Обновление данных
+	function updateMedia(t){
+		var newCount = t.snapGrid.length;
+		var newIndex = t.realIndex + 1;
+		var total = $(id).find('.swiper-pagination-total');
+		var current = $(id).find('.swiper-pagination-current');
+
+		if (newCount > 9){
+			total.text(newCount);
+		}else{
+			total.text('0' + newCount);
+		}
+
+		if (newIndex > 9){
+			current.text(newIndex);
+		}else{
+			current.text('0' + newIndex);
+		}
+
+		// Скрываем навигацию если слайдер заблокирован
+		$(id).find('.swiper-pagination-lock').parent().addClass('swiper-pagination-lock')
+	}
+
+	// Слайдер товаров
+	var swiper = new Swiper(id + ' .swiper', {
+		loop: false,
+		autoplay: false,
+		watchSlidesVisibility: true,
+		simulateTouch: true,
+		grabCursor: true,
+		slidesPerView: '4',
+		spaceBetween: 16,
+		nested: true,
+		preloadImages: false,
+		lazy: {
+			enabled: true,
+			loadPrevNext: true,
+			loadOnTransitionStart: true,
+		},
+		navigation: {
+			nextEl: id + ' .swiper-navigate .swiper-button-next',
+			prevEl: id + ' .swiper-navigate .swiper-button-prev',
+		},
+		pagination: {
+			el: id + ' .swiper-navigate .swiper-progressbar',
+			type: 'progressbar',
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: '1',
+			},
+			320: {
+				slidesPerView: '1',
+			},
+			480: {
+				slidesPerView: '2',
+			},
+			640: {
+				slidesPerView: '2',
+			},
+			768: {
+				slidesPerView: '3',
+			},
+			1024: {
+				slidesPerView: '3',
+			},
+			1200: {
+				slidesPerView: '4',
+			}
+		},
+		on: {
+			init: function(){
+				updateMedia(this)
+			},
+			slideChangeTransitionStart: function(){
+				updateMedia(this)
+			},
+			slideChange: function(){
+				updateMedia(this)
+			},
+		}
+	});
+
+}
+
+// Функция ответы на вопросы
+function faq(){
+	$('.faq__title').on('click', function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active')
+			$(this).next().slideUp('slow').removeClass('active')
+		}else{
+			$(this).addClass('active')
+			$(this).next().slideDown('slow').addClass('active')
+		}
+	})
+}
+
+///////////////////////////////////////
+// Загрузка основных функций шаблона
+///////////////////////////////////////
+$(document).ready(function(){
+	userAgent();
+	showPass();
+	openMenu();
+	addTo();
+	addCart();
+	// quickViewMod();
+	toTop();
+	cartSaleSum();
+	swiperNews();
+	swiperImage();
+	mobmenu()
+  mainnav('header .mainnav', '1', 991);
+	priceDiff('.product__item', 'percent');
+	setTimeout(function () {
+		priceDiff('.product__item', 'percent');
+	}, 2000);
+	// Удаление классов загрузки для элементов страницы
+	$('.loading').addClass('loaded');
+	$('div, section, ul').removeClass('loading');
+
+	// Добавление товара в корзину
+	// $('.add-cart').on('click', function() {
+	// 	var form = $(this).closest('form');
+	// 	if ($(this).hasClass('quick')) {
+	// 		form.attr('rel', 'quick');
+	// 	} else {
+	// 		var rel = form.attr('rel');
+	// 		if (rel) {
+	// 			form.attr('rel', rel.replace('quick', ''));
+	// 		}
+	// 	}
+	// 	form.trigger('submit');
+	// 	return false;
+	// });
+
+	// Уведомить при отсутствии товара
+	$('.add-notify').on('click', function(){
+		var formBlock = $(this).closest('.product__form');
+    var goodsMod = formBlock.find('[name="form[goods_mod_id]"]').val();
+    $('#fancy-notify-goods-mod').val(goodsMod)
+	});
+
+	// Отправка формы по Ctrl+Enter
+  $('form').bind('keypress', function(e){
+    if((e.ctrlKey) && ((e.which==10)||(e.which==13))) {$(this).submit();}
+    // Отправка данных формы по нажатию на Enter в случае если курсор находится в input полях (В некоторых браузерах при нажатии по enter срабатывает клик по первому submit полю, которое является кнопкой назад. Для этого написан этот фикс)
+  }).find('input').bind('keypress', function(e){
+    if(((e.which==10)||(e.which==13))) { try{$(this.form).submit();} catch(e){} return false; }
+  });
+
+  // Маска ввода телефона
+  $(".form__phone").mask("+7 (999) 999-9999");
+
+  // Возврашаем пользователя на страницу с которой был сделан обратный звонок
+  $('.callbackredirect').val(document.location.href);
+	
+	// Выбор даты доставки. Документация к плагину //t1m0n.name/air-datepicker/docs/index-ru.html
+	$(".form__date").datepicker({
+		// Если true, то при активации даты, календарь закроется.
+		autoClose: true,
+		// Можно выбрать только даты, идущие за сегодняшним днем, включая сегодня
+		minDate: new Date(),
+		// Выбор даты от и до
+		range: true,
+		toggleSelected: false,
+		multipleDatesSeparator: ' - '
+	});
+
+});
+ 
+// Запуск функций при изменении экрана
+$(window).resize(function(){
+	mobmenu()
+  if(getClientWidth() > 481 && window.outerHeight < 630){
+    $('body').addClass('landscape');
+  }else{
+    $('body').removeClass('landscape');
+  }
+  mainnav('header .mainnav', '1', 991);
+});
+
+
+
 
