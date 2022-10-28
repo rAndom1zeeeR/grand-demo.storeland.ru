@@ -2775,26 +2775,24 @@ function catalog() {
 	
 	}
 
-	var origin = document.location.origin;
-	var pathname = document.location.pathname;
 	
 
 	// Функция проверки адресной строки
-	function checkUrl(){
-		var search = document.location.search;
+	// function checkUrl(){
+	// 	var search = document.location.search;
 
-		if(search == ''){
-			return '?'
-		}else{
-			if(search.includes("goods_view_type")){
-				return '?'
-			}
-			if(search.includes("goods_search_field_id")){
-				return '?'
-			}
-			return search + '&'
-		}
-	}
+	// 	if(search == ''){
+	// 		return '?'
+	// 	}else{
+	// 		if(search.includes("goods_view_type")){
+	// 			return '?'
+	// 		}
+	// 		if(search.includes("goods_search_field_id")){
+	// 			return '?'
+	// 		}
+	// 		return search + '&'
+	// 	}
+	// }
 
 	// Обновление данных
 	function updateData(data){
@@ -2860,7 +2858,9 @@ function catalog() {
 			// Если нет ссылки
 			if($(this).attr('href') == undefined) return false;
 			// Определяем url в адресной строке
-			var href = checkUrl() + $(this).attr('href').slice(1);
+			var href = '?' + $(this).attr('href').slice(1);
+			var origin = document.location.origin;
+			var pathname = document.location.pathname;
 			// Обновляем аяксом контент
 			$.ajax({
 				url: origin + pathname + href,
@@ -2883,6 +2883,12 @@ function catalog() {
 	// Фильтры по товарам. При нажании на какую либо характеристику или свойство товара происходит фильтрация товаров
 	$('.filter__input').off('click').on('click', function(){
 		changeFilter()
+		// Закрытие фильтра после выбора
+		if(getClientWidth() < 1024){
+			setTimeout(function () {
+				closeAll()
+			}, 2000);
+		}
 	})
 
 	// Фильтры по товарам. 
