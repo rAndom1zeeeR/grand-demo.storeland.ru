@@ -4023,6 +4023,96 @@ function faq(){
 	})
 }
 
+// Слайдер Мы в Цифрах
+function swiperOurteam(){
+	var id = '#ourteam'
+
+	// Обновление данных
+	function updateMedia(t){
+		var newCount = t.snapGrid.length;
+		var newIndex = t.realIndex + 1;
+		var total = $(id).find('.swiper-pagination-total');
+		var current = $(id).find('.swiper-pagination-current');
+
+		if (newCount > 9){
+			total.text(newCount);
+		}else{
+			total.text('0' + newCount);
+		}
+
+		if (newIndex > 9){
+			current.text(newIndex);
+		}else{
+			current.text('0' + newIndex);
+		}
+
+		// Скрываем навигацию если слайдер заблокирован
+		$(id).find('.swiper-pagination-lock').parent().addClass('swiper-pagination-lock')
+	}
+
+	// Слайдер товаров
+	var swiper = new Swiper(id + ' .swiper', {
+		loop: false,
+		autoplay: false,
+		watchSlidesVisibility: true,
+		simulateTouch: true,
+		grabCursor: true,
+		slidesPerView: '4',
+		spaceBetween: 16,
+		nested: true,
+		preloadImages: false,
+		lazy: {
+			enabled: true,
+			loadPrevNext: true,
+			loadOnTransitionStart: true,
+		},
+		navigation: {
+			nextEl: id + ' .swiper-navigate .swiper-button-next',
+			prevEl: id + ' .swiper-navigate .swiper-button-prev',
+		},
+		pagination: {
+			el: id + ' .swiper-navigate .swiper-progressbar',
+			type: 'progressbar',
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: '1',
+			},
+			320: {
+				slidesPerView: '1',
+			},
+			480: {
+				slidesPerView: '2',
+			},
+			640: {
+				slidesPerView: '2',
+			},
+			768: {
+				slidesPerView: '3',
+			},
+			1024: {
+				slidesPerView: '3',
+			},
+			1200: {
+				slidesPerView: '4',
+			}
+		},
+		on: {
+			init: function(){
+				updateMedia(this)
+			},
+			slideChangeTransitionStart: function(){
+				updateMedia(this)
+			},
+			slideChange: function(){
+				updateMedia(this)
+			},
+		}
+	});
+
+}
+
+
 ///////////////////////////////////////
 // Загрузка основных функций шаблона
 ///////////////////////////////////////

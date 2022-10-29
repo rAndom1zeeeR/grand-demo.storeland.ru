@@ -2122,7 +2122,7 @@
 									<li><span>Заказ {% IF ORDER_NUM %}№{ORDER_NUM}{% ENDIF %} успешно оформлен.</span></li>
 									{% ELSEIF MOD_LNAME=feedback && ACT=index %}
 									<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-										<span itemprop="name">Связь с администрацией</span>
+										<span itemprop="name">Контакты</span>
 										<meta itemprop="position" content="2" />
 									</li>
 									{% ELSEIF CURRENT_URL=NEWS_SHOP_URL || CURRENT_URL=NEWS_ARTICLES_URL || CURRENT_URL=NEWS_MASS_MEDIA_URL || CURRENT_URL=NEWS_ALL_URL %}
@@ -2236,7 +2236,7 @@
 								{% ELSEIF MOD_LNAME=discount && ACT=index %}
 								<h1 class="title"><span>Акции</span></h1>
 								{% ELSEIF MOD_LNAME=feedback %}
-								<h1 class="title"><span>Связь с администрацией</span></h1>
+								<h1 class="title"><span>Контакты</span></h1>
 								{% ELSEIF CURRENT_URL=NEWS_SHOP_URL || CURRENT_URL=NEWS_ARTICLES_URL || CURRENT_URL=NEWS_MASS_MEDIA_URL %}
 								<h1 class="title"><span>{NEWS_SECTION_NAME}</span></h1>
 								{% ELSEIF MOD_LNAME=news %}
@@ -3729,6 +3729,7 @@
 		$(document).ready(function () {
 			swiperNumbers();
 			faq();
+			swiperOurteam();
 		});
 	</script>
 	{% ENDIF %}
