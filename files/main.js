@@ -242,7 +242,7 @@ function compare() {
 			}
 		},
 
-	})
+	});
 
 	// Сравнение товаров. Отображение всех и различающихся характеристик товара
 	$('.compare__switch').on('click', function(){
@@ -2201,27 +2201,9 @@ function goodsModification($container) {
 				goodsPriceNow.html(modificationPriceNowFormated);
 				goodsPriceNow.attr('data-price', modificationPriceNow).attr('content', modificationPriceNow);
 
-				// Итоговая цена с сопутствующими товарами
-				var relatedPriceNow = $('#related-goods .products__total-price');
-				var goodsID = $('[class^="goodsID-"]');
-				if(goodsID.length){
-					relatedPriceNow.html(modificationPriceNowFormated);
-					relatedPriceNow.attr('data-price', modificationPriceNow).attr('content', modificationPriceNow);
-				}else{
-					relatedPriceNow.find('.num').text('0');
-				}
-
-				// Добавление сопутствующих товаров
-				$('#related-goods .checkbox__input').each(function(i, checkbox){
-					var $checkbox = $(checkbox);
-					var checkboxActive = $checkbox.prop('checked');
-					if(checkboxActive) {
-						changePrice($checkbox, checkboxActive);
-					}
-				});
-
 				// Старая цена товара
 				if(modificationPriceOld>modificationPriceNow) {
+					goodsPriceOld.css({'display':'inline-block'})
 					goodsPriceOld.html(modificationPriceOldFormated);
 				} else {
 					goodsPriceOld.hide();
@@ -2231,6 +2213,7 @@ function goodsModification($container) {
 				// Есть ли товар есть в наличии
 				if(modificationRestValue > 0) {
 					goodsModView.removeClass('productView__empty');
+					$('.productView__fixed').removeClass('productView__empty');
 					goodsModRestValue.html('В наличии').attr('data-value', modificationRestValue);
 					if (goodsAvailableQty.hasClass('.has-max')) {
 						goodsModQty.val("1").attr('max', modificationRestValue);
@@ -2240,6 +2223,7 @@ function goodsModification($container) {
 				// Если товара нет в наличии
 				} else {
 					goodsModView.addClass('productView__empty');
+					$('.productView__fixed').addClass('productView__empty');
 					goodsModRestValue.html(modificationRestValue).attr('data-value', modificationRestValue);
 					goodsModQty.val("1").attr('max', 1);
 				}
@@ -2312,53 +2296,6 @@ function goodsModification($container) {
 		});
 	});
 
-	$('#related-goods .checkbox__input').on('change', function(){
-    var $checkbox = $(this);
-    var modId = $checkbox.data('mod-id');
-    var checkboxActive = $checkbox.prop('checked');
-    if (checkboxActive) {
-      // Создаём инпут с доп товаром
-      var $input = $('<input class="goodsID-' + modId + '">')
-        .attr('type', 'hidden')
-        .attr('name', 'form[goods_mod_id][' + modId + ']')
-        .attr('data-price', $checkbox.data('mod-price'))
-        .val(1);
-      $('.productView__form').append($input);
-      // Пересчёт цены
-      changePrice($checkbox, checkboxActive);
-      $(this).parent().addClass('added');
-    } else {
-      // Удаляем  доп товар
-      $('.productView__form').find('input[name="form[goods_mod_id][' + modId + ']"]').remove();
-      // Пересчёт цены
-      changePrice($checkbox, checkboxActive)
-      $(this).parent().removeClass('added');
-    }
-  });
-
-	function changePrice(currentCheckbox, checkboxActive){
-		var $checkbox = currentCheckbox;
-		var checkboxPrice = $checkbox.data('mod-price');
-		var priceNowBlock = $('.productView__price .price__now');
-		var priceNowTotal = $('.products__total-price');
-		var nowPrice = priceNowBlock.attr('data-price');
-		var nowPriceTotal = priceNowTotal.attr('data-price');
-		var newPrice = 0;
-		var newPriceTotal = 0;
-		if (checkboxActive) {
-			newPrice = String(parseInt(nowPrice) + parseInt(checkboxPrice));
-			priceNowBlock.attr('data-price', parseInt(nowPrice) + parseInt(checkboxPrice))
-			newPriceTotal = String(parseInt(nowPriceTotal) + parseInt(checkboxPrice));
-			priceNowTotal.attr('data-price', parseInt(nowPriceTotal) + parseInt(checkboxPrice))
-		} else {
-			newPrice = String(nowPrice - checkboxPrice);
-			priceNowBlock.attr('data-price', parseInt(nowPrice) - parseInt(checkboxPrice))
-			newPriceTotal = String(nowPriceTotal - checkboxPrice);
-			priceNowTotal.attr('data-price', parseInt(nowPriceTotal) - parseInt(checkboxPrice))
-		}
-		priceNowBlock.find('.num').text(addSpaces(newPrice))
-		priceNowTotal.find('.num').text(addSpaces(newPriceTotal))
-	}
 }
 
 // Функция табов
@@ -2887,11 +2824,11 @@ function catalog() {
 		if(getClientWidth() < 1024){
 			setTimeout(function () {
 				closeAll()
-			}, 2000);
+			}, 1000);
 		}
 	})
 
-	// Фильтры по товарам. 
+	// Фильтры товара по цене. 
 	$('.goodsFilterPriceSubmit .button-link').on('click', function(){
 		changeFilter()
 	})
@@ -2975,6 +2912,13 @@ function openMenu() {
 			$(this).parent().addClass('fixed-sidebar--active')
 		}
 	});
+
+	// Сбросить бронирование товара
+	$('.header__block-book').on('click', function(){
+		$('#fancy-book-goods-mod').val(' ')
+	})
+	
+	
 
 }
 
@@ -4200,4 +4144,15 @@ $(window).resize(function(){
 
 
 
-
+// Фиксированные кнопки в карточке
+function prodViewFixed(){
+	$('.productView__price .price__old').clone().appendTo('.productView__fixed-price')
+	$('.productView__price .price__now').clone().appendTo('.productView__fixed-price')
+	$('.productView__addtoCart').children().clone().appendTo('.productView__fixed-addtoCart')
+	$('.productView__fixed-addtoCart button').on('click', function(event){
+		event.preventDefault();
+		$.fancybox.open($('#fancybox__book'), {
+			keyboard: false,
+		});
+	})
+}

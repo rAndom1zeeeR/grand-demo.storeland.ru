@@ -1,22 +1,25 @@
 <!-- Форма карточки товара -->
 <div class="productViewBlock" itemscope itemtype="https://schema.org/Product" data-id="{GOODS_ID}">
-	<!-- Навигация -->
-	<div class="tabs__navs flex">
-		<a href="javascript:;" class="tabs__nav" data-tab="0"><span>Фото</span></a>
-		{% IF GOODS_DESCRIPTION_LARGE || GOODS_SEO_DESCRIPTION_SHORT || GOODS_SEO_DESCRIPTION_LARGE %}
-		<a href="javascript:;" class="tabs__nav" data-tab="1"><span>Описание</span></a>
-		{% ENDIF %}
-		{% IFNOT goods_features_empty %}
-		<a href="javascript:;" class="tabs__nav" data-tab="2"><span>Оснащение номера</span></a>
-		{% ENDIF %}
-		{% IFNOT goods_delivery_empty %}
-		<a href="javascript:;" class="tabs__nav" data-tab="3" style="display: none;"><span>Доставка</span></a>
-		{% ENDIF %}
-		{% IF SETTINGS_OPINION_DISABLE=0 %}
-		<a href="javascript:;" class="tabs__nav" data-tab="4"><span>Отзывы ({GOODS_OPINION_RATING_CNT_ALL})</span></a>
-		{% ENDIF %}
-		<a href="javascript:;" class="tabs__nav tabs__share">
-			<div class="tabs__share-icon flex" data-open="share" data-curtain data-shape="round" data-limit="0" data-more-button-type="short" data-services="vkontakte,odnoklassniki,telegram,viber,whatsapp">
+	<div class="productView__fixed-top flex">
+		<!-- Навигация -->
+		<div class="tabs__navs flex">
+			<a href="javascript:;" class="tabs__nav" data-tab="0"><span>Фото</span></a>
+			{% IF GOODS_DESCRIPTION_LARGE || GOODS_SEO_DESCRIPTION_SHORT || GOODS_SEO_DESCRIPTION_LARGE %}
+			<a href="javascript:;" class="tabs__nav" data-tab="1"><span>Описание</span></a>
+			{% ENDIF %}
+			{% IFNOT goods_features_empty %}
+			<a href="javascript:;" class="tabs__nav" data-tab="2"><span>Оснащение номера</span></a>
+			{% ENDIF %}
+			{% IFNOT goods_delivery_empty %}
+			<a href="javascript:;" class="tabs__nav" data-tab="3" style="display: none;"><span>Доставка</span></a>
+			{% ENDIF %}
+			{% IF SETTINGS_OPINION_DISABLE=0 %}
+			<a href="javascript:;" class="tabs__nav" data-tab="4"><span>Отзывы ({GOODS_OPINION_RATING_CNT_ALL})</span></a>
+			{% ENDIF %}
+		</div>
+		<!-- Поделиться -->
+		<div class="tabs__share">
+			<div class="tabs__share-icon tabs__nav flex" data-open="share" data-curtain data-shape="round" data-limit="0" data-more-button-type="short" data-services="vkontakte,odnoklassniki,telegram,viber,whatsapp">
 				<i class="icon-share"></i>
 				<span>Поделиться</span>
 			</div>
@@ -24,7 +27,7 @@
 				<script src="https://yastatic.net/share2/share.js"></script>
 				<div class="ya-share2" data-curtain data-shape="round" data-services="vkontakte,odnoklassniki,telegram,viber,whatsapp"></div>
 			</div>
-		</a>
+		</div>
 	</div>
 
 	<div class="productView {% IF GOODS_MOD_REST_VALUE=0 %}productView__empty{% ENDIF %} {% IF GOODS_MOD_MAX_DISCOUNT_ID %}has-campaign{% ENDIF %}">
@@ -479,7 +482,7 @@
 				</div>
 				{% ENDIF %}
 
-				<div class="productView__inner">
+				<div class="productView__shop-inner">
 					<!-- Цена товара -->
 					<div class="productView__price product__price {CURRENCY_CHAR_CODE} {% IF GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT>GOODS_MOD_PRICE_NOW %}has-price-old{% ELSEIF GOODS_MOD_PRICE_OLD>GOODS_MOD_PRICE_NOW %}has-price-old{% ENDIF %}" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
 						<!-- информация для поисковика о наличии товара -->
@@ -623,50 +626,10 @@
 	<!-- Фиксация цены и бронировать -->
 	<div class="productView__fixed flex">
 		<!-- Цена товара -->
-		<div class="productView__fixed-price {CURRENCY_CHAR_CODE} {% IF GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT>GOODS_MOD_PRICE_NOW %}has-price-old{% ELSEIF GOODS_MOD_PRICE_OLD>GOODS_MOD_PRICE_NOW %}has-price-old{% ENDIF %}" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-			<!-- информация для поисковика о наличии товара -->
-			<meta itemprop="availability" content="{% IF GOODS_MOD_REST_VALUE>0 %}http://schema.org/InStock{% ELSE %}http://schema.org/OutOfStock{% ENDIF %}">
-			<!-- информация для поисковика о валюте товара -->
-			<meta itemprop="priceCurrency" content="{CURRENCY_CHAR_CODE}" />
-			<link itemprop="url" href="{GOODS_URL}" />	
-			{% IF GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT>GOODS_MOD_PRICE_NOW %}
-			<span class="price__old {CURRENCY_CHAR_CODE}" content="{GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT}" data-price-old="{GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT}">{GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
-			{% ELSEIF GOODS_MOD_PRICE_OLD>GOODS_MOD_PRICE_NOW %}
-			<span class="price__old {CURRENCY_CHAR_CODE}" content="{GOODS_MOD_PRICE_OLD}" data-price-old="{GOODS_MOD_PRICE_OLD}">{GOODS_MOD_PRICE_OLD | money_format}</span>
-			{% ENDIF %}
-			<span class="price__now {CURRENCY_CHAR_CODE}" itemprop="price" content="{GOODS_MOD_PRICE_NOW}" data-price="{GOODS_MOD_PRICE_NOW}">{GOODS_MOD_PRICE_NOW | money_format}</span>
-		</div>
+		<div class="productView__fixed-price {CURRENCY_CHAR_CODE} {% IF GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT>GOODS_MOD_PRICE_NOW %}has-price-old{% ELSEIF GOODS_MOD_PRICE_OLD>GOODS_MOD_PRICE_NOW %}has-price-old{% ENDIF %}"></div>
 
 		<!-- Добавление товара в корзину -->
-		<div class="productView__fixed-addtoCart">
-			<!-- Забронировать -->
-			<a class="button-primary button-icon" 
-				title="Забронировать"
-				data-tooltip="Забронировать"
-				data-fancybox
-				data-src="#fancybox__book"
-				href="javascript:;"
-				data-name="{GOODS_NAME}"
-				data-art="{GOODS_MOD_ART_NUMBER}"
-			>
-				<span>Забронировать</span>
-				<i class="icon-chevron_right"></i>
-			</a>
-			<!-- Уведомить -->
-			<a class="add-notify button-empty button-icon" 
-				title="Уведомить"
-				data-tooltip="Уведомить"
-				rel="nofollow"
-				data-fancybox
-				data-src="#fancybox__notify"
-				href="javascript:;"
-				data-name="{GOODS_NAME}"
-				data-art="{GOODS_MOD_ART_NUMBER}"
-			>
-				<span>Уведомить</span>
-				<i class="icon-notification"></i>
-			</a>
-		</div>
+		<div class="productView__fixed-addtoCart"></div>
 
 	</div>
 

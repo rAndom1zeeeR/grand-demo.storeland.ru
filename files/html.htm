@@ -452,9 +452,11 @@
 						</div>
 						<div class="block__counts">{CATALOG_FAVORITES_GOODS_COUNT} предложен{CATALOG_FAVORITES_GOODS_COUNT | gen_word_end("е","ия","ий")}</div>
 						<div class="block__subtitle">
-							<p>Исторический корпус Классик был полностью реновирован в 2016 году. 
-								Свою историю начал  вести в 1913 году и имеет особую атмосферу. 
-								Дизайн номеров выполнен в эксклюзивном, классическом стиле.</p>
+							<p>
+								Разместите здесь краткое описание блока с товарами или услугами. 
+								Вы можете указать ключевые особенности и характеристики предлагаемых товаров либо описать краткую историю. 
+								Это поможет Вашим клиентам быстрее ориентироваться на сайте и совершать покупки.
+							</p>
 						</div>
 					</div>
 
@@ -769,8 +771,10 @@
 						</div>
 						<div class="block__counts">{CATALOG_NEW_GOODS_COUNT} предложен{CATALOG_NEW_GOODS_COUNT | gen_word_end("е","ия","ий")}</div>
 						<div class="block__subtitle">
-							<p>Вилла станет вашей личной резиденцией на время незабываемого отдыха на курорте. 
-								Изысканный сервис и услуги персонального батлера подарят невероятные ощущения внимания и заботы</p>
+							<p>
+								Разместите здесь краткое описание блока с товарами или услугами. 
+								Вы можете указать ключевые особенности и характеристики предлагаемых товаров.
+							</p>
 						</div>
 					</div>
 				
@@ -3513,7 +3517,7 @@
 						<div class="form__fields flex">							
 							<div class="form__field form__fields-icons">
 								<label class="form__label"><span>Комментарий</span></label>
-								<textarea class="form__input form__comment" row="2" type="text" name="form[Комментарий]" value="" placeholder="Ваши пожаления" autocomplete="off"></textarea>
+								<textarea class="form__input form__comment" row="2" type="text" name="form[Комментарий]" value="" placeholder="Ваши пожелания" autocomplete="off"></textarea>
 								<i class="icon-chat"></i>
 							</div>
 						</div>
@@ -3768,6 +3772,7 @@
 			counterDate();
 			swiperSlider('#related-goods');
 			swiperSlider('#related-views');
+			prodViewFixed();
 		});
 	</script>
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}debounce.js?design=THEMENAME"></script>
