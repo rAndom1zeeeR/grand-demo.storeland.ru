@@ -384,7 +384,7 @@
 
 		<!-- Категории каталога с товарами на главной выключены -->
 		<!-- Раскомментируйте код ниже, чтобы включить вывод товаров из каталога на главной -->
-		{% IFNOT catalog_full_empty %}
+		<!-- {% IFNOT catalog_full_empty %}
 		<section id="pdt__cat">
 			<div class="container">
 				<script>
@@ -437,7 +437,7 @@
 				{% ENDFOR %}
 			</div>
 		</section>
-		{% ENDIF %}
+		{% ENDIF %} -->
 
 		<!-- Хиты продаж -->
 		{% IFNOT index_page_favorites_goods_empty %}
@@ -3809,7 +3809,7 @@
 			swiperServices();
 			swiperSales();
 			indexOpinion();
-			indexCatalog();
+			// indexCatalog();
 		});
 	</script>
 

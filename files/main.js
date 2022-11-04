@@ -4194,7 +4194,9 @@ function indexCatalog(){
         // catalog_full = null;
         // $('.products-container').show();
       })
-  }
+  }else{
+		return false
+	}
 }
 
 // Слайдер товаров из категории на главной
