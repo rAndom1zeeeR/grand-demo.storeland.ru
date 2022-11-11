@@ -12,7 +12,7 @@
 					{% FOR cart_items %}
 					<div class="cart__item flex" data-id="{cart_items.GOODS_MOD_ID}">
 						<a class="cart__image flex-center" href="{cart_items.GOODS_URL}">
-							<img src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=florist{% ELSE %}{cart_items.GOODS_IMAGE_MEDIUM}{% ENDIF %}">
+							<img src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=GRAND{% ELSE %}{cart_items.GOODS_IMAGE_MEDIUM}{% ENDIF %}">
 						</a>
 						<div class="cart__content flex">
 							<!-- Информация -->

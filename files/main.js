@@ -4162,6 +4162,7 @@ function prodViewFixed(){
 // Раскомментируйте код если хотите вывести товары из каталога на главной
 function indexCatalog(){
   // Если каталог на главной
+	var catalog_full = [];
   if(catalog_full){
     var promises = $.map(catalog_full, function(el){
       return $.ajax(el.href + '?only_body=1&goods_view_type=2&per_page=20')

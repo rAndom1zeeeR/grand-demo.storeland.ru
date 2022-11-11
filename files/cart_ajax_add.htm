@@ -17,7 +17,7 @@
 		<div class="noty__addto flex" data-id="{cart_items.GOODS_ID}">
 			<a class="noty__title" href="{CART_URL}" title="Перейти в корзину">{% IF FORM_NOTICE_IS_GOOD %}Добавлено в корзину!{% ELSE %}Не добавлено!{% ENDIF %}</a>
 			<div class="noty__image flex-center">
-				<img src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{cart_items.GOODS_IMAGE_MEDIUM}{% ENDIF %}" />
+				<img src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=GRAND{% ELSE %}{cart_items.GOODS_IMAGE_MEDIUM}{% ENDIF %}" />
 			</div>
 			<div class="noty__content">
 				<a class="noty__message" href="{cart_items.GOODS_URL}" title="{cart_items.GOODS_NAME}">{cart_items.GOODS_NAME}</a>
@@ -44,7 +44,7 @@
 		{% FOR cart_items %}
 		<div class="addto__item flex" data-id="{cart_items.GOODS_ID}">
 			<a class="addto__image flex-center" href="{cart_items.GOODS_URL}" title="{cart_items.GOODS_NAME}">
-				<img src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{cart_items.GOODS_IMAGE_ICON}{% ENDIF %}" alt="{cart_items.GOODS_NAME}" width="{SETTINGS_GOODS_IMAGES_SIZE_ICON | divide('2')}" height="{SETTINGS_GOODS_IMAGES_SIZE_ICON | divide('2')}" />
+				<img src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=GRAND{% ELSE %}{cart_items.GOODS_IMAGE_ICON}{% ENDIF %}" alt="{cart_items.GOODS_NAME}" width="{SETTINGS_GOODS_IMAGES_SIZE_ICON | divide('2')}" height="{SETTINGS_GOODS_IMAGES_SIZE_ICON | divide('2')}" />
 			</a>
 			<div class="addto__content">
 				<!-- Название -->
