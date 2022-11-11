@@ -830,7 +830,7 @@ h6 {font-size: 0.875rem;}
 /*** Каталог на главной ***/
 /**************************************/
 #pdt__cat .container {overflow: hidden;}
-.pdt__list.loading {height: 22.75rem;}
+.pdt__list.loading {height: 22.5rem;}
 .pdt__list + .pdt__list {margin-top: 2rem;}
 .pdt__list .block__title {margin-bottom: 1rem;}
 .pdt__list .block__title .title {word-break: break-word;}
@@ -1348,7 +1348,7 @@ h6 {font-size: 0.875rem;}
 .opinion__content .opinion__buttons {margin-bottom: 2rem;}
 
 /* Отзыв на главной */
-.opinions__items {height: 20.75rem;}
+.opinions__items.loading {height: 20.75rem;}
 .opinions__items .opinion__item {margin: 0;height: 100%;}
 .opinions__items .opinion__item:nth-child(n+4) {display: block;}
 .opinions__items .opinion__left {display: none;}

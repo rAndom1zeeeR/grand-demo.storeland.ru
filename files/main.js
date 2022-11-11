@@ -4075,7 +4075,7 @@ $(document).ready(function(){
   mainnav('header .mainnav', '1', 991);
 	priceDiff('.product__item', 'percent');
 	setTimeout(function () {
-		swiperCat();
+		// swiperCat();
 		priceDiff('.product__item', 'percent');
 	}, 2000);
 	// Удаление классов загрузки для элементов страницы

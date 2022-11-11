@@ -443,8 +443,6 @@
 		{% IFNOT index_page_favorites_goods_empty %}
 		<section id="pdt__best" class="pdt__list loading">
 			<div class="container products__container">
-				<div class="preloader"><div class="preloading"></div></div>
-
 				<div class="products__inner flex-start">
 					<div class="products__left">
 						<div class="block__title block__title-separator">
@@ -762,8 +760,6 @@
 		{% IFNOT index_page_new_goods_empty %}
     <section id="pdt__new" class="pdt__list loading">
 			<div class="container products__container">
-				<div class="preloader"><div class="preloading"></div></div>
-
 				<div class="products__inner flex-start">
 					<div class="products__left">
 						<div class="block__title block__title-separator">
@@ -1785,7 +1781,7 @@
 				<!-- Слайдер отзывов на главной -->
 				<div class="swiper">
 					<!-- Вывод отзывов -->
-					<div class="swiper-wrapper opinions__items"></div>
+					<div class="swiper-wrapper opinions__items loading"></div>
 					
 					<!-- Навигация -->
 					<div class="swiper-navigate flex">
