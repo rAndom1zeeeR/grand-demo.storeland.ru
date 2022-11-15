@@ -449,6 +449,8 @@
 
 			<!-- Основная информация о товаре -->
 			<div class="productView__shop">
+				<meta content="{GOODS_NAME}" type="hidden" itemprop="name">
+				<meta content="{GOODS_DESCRIPTION_SHORT}" type="hidden" itemprop="description">
 				<!-- Блок информации по акции действующей на товар, если таковая есть -->
 				{% IF GOODS_MOD_MAX_DISCOUNT_ID %}
 				<div class="productView__campaign flex">

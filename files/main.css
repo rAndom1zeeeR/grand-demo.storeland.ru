@@ -1096,7 +1096,7 @@ h6 {font-size: 0.875rem;}
 .has-filters .filters__buttons {display: block;}
 .collapsible__click {position: relative;}
 .collapsible__content {margin-top: .75rem;padding: 1rem;background-color: var(--color-background);border-radius: .625rem;}
-.filters-price .collapsible__content {padding: 0;background-color: transparent;}
+.filters-price .collapsible__content {padding: 0;background-color: transparent;max-height: 100%;}
 .filter__search {margin-bottom: 1rem;display: none !important;}
 
 /*** Сайдбар. Фильтры цены ***/
